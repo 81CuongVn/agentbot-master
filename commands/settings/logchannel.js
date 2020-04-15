@@ -2,7 +2,7 @@ const fs = require('fs')
 const ss = require('string-similarity')
 module.exports = {
     name: "setlogchannel",
-    category: "moderation",
+    category: "settings",
     description: "Set log channel for kick and ban",
     usage: "setlogchannel <#channel, tên channel hoặc id>",
     VD: "setlogchannel #log-channel",
