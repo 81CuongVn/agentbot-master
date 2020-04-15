@@ -23,7 +23,7 @@ client.on("ready", () => {
     client.user.setPresence({
         status: "online",
         activity: {
-            name: `Đang phục vụ ${client.guilds.cache.size}`,
+            name: `Đang phục vụ ${client.guilds.cache.size} servers`,
             type: "PLAYING"
         }
     });
@@ -32,7 +32,7 @@ client.on("ready", () => {
         client.user.setPresence({
             status: "online",
             activity: {
-                name: `Đang phục vụ ${client.guilds.cache.size} servers!`,
+                name: `Đang phục vụ ${client.guilds.cache.size} servers`,
                 type: 'PLAYING'
             }
         });
