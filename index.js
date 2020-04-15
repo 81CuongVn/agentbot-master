@@ -1,4 +1,4 @@
-const { Client, Collection } = require("discord.js");
+const { Client, Collection, MessageEmbed } = require("discord.js");
 const { config } = require("dotenv");
 const fs = require("fs");
 const client = new Client({
@@ -39,6 +39,28 @@ client.on("ready", () => {
     }, 3600000) //1 hour
     
 });
+
+client.on("guildCreate", async newguild => {
+    let embed = new MessageEmbed()
+        .setTitle("New Server Joined")
+        .addField('Guild Name: ', newguild.name, true)
+        .addField('Guild ID: ', newguild.id, true)
+        .addField("Guild members: ", newguild.memberCount, true)
+        .addField("Owner server: ", newguild.owner.user.tag, true)
+        .setFooter(`OwnerID: ${newguild.ownerID}`)
+    client.channels.cache.get('700071755146068099').send(embed) //agent's server
+})
+
+client.on("guildDelete", async oldguild => {
+    let embed = new MessageEmbed()
+        .setTitle("Bot left the server!")
+        .addField('Guild Name: ', oldguild.name, true)
+        .addField('Guild ID: ', oldguild.id, true)
+        .addField('Guild members: ', oldguild.memberCount, true)
+        .addField("Owner server: ", oldguild.owner.user.tag, true)
+        .setFooter(`OwnerID: ${oldguild.ownerID}`)
+    client.channels.cache.get('700071755146068099').send(embed) //agent's server
+})
 
 client.on("message", async message => {
     if (message.content.toLowerCase().startsWith('=avatar') == true && message.guild.id == '622939841705017351') return message.reply(`Bạn đã thử sử dụng lệnh \`_avatar\` chưa?`)
