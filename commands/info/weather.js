@@ -13,7 +13,6 @@ module.exports = {
             if (err) return message.channel.send(`Bot lỗi mẹ rồi, thông tin lỗi: ${err}`)
             if (result.length === 0) return message.reply(`Bot không tìm được tên thành phố, vui lòng thử lại.`)
             var current = result[0].current;
-            var location = result[0].location;
             const embed = new MessageEmbed()
                 .setDescription(`**${current.skytext}** `)
                 .setThumbnail(current.imageUrl)
