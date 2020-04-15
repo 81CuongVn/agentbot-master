@@ -20,14 +20,24 @@ config({
 
 client.on("ready", () => {
     console.log(`Hi, ${client.user.username} is now online!`);
-
     client.user.setPresence({
         status: "online",
         activity: {
-            name: "_help",
+            name: `Đang phục vụ ${client.guilds.cache.size}`,
             type: "PLAYING"
         }
     });
+
+    setInterval(function() {
+        client.user.setPresence({
+            status: "online",
+            activity: {
+                name: `Đang phục vụ ${client.guilds.cache.size} servers!`,
+                type: 'PLAYING'
+            }
+        });
+    }, 3600000) //1 hour
+    
 });
 
 client.on("message", async message => {
