@@ -11,6 +11,15 @@ module.exports = {
     usage: "rank [@tag]",
     example: "rank @phamleduy04",
     run: async (client, message, args) => {
+        const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'xpdata';").get();
+        if (!table['count(*)']) {
+          // If the table isn't there, create it and setup the database correctly.
+          sql.prepare("CREATE TABLE xpdata (id TEXT PRIMARY KEY, user TEXT, guild TEXT, xp INTEGER, level INTEGER);").run();
+          // Ensure that the "id" row is always unique and indexed.
+          sql.prepare("CREATE UNIQUE INDEX idx_xpdata_id ON xpdata (id);").run();
+          sql.pragma("synchronous = 1");
+          sql.pragma("journal_mode = wal");
+        }
         const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
         if (member.user.bot) return message.reply('Bạn không thể xem rank của bot!');
         let data = insert.get(member.user.id, message.guild.id)
