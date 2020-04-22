@@ -7,7 +7,7 @@ module.exports = {
     usage: "msgcount <on, off>",
     note: "cần quyền MANAGE_MESSAGES",
     run: async(client, message, args) => {
-        if(message.author.id !== ownerID || !message.member.hasPermission("MANAGE_MESSAGES")) return message.reply('Bạn cần có quyền MANAGE_MESSAGES để chạy')
+        if(message.author.id !== ownerID && !message.member.hasPermission("MANAGE_MESSAGES")) return message.reply('Bạn cần có quyền MANAGE_MESSAGES để chạy')
         if (!args[0]) return message.reply('Bạn phải nhập on hoặc off để sử dụng lệnh này.')
         if (args[0] == "on") {
             await db.set(`${message.guild.id}.msgcount`, true)
