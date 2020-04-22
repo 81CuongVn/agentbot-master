@@ -2,7 +2,6 @@ const { MessageAttachment } = require('discord.js');
 const {createCanvas, loadImage } = require('canvas');
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
-const insert = sql.prepare("SELECT * FROM xpdata WHERE user = ? AND guild = ?")
 const {join} = require('path');
 module.exports = {
     name: "rank",
@@ -20,6 +19,7 @@ module.exports = {
           sql.pragma("synchronous = 1");
           sql.pragma("journal_mode = wal");
         }
+        const insert = sql.prepare("SELECT * FROM xpdata WHERE user = ? AND guild = ?")
         const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
         if (member.user.bot) return message.reply('Bạn không thể xem rank của bot!');
         let data = insert.get(member.user.id, message.guild.id)
