@@ -3,8 +3,9 @@ module.exports = {
     aliases: ["setnickname"],
     category: "moderation",
     description: "set nickname",
-    usage: "_setnick <tag> [nickname]",
+    usage: "setnick <tag> [nickname]",
     note: "nickname bỏ trống = reset nickname",
+    VD: "setnick @phamleduy04",
     run: async(client, message, args) => {
         if (!message.member.hasPermission('MANAGE_NICKNAMES') || !message.author.id == '664680035218751530') return message.reply("Bạn cần có quyền `\ MANAGE_NICKNAMES `\ để có thể đổi nickname.");
         let user = message.mentions.members.first() || message.guild.members.get(args[0])

@@ -8,6 +8,6 @@ module.exports = {
     run: async(client, message, args) => {
         if (!args[0]) return message.reply("Hỏi gì đi chứ bạn :D.")
         const random = array[Math.floor(Math.random() * array.length)];
-        return message.reply(`${random}`);
+        return message.reply(random);
     }
 }

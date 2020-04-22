@@ -4,6 +4,7 @@ module.exports = {
     name: "ping",
     category: "info",
     description: "Returns latency and API ping",
+    usage: "ping",
     run: async(client, message, args) => {
         let url = `https://srhpyqt94yxb.statuspage.io/api/v2/components.json`
         getJSON(url, async function(error, response) {

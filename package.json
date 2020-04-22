@@ -1,10 +1,12 @@
 {
   "name": "agent-bot",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "description": "Discord Bot",
   "main": "index.js",
   "dependencies": {
     "ascii-table": "0.0.9",
+    "better-sqlite3": "^6.0.1",
+    "canvas": "^2.6.1",
     "capitalize": "^2.0.3",
     "common-tags": "^1.8.0",
     "dateformat": "^3.0.3",
@@ -19,6 +21,7 @@
     "minimist": "^1.2.5",
     "nodemon": "^2.0.2",
     "novelcovid": "^1.1.4",
+    "quick.db": "^7.1.1",
     "random-puppy": "^1.1.0",
     "relevant-urban": "^2.0.0",
     "request": "^2.88.0",
@@ -26,6 +29,7 @@
     "string-similarity": "^4.0.1",
     "unsplash-js": "^6.0.0",
     "usa-states": "0.0.5",
+    "vultrex.haste": "^1.0.1",
     "weather-js": "^2.0.0"
   },
   "devDependencies": {},

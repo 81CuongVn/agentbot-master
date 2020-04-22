@@ -1,32 +1,36 @@
-const Discord = require("discord.js")
-const { inspect } = require("util")
-const ownerid = "455935236262592512"
+const {ownerID} = require('../../config.json')
+const {inspect} = require('util');
+const {stripIndents} = require('common-tags')
+const {VultrexHaste} = require('vultrex.haste')
+const haste = new VultrexHaste({url: "https://hasteb.in"})
 module.exports = {
         name: "eval",
         aliases: ["e"],
-        category: "moderation",
         description: "Execute javascript code",
-        usage: "_eval or _e <js code>",
-        run: async(client, message, args, tools) => {
-                if (message.author.id == ownerid) {
-                    let toEval = args.join(" ");
-                    let evaluated = inspect(eval(toEval, { depth: 0 }))
-                    try {
-                        if (toEval) {
-                            let hrStart = process.hrtime()
-                            let hrDiff;
-                            hrDiff = process.hrtime(hrStart)
-                            return message.channel.send(`*Thực thi lệnh trong ${hrDiff[0]> 0 ? `${hrDiff[0]}s `: ''}${hrDiff[1] / 1000000}ms.*\`\`\`javascript\n${evaluated}\n\`\`\``,{maxLength:1900}).then(m=>m.delete(10000))
+        usage: "eval <js code>",
+        VD: "e message.guild",
+        run: async(client, message, args) => {
+            if (message.author.id == ownerid){
+                if (!args[0]) return message.reply('Nhập lệnh để chạy code...')
+                try {
+                    const start = process.hrtime();
+                    let output = eval(args.join(' '));
+                    const difference = process.hrtime(start);
+                    if (typeof output !== "string") output = inspect(output, {depth: 2});
 
-                } else {
-                    message.channel.send("Không có lệnh sao tao thực thi.")
+                    return message.channel.send(stripIndents`
+                        *Lệnh đã chạy xong trong ${difference[0] > 0 ? `${difference[0]}s `: ""}${difference[1]/ 1e6}ms*
+                        \`\`\`js
+                        ${output.length > 1950 ? await haste.post(output) : output} 
+                        \`\`\`
+                `)
                 }
-            } catch (e){
-                message.channel.send(`Lỗi khi đang thực thi lệnh: \`${e.message}\``)
-            }
-        } else {
-            return message.reply("Lệnh này chỉ được sử dụng cho owner của bot").then(m=>m.delete(5000))
-        }
-
+                catch(err) {
+                    return message.channel.send(stripIndents`
+                        Error:
+                        \`${err}\`
+                `)
+                }
+            } else return message.channel.send("Lệnh này chỉ dành cho owner của bot.")
     }
 }

@@ -1,5 +1,7 @@
 {
+    "ownerID": "",
     "ksoft_key": "",
     "steam_token": "",
-    "unsplashapikey": ""
+    "unsplashapikey": "",
+    "giphy_key": ""
 }

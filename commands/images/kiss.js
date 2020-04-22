@@ -5,7 +5,7 @@ module.exports = {
     name: "kiss",
     category: "images",
     description: "Chụt chụt :D",
-    usage: "_kiss <@tag>",
+    usage: "kiss <@tag>",
     run: (client, message, args) => {
         let url = `https://api.giphy.com/v1/gifs/random?api_key=${giphy_key}&tag=kiss&rating=R`
         getJSON(url, function(error, response) {

@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js')
 module.exports = {
     name: "members",
     category: "info",
-    description: "",
-    usage: "_members <role_name>",
+    description: "Xem member của 1 role nhất định.",
+    usage: "members <role_name>",
     run: async(client, message, args) => {
         if (!args[0]) return message.reply(`Ghi tên role giúp mình với D:`).then(m => m.delete({timeout: 5000}))
         var roles = message.guild.roles.cache.filter(r => r.managed === false).array().map(g => g.name)

@@ -6,7 +6,8 @@ const ksoft = new KSoftClient(ksoft_key);
 module.exports = {
     name: "meme",
     category: "images",
-    description: "Sends an epic meme",
+    usage: "meme",
+    description: "Gởi meme.",
     run: async(client, message, args) => {
         const res = await ksoft.images.meme();
         const embed = new MessageEmbed()

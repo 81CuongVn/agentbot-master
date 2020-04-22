@@ -1,5 +1,5 @@
-const fs = require('fs')
-const ss = require('string-similarity')
+const ss = require('string-similarity');
+const db = require('quick.db');
 module.exports = {
     name: "setlogchannel",
     category: "settings",
@@ -7,6 +7,7 @@ module.exports = {
     usage: "setlogchannel <#channel, tên channel hoặc id>",
     VD: "setlogchannel #log-channel",
     run: async(client, message, args) => {
+        if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply('Bạn cần có quyền MANAGE_GUILD để chạy')
         if (!args[0]) return message.channel.send("Vui lòng nhập channel!")
         let id = args[0]
         if (id.startsWith("<#")) id = id.slice(2, id.length -1)
@@ -18,15 +19,8 @@ module.exports = {
             if (matches.bestMatch.rating < 0.6) return message.channel.send(`Không tìm thấy channel tên ${channel_name}`)
             channel = message.guild.channels.cache.find(channel => channel.name == matches.bestMatch.target)
         }
-        //log to file logchannel.json
-        let logchannel_json = JSON.parse(fs.readFileSync('././logchannel.json', 'utf8'))
-        if (!logchannel_json[message.guild.id]) {
-            logchannel_json[message.guild.id] = {
-                channelID: channel.id
-            }
-        }
-        //write file
-        fs.writeFileSync('././logchannel.json', JSON.stringify(logchannel_json))
-        message.channel.send(`Đã lưu ${channel} vào log channel.`)
+        //log to database
+        await db.set(`${message.guild.id}.logchannel`, channel.id)
+        message.channel.send(`Đã lưu ${channel} vào log channel!`)
     }
 }

@@ -6,7 +6,7 @@ module.exports = {
     name: "punch",
     category: "images",
     description: "Punch someone :D ",
-    usage: "_punch <@tag>",
+    usage: "punch <@tag>",
     run: (client, message, args) => {
         getJSON(url, function(error, response){
             if (error) return message.channel.send('Bot lỗi trong khi lấy hình, vui lòng thử lại sau.')

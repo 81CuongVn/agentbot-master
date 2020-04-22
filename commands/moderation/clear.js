@@ -3,6 +3,7 @@ module.exports = {
     aliases: ["purge"],
     category: "moderation",
     description: "Xoá tin nhắn",
+    usage: "clear <số tin nhắn>",
     run: async(client, message, args) => {
         await message.delete();
 

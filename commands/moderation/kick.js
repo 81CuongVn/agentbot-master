@@ -1,17 +1,18 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
 const { promptMessage } = require("../../functions.js");
-
+const db = require('quick.db');
 module.exports = {
     name: "kick",
     category: "moderation",
-    description: "Kicks the member",
-    usage: "<id | mention>",
+    description: "Kick người khác",
+    usage: "kick <@tag, id> [lý do]",
+    VD: "kick @phamleduy04",
     run: async(client, message, args) => {
-        const logchannel_data = JSON.parse(fs.readFileSync('././logchannel.json', 'utf8'))
-        if (!logchannel_data[message.guild.id]) return message.reply('Bạn chưa set log channel, vui lòng sử dụng lệnh `\ setlogchannel `\ để set log channel.')
-        const logChannel = message.guild.channels.get(logchannel_data[message.guild.id].channelID);
-        if (!logChannel) return message.reply("Log channel của bạn đã bị xoá, vui lòng kiểm tra lại hoặc sử dụng lệnh `\ setlogchannel `\ để set lại log channel.")
+        let serverdata = db.get(message.guild.id)
+        if (serverdata.logchannel == null) return message.reply(`Bạn chưa set log channel, vui lòng sử dụng lệnh \`${serverdata.prefix}setlogchannel\` để set log channel.`)
+        const logChannel = message.guild.channels.get(serverdata.logchannel);
+        if (!logChannel) return message.reply(`Log channel của bạn đã bị xoá, vui lòng kiểm tra lại hoặc sử dụng lệnh \`${serverdata.prefix}setlogchannel\` để set lại log channel.`)
 
         if (message.deletable) message.delete();
 

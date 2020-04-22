@@ -7,7 +7,7 @@ module.exports = {
     aliases: ["who", "user", "info"],
     category: "info",
     description: "Returns user information",
-    usage: "_whois <tag,username,ID>",
+    usage: "whois <tag,username,ID>",
     run: (client, message, args) => {
         const member = getMember(message, args.join(" "));
         let gtrole = message.guild.roles.cache.get('684848725574680689')
