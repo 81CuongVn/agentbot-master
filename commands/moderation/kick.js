@@ -11,7 +11,7 @@ module.exports = {
     run: async(client, message, args) => {
         let serverdata = db.get(message.guild.id)
         if (serverdata.logchannel == null) return message.reply(`Bạn chưa set log channel, vui lòng sử dụng lệnh \`${serverdata.prefix}setlogchannel\` để set log channel.`)
-        const logChannel = message.guild.channels.get(serverdata.logchannel);
+        const logChannel = message.guild.channels.cache.get(serverdata.logchannel);
         if (!logChannel) return message.reply(`Log channel của bạn đã bị xoá, vui lòng kiểm tra lại hoặc sử dụng lệnh \`${serverdata.prefix}setlogchannel\` để set lại log channel.`)
 
         if (message.deletable) message.delete();
@@ -76,6 +76,7 @@ module.exports = {
             // The verification stuffs
             if (emoji === "✅") {
                 msg.delete();
+                toKick.send(`Bạn vừa bị kick ra khỏi server \`${toKick.guild.name}\`. Lý do: \`${args.slice(1).join(' ')}\``)
                 toKick.kick(args.slice(1).join(" "))
                     .catch(err => {
                         if (err) return message.channel.send(`Bị lỗi khi kick: ${err.message}`)
