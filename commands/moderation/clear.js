@@ -31,6 +31,6 @@ module.exports = {
         }
 
         message.channel.bulkDelete(deleteAmount, true)
-            .then(deleted => message.channel.send(`Đã xoá \`${deleted.size}\` messages.`)).then(m => m.delete({timeout: {timeout: 5000}}))
+            .then(deleted => message.channel.send(`Đã xoá **${deleted.size}** messages.`)).then(m => m.delete({timeout: 5000}))
     }
 }

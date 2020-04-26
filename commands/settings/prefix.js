@@ -19,6 +19,5 @@ module.exports = {
             .setTitle('Đã set prefix!')
             .setDescription(`Prefix mới của bạn là ${newprefix}`)
         message.channel.send(embed)
-        console.log(db.get(message.guild.id))
     }
 }
