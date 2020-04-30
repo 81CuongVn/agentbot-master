@@ -8,7 +8,7 @@ module.exports = {
     category: "images",
     description: "send nsfw images",
     run: async(client, message, args) => {
-        if (!message.channel.nsfw) return  message.channel.send("Lệnh này sử dụng được ở channel có mode NSFW thôi nha");
+        if (!message.channel.nsfw) return  message.channel.send("Lệnh này chỉ sử dụng được ở channel có bật mode NSFW!");
         const respond = await ksoft.images.nsfw();
         const embed = new MessageEmbed()
             .setTitle(`Click here to download!`)
