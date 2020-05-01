@@ -3,6 +3,8 @@ const { config } = require("dotenv");
 const fs = require("fs");
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
+const ms = require('ms')
+const cooldown = new Set();
 const client = new Client({
     disableMentions: "everyone"
 });
@@ -83,19 +85,21 @@ client.on("message", async message => {
     if (message.content.toLowerCase().startsWith('=avatar') == true && message.guild.id == '622939841705017351') return message.reply(`Bạn đã thử sử dụng lệnh \`_avatar\` chưa?`)
     if (message.author.bot) return;
     if (!message.guild) return;
-    if (message.guild && db.get(`${message.guild.id}.msgcount`)) {
-       let userdata = client.getScore.get(message.author.id, message.guild.id);
-      if (!userdata) {
-        userdata = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, xp: 0, level: 1 }
-      }
-      let xpAdd = Math.floor(Math.random() * 12) //from 1 to 12
-      const nextlvl = userdata.level * 300
-      if(userdata.xp > nextlvl) {
-        userdata.level++;
-        message.reply(`Bạn đã lên cấp **${userdata.level}**!`);
-      }
-      userdata.xp += xpAdd
-      client.setScore.run(userdata);
+    if (message.guild && db.get(`${message.guild.id}.msgcount`) && !cooldown.has(message.author.id)) {
+        let userdata = client.getScore.get(message.author.id, message.guild.id);
+        if (!userdata) userdata = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, xp: 0, level: 1 }
+        let xpAdd = Math.floor(Math.random() * 12) //from 1 to 12
+        const nextlvl = userdata.level * 300
+        if(userdata.xp > nextlvl) {
+            userdata.level++;
+            message.reply(`Bạn đã lên cấp **${userdata.level}**!`);
+        }
+        userdata.xp += xpAdd
+        client.setScore.run(userdata);
+        cooldown.add(message.author.id)
+        setTimeout(() => {
+            cooldown.delete(message.author.id)
+        }, ms('1m'))
     }
     //prefix
     if (!db.get(message.guild.id)){
