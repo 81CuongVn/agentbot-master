@@ -1,6 +1,6 @@
 {
   "name": "agent-bot",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "description": "Discord Bot",
   "main": "index.js",
   "dependencies": {
@@ -20,7 +20,7 @@
     "mathjs": "^6.6.0",
     "minimist": "^1.2.5",
     "nodemon": "^2.0.2",
-    "novelcovid": "^1.1.4",
+    "novelcovid": "^1.2.7",
     "quick.db": "^7.1.1",
     "random-puppy": "^1.1.0",
     "relevant-urban": "^2.0.0",
