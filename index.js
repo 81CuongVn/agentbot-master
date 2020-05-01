@@ -4,7 +4,7 @@ const fs = require("fs");
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
 const client = new Client({
-    disableEveryone: true
+    disableMentions: "everyone"
 });
 const db = require('quick.db');
 client.commands = new Collection();
@@ -101,20 +101,20 @@ client.on("message", async message => {
     if (!db.get(message.guild.id)){
         db.set(message.guild.id, {prefix: "_", logchannel: null, msgcount: true})
     }
-    let prefix = db.get(`${message.guild.id}.prefix`)
-    
+    const prefixlist = [`<@${client.user.id}>`, `<@!${client.user.id}>`, db.get(`${message.guild.id}.prefix`)]
+    let prefix = null;
+    for (const thisprefix of prefixlist) {
+        if (message.content.toLowerCase().startsWith(thisprefix)) prefix = thisprefix
+    }
+    if (prefix === null) return;
     if (!message.content.startsWith(prefix)) return;
     if (!message.member) message.member = await message.guild.fetchMember(message);
-
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
-
     if (cmd.length === 0) return;
-
     let command = client.commands.get(cmd);
     if (!command) command = client.commands.get(client.aliases.get(cmd));
-
-    if (command) command.run(client, message, args, prefix);
+    if (command) command.run(client, message, args);
 });
 //console chat
 let y = process.openStdin()
