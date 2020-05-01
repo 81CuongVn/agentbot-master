@@ -45,5 +45,14 @@ module.exports = {
         const maxPages = Math.ceil(arr.length / itemsPerPage);
         if (page < 1 || page > maxPages) return null;
         return arr.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+    },
+
+    sleep: function(miliseconds){
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++){
+            if ((new Date().getTime() - start) > miliseconds){
+                break;
+            } 
+        }
     }
 };
