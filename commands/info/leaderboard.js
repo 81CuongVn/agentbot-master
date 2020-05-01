@@ -25,11 +25,16 @@ module.exports = {
         server_data = await Promise.all(server_data.map(async (data, index) => {
             const user = await message.guild.members.cache.get(data.user)
             if (user){
+                let next_level_xp = data.level * 300
+                if (next_level_xp.toString().length >= 4) next_level_xp = `${next_level_xp/1000}K`
+                let user_xp = data.xp
+                if (user_xp.toString().length >= 4) user_xp = `${user_xp/1000}K`
                 return {
                     tag: user.user.username,
                     level: data.level,
                     rank: index +1,
-                    xp: data.xp
+                    xp: user_xp,
+                    next_xp: next_level_xp
                 }
             }
         }));
@@ -40,7 +45,7 @@ module.exports = {
         let embed = new MessageEmbed()
             .setAuthor(`Bảng xếp hạng | ${message.guild.name}`, message.guild.iconURL())
             .setColor('RANDOM')
-            .setDescription(page.map(e => `\`#${e.rank}\` | **${e.tag}** (Level ${e.level}, XP: ${e.xp}/${e.level * 300})`))
+            .setDescription(page.map(e => `\`#${e.rank}\` | **${e.tag}** (Level ${e.level}, XP: ${e.xp}/${e.next_xp})`))
             .setFooter(`Sử dụng lệnh ${server_prefix}bxh <số> để xem các hạng tiếp theo.`)
         message.channel.send(embed)
     }
