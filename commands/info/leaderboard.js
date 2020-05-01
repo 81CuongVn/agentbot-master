@@ -1,7 +1,8 @@
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
-const {pages} = require('../../functions')
-const {MessageEmbed} = require('discord.js')
+const {pages} = require('../../functions');
+const {MessageEmbed} = require('discord.js');
+const db = require('quick.db');
 module.exports = {
     name: "leaderboard",
     aliases: ["bxh"],
@@ -10,6 +11,7 @@ module.exports = {
     usage: "leaderboard [số trang]",
     example: "leaderboard 2",
     run: async (client, message, args) => {
+        const server_prefix = db.get(`${message.guild.id}.prefix`) || "_"
         const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'xpdata';").get();
         if (!table['count(*)']) {
           // If the table isn't there, create it and setup the database correctly.
@@ -39,6 +41,7 @@ module.exports = {
             .setAuthor(`Bảng xếp hạng | ${message.guild.name}`, message.guild.iconURL())
             .setColor('RANDOM')
             .setDescription(page.map(e => `\`#${e.rank}\` | **${e.tag}** (Level ${e.level}, XP: ${e.xp}/${e.level * 300})`))
+            .setFooter(`Sử dụng lệnh ${server_prefix}bxh <số> để xem các hạng tiếp theo.`)
         message.channel.send(embed)
     }
 }
