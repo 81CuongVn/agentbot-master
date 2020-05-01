@@ -30,6 +30,10 @@ module.exports = {
         const canvas = createCanvas(1000, 333);
         const ctx = canvas.getContext("2d");
         const background = await loadImage(join(__dirname, "..", "..",  "background", "rank.jpg"))
+        let next_level_xp = data.level * 300
+        if (next_level_xp.toString().length >= 4) next_level_xp = `${next_level_xp/1000}K`
+        let user_xp = data.xp
+        if (user_xp.toString().length >= 4) user_xp = `${user_xp/1000}K`
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.lineWidth = 4
@@ -49,12 +53,12 @@ module.exports = {
         ctx.font = "30px Arial";
         ctx.textAlign = "center";
         ctx.fillStyle = "#fffff";
-        ctx.fillText(`${data.xp} / ${data.level * 300} XP`, 600, 260);
+        ctx.fillText(`${user_xp} / ${next_level_xp} XP`, 600, 260);
         ctx.textAlign = 'left';
         ctx.fillText(member.user.tag, 300, 120)
         ctx.font = "50px Arial";
         ctx.fillText("Level: ", 300, 180)
-        ctx.fillText(data.level, 470, 180);
+        ctx.fillText(data.level, 440, 180);
         ctx.fillText("Rank: ", 550, 180)
         ctx.fillText(`#${rank}`, 690, 180)
         ctx.arc(170, 160, 120,0, Math.PI * 2, true);
