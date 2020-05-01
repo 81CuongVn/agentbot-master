@@ -26,9 +26,19 @@ module.exports = {
             const user = await message.guild.members.cache.get(data.user)
             if (user){
                 let next_level_xp = data.level * 300
-                if (next_level_xp.toString().length >= 4) next_level_xp = `${next_level_xp/1000}K`
+                if (next_level_xp.toString().length >= 4) {
+                    next_level_xp = next_level_xp/1000
+                    let int_part = Math.trunc(next_level_xp)
+                    let float_part = Number((next_level_xp - int_part).toFixed(1));
+                    next_level_xp = `${int_part + float_part}K`
+                }
                 let user_xp = data.xp
-                if (user_xp.toString().length >= 4) user_xp = `${user_xp/1000}K`
+                if (user_xp.toString().length >= 4) {
+                    user_xp = user_xp/1000
+                    let int_part = Math.trunc(user_xp); 
+                    let float_part = Number((user_xp-int_part).toFixed(1));
+                    user_xp = `${int_part + float_part}K`
+                }
                 return {
                     tag: user.user.username,
                     level: data.level,
