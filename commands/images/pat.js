@@ -9,7 +9,7 @@ module.exports = {
         let url = `https://some-random-api.ml/animu/pat`
         getJSON(url, function(error, response) {
             if (error) return message.reply("Bot lỗi trong khi cố gắng lấy hình, vui lòng thử lại sau")
-            let nguoitag = message.mentions.members.array() || message.guild.members.get(args[0])
+            let nguoitag = message.mentions.members.array() || message.guild.members.cache.get(args[0])
             if (nguoitag.length == 0) {
                 const embed1 = new MessageEmbed()
                     .setDescription(`${message.member.displayName} vỗ về đã tất cả mọi người <3`)

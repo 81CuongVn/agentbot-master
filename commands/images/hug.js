@@ -8,7 +8,7 @@ module.exports = {
     example: "hug (ôm tất cả) hoặc hug @phamleduy04",
     run: (client, message, args) => {
         let url = `https://some-random-api.ml/animu/hug`
-        let nguoitag = message.mentions.members.array() || message.guild.members.get(args[0])
+        let nguoitag = message.mentions.members.array() || message.guild.members.cache.get(args[0])
         getJSON(url, function(error, response) {
             if (!error) {
                 if (nguoitag.length == 0) {

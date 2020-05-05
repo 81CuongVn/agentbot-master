@@ -10,7 +10,7 @@ module.exports = {
         let url = `https://api.giphy.com/v1/gifs/random?api_key=${giphy_key}&tag=kiss&rating=R`
         getJSON(url, function(error, response) {
             if (error) return message.channel.send('Bot gặp lỗi trong khi lấy hình, vui lòng thử lại sau')
-            let person = message.mentions.members.first() || message.guild.members.get(args[0]);
+            let person = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
             if (!person) {
                 return message.reply(`Tính tự thơm chính mình à?`)
             } else {
