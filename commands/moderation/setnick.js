@@ -8,7 +8,7 @@ module.exports = {
     VD: "setnick @phamleduy04",
     run: async(client, message, args) => {
         if (!message.member.hasPermission('MANAGE_NICKNAMES') || !message.author.id == '664680035218751530') return message.reply("Bạn cần có quyền `\ MANAGE_NICKNAMES `\ để có thể đổi nickname.");
-        let user = message.mentions.members.first() || message.guild.members.get(args[0])
+        let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         var output = args.slice(1).join(' ')
         if (!args[0]) return message.reply(`Phải tag ai đó chứ`)
         if (!output) var output = user.user.username
