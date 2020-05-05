@@ -19,13 +19,12 @@ module.exports = {
             var role = message.guild.roles.cache.find(role => role.name === matches.bestMatch.target);
             if (!user)
                 return message.reply("Không tìm thấy người bạn tag, vui lòng thử lại.")
-            const error_status = []
-            await message.guild.member(user).roles.remove(role)
-                .catch(err => {
-                    message.channel.send(`Lỗi : ${err.message}`);
-                    error_status.push(1)
+            let status = await message.guild.member(user).roles.remove(role)
+                .catch(e => {
+                    return e
                 });
-            if (error_status.length == 0) message.channel.send(`🗑️ Đã xoá role **${role.name}** cho **${user.user.tag}**`)
+            if (status.message && status.name) return message.channel.send(`Lỗi: ${status.name}, ${status.message}`)
+            message.channel.send(`🗑️ Đã xoá role **${role.name}** cho **${user.user.tag}**`)
         }
     }
 }

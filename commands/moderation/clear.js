@@ -8,7 +8,6 @@ module.exports = {
     VD: "clear @phamleduy04 10",
     run: async(client, message, args) => {
         await message.delete();
-
         // Member doesn't have permissions
         if (!message.member.hasPermission("MANAGE_MESSAGES")) {
             return message.reply("Bạn không có quyền MANAGE_MESSAGES").then(m => m.delete({timeout: 5000}));
@@ -16,8 +15,9 @@ module.exports = {
 
         // Maybe the bot can't delete messages
         if (!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-            return message.reply("Bot không có quyền MMANAGE_MESSAGES nên bot không thể xoá.").then(m => m.delete({timeout: 5000}));
+            return message.reply("Bot không có quyền MANAGE_MESSAGES nên bot không thể xoá.").then(m => m.delete({timeout: 5000}));
         }
+
         const user = message.mentions.users.first()
         const ammount = !!parseInt(args[0]) ? parseInt(args[0]) : parseInt(args[1])
         if (!ammount) return message.reply('Vui lòng nhập số lượng tin nhắn để xoá.')

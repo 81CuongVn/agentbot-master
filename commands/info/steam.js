@@ -10,22 +10,22 @@ module.exports = {
     usage: "steam <custom url name trên steamlink>",
     VD: "steam dacvu008",
     run: async(bot, message, args) => {
-        if (!args[0]) return message.channel.send("Mày không gởi tên tài khoản tìm bằng cc")
+        if (!args[0]) return message.channel.send("Hãy nhập tên custom url của bạn.")
         const url = `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${steam_token}&vanityurl=${args.join(" ")}`;
 
         fetch(url).then(res => res.json()).then(body => {
-            if (body.response.success === 42) return message.channel.send("Không tìm được tên, một là mày ngu hai là tao ngu")
+            if (body.response.success === 42) return message.channel.send("Mình không tìm thấy tên bạn.")
 
             const id = body.response.steamid;
             const summaries = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${steam_token}&steamids=${id}`;
             const bans = `http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=${steam_token}&steamids=${id}`;
             const state = ["Offline", "Online", "Busy", "Away", "Snooze", "Looking to trade", "Looking to play"]
             fetch(summaries).then(res => res.json()).then(body => {
-                if (!body.response) return message.channel.send("Tao không tìm được tên, chắc steam nghỉ việc rồi");
+                if (!body.response) return message.channel.send("Mình không tìm thấy tên bạn.");
                 const { personaname, avatarfull, realname, personastate, loccountrycode, profileurl, timecreated } = body.response.players[0]
 
                 fetch(bans).then(res => res.json()).then(body => {
-                    if (!body.players) return message.channel.send("Tao tìm mệt loz ra vẫn không thấy tên mày!")
+                    if (!body.players) return message.channel.send("Mình không tìm thấy tên bạn.")
                     const { NumberOfVACBans, NumberOfGameBans } = body.players[0];
 
                     const embed = new MessageEmbed()
