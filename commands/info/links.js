@@ -15,7 +15,11 @@ module.exports = {
         
         [Support server:](https://discord.gg/sn3nBCJ)
 
-        Top.gg link: (update sau)
+        [Top.gg:](https://top.gg/bot/645883401500622848)
+
+        [Upvote:](https://top.gg/bot/645883401500622848/vote)
+
+        [Discord.bots.gg:](https://discord.bots.gg/bots/645883401500622848)
 
         [Github:](https://github.com/phamleduy04/agentbot-master) 
         `)
