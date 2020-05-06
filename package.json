@@ -4,6 +4,8 @@
   "description": "Discord Bot",
   "main": "index.js",
   "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "@google-cloud/text-to-speech": "^2.3.0",
     "ascii-table": "0.0.9",
     "better-sqlite3": "^6.0.1",
     "canvacord": "^1.0.0",
@@ -14,6 +16,7 @@
     "discord.js": "^12.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "ffmpeg-static": "^4.2.1",
     "get-json": "^1.0.1",
     "google-translate": "^3.0.0",
     "graphql-request": "^1.8.2",

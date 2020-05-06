@@ -1,5 +1,6 @@
 const {MessageEmbed} = require('discord.js');
 const db = require('quick.db');
+const {ownerID} = require('../../config.json')
 module.exports = {
     name: "prefix",
     category: "settings",
@@ -7,7 +8,7 @@ module.exports = {
     usage: `prefix [prefix mới]`,
     note: "Người đổi prefix cần có quyền MANAGE_GUILD!",
     run: async (client, message, args) => {
-        if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply('Bạn cần có quyền MANAGE_GUILD để chạy')
+        if(!message.member.hasPermission("MANAGE_GUILD") && message.author.id !== ownerID) return message.reply('Bạn cần có quyền MANAGE_GUILD để chạy')
         let serverdata = db.get(message.guild.id)
         if (!args[0]) return message.channel.send(`Prefix của server là \`${serverdata.prefix}\``)
 
