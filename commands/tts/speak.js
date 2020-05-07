@@ -6,7 +6,7 @@ const lang_list = {
     "en": "en-US",
     "vi": "vi-VN"
 }
-const botdangnoi = new Set()
+const db = require('quick.db');
 module.exports = {
     name: 'speak',
     aliases: ['say', 's'],
@@ -16,16 +16,17 @@ module.exports = {
     note: 'lang = en hoặc vi',
     VD: 'speak en hello world',
     run: async(client, message, args) => {
-        if (botdangnoi.has(message.guild.id)) return message.channel.send('Có người khác đang xài lệnh rồi, vui lòng thử lại sau D:.')
+        if (db.get(`${message.guild.id}.botdangnoi`) === true) return message.channel.send('Có người khác đang xài lệnh rồi, vui lòng thử lại sau D:.')
         if (!args[0]) return message.channel.send('Vui lòng nhập gì đó :D.');
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel) return message.reply('Bạn phải vào voice channel để có thể sử dụng lệnh này.');
         const botpermission = voiceChannel.permissionsFor(client.user);
         if (!botpermission.has('CONNECT')) return message.channel.send('Bot không có quyền vào channel của bạn!');
         if (!botpermission.has('SPEAK')) return message.channel.send('Bot không có quyền nói trong channel của bạn!');
-        botdangnoi.add(message.guild.id)
+        await db.set(`${message.guild.id}.botdangnoi`, true)
         let text = args.join(' ')
-        let lang = 'vi-VN'
+        let lang = await db.get(`${message.guild.id}.defaulttts`)
+        if (!lang || lang === null) lang = 'vi-VN'
         if (lang_list[args[0]]) {
             text = args.slice(1).join(' ')
             lang = lang_list[args[0]]
@@ -33,7 +34,7 @@ module.exports = {
         //create request
         const request = {
             input: {text: text},
-            voice: {languageCode: lang, ssmlGender: 'NEUTRAL'},
+            voice: {languageCode: lang, ssmlGender: 'FEMALE'},
             audioConfig: {audioEncoding: 'MP3'},
         };
 
@@ -43,8 +44,8 @@ module.exports = {
         //sau khi sử lý xong âm thanh, phát cho người dùng
         voiceChannel.join().then(connection => {
             let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
-            dispatcher.on('finish', () => {
-                botdangnoi.delete(message.guild.id)
+            dispatcher.on('finish', async () => {
+                await db.set(`${message.guild.id}.botdangnoi`, false)
             })
         }) 
     }
