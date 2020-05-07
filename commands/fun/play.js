@@ -12,6 +12,7 @@ const dict = {
 }
 module.exports = {
     name: 'play',
+    aliases: ['p'],
     note: 'Lệnh này chỉ cho Saddu, Duy, Wjbu và Ly.',
     run: async(client, message, args) => {
         if (canrunID.indexOf(message.author.id) == -1) return message.channel.send('Bạn không thể sử dụng lệnh này!')
