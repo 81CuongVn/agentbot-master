@@ -1,5 +1,5 @@
 const db = require('quick.db');
-const canrunID = ["455935236262592512", "199276237250625536", "674453963059494931", "106658418722406400"]
+const canrunID = ["455935236262592512", "199276237250625536"]
 const dict = {
     "cammom": "./data/playdata/cam.mp3",
     "huanrose": "./data/playdata/huanrose.mp3",
@@ -13,9 +13,9 @@ const dict = {
 module.exports = {
     name: 'play',
     aliases: ['p'],
-    note: 'Lệnh này chỉ cho Saddu, Duy, Wjbu và Ly.',
+    note: 'Lệnh này chỉ cho Saddu, Duy.',
     run: async(client, message, args) => {
-        if (canrunID.indexOf(message.author.id) == -1) return message.channel.send('Bạn không thể sử dụng lệnh này!')
+        if (canrunID.indexOf(message.author.id) == -1 && message.guild.id !== "311163013996478464") return message.channel.send('Bạn không thể sử dụng lệnh này!')
         if (!args[0]) return message.channel.send('Nhập file cần play!')
         let status = await db.get(`${message.guild.id}.botdangnoi`)
         if (status == true) return message.channel.send('Có người khác đang sử dụng bot!')
