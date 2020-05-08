@@ -103,7 +103,7 @@ client.on("message", async message => {
     }
     //prefix
     if (!db.get(message.guild.id)){
-        db.set(message.guild.id, {prefix: "_", logchannel: null, msgcount: true})
+        db.set(message.guild.id, {prefix: "_", logchannel: null, msgcount: true, defaulttts: null, botdangnoi: false})
     }
     const prefixlist = [`<@${client.user.id}>`, `<@!${client.user.id}>`, db.get(`${message.guild.id}.prefix`)]
     let prefix = null;
@@ -120,6 +120,15 @@ client.on("message", async message => {
     if (!command) command = client.commands.get(client.aliases.get(cmd));
     if (command) command.run(client, message, args);
 });
+
+client.on('voiceStateUpdate', (oldstate, newstate) => {
+    console.log(newstate.channelID)
+    if (oldstate.member.id !== client.user.id) return;
+    console.log(db.get(`${oldstate.guild.id}.botdangnoi`))
+    if (newstate.channelID == null && (db.get(`${oldstate.guild.id}.botdangnoi`) == true) ){
+        db.set(`${oldstate.guild.id}.botdangnoi`, false)
+    }
+})
 //console chat
 let y = process.openStdin()
 y.addListener("data", res => {
