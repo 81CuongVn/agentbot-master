@@ -122,9 +122,7 @@ client.on("message", async message => {
 });
 
 client.on('voiceStateUpdate', (oldstate, newstate) => {
-    console.log(newstate.channelID)
     if (oldstate.member.id !== client.user.id) return;
-    console.log(db.get(`${oldstate.guild.id}.botdangnoi`))
     if (newstate.channelID == null && (db.get(`${oldstate.guild.id}.botdangnoi`) == true) ){
         db.set(`${oldstate.guild.id}.botdangnoi`, false)
     }
