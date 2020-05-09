@@ -1,15 +1,6 @@
 const db = require('quick.db');
-const canrunID = ["455935236262592512", "199276237250625536"]
-const dict = {
-    "cammom": "./data/playdata/cam.mp3",
-    "huanrose": "./data/playdata/huanrose.mp3",
-    "noinang": "./data/playdata/noinang.mp3",
-    "ranhcon": "./data/playdata/ranhcon.mp3",
-    "sucdekhang": "./data/playdata/sucdekhang.mp3",
-    "tobecontinue": "./data/playdata/tobecontinue.mp3",
-    "trandan": "./data/playdata/trandan.wav",
-    "truylac": "./data/playdata/truylac.mp3"
-}
+const canrunID = ["455935236262592512", "199276237250625536", "621890949244518451"]
+const dict = require('../../data/playdatadict.json')
 module.exports = {
     name: 'play',
     aliases: ['p'],
