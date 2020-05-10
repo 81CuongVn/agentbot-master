@@ -82,12 +82,12 @@ client.on("guildDelete", async oldguild => { //bot leave server
 })
 
 client.on("message", async message => {
-    if (message.content.toLowerCase().startsWith('=avatar') == true && message.guild.id == '622939841705017351') return message.reply(`Bạn đã thử sử dụng lệnh \`_avatar\` chưa?`)
     if (message.author.bot) return;
     if (!message.guild) return;
     if (message.guild && db.get(`${message.guild.id}.msgcount`) && !cooldown.has(message.author.id)) {
         let userdata = client.getScore.get(message.author.id, message.guild.id);
         if (!userdata) userdata = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, xp: 0, level: 1 }
+        if (userdata.level !== 999){
         let xpAdd = Math.floor(Math.random() * 12) //from 1 to 12
         const nextlvl = userdata.level * 300
         if(userdata.xp > nextlvl) {
@@ -100,6 +100,7 @@ client.on("message", async message => {
         setTimeout(() => {
             cooldown.delete(message.author.id)
         }, ms('1m'))
+        }
     }
     //prefix
     if (!db.get(message.guild.id)){

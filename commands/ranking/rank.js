@@ -5,10 +5,11 @@ const sql = new SQLite('./data.sqlite');
 const {join} = require('path');
 module.exports = {
     name: "rank",
-    category: "info",
+    category: "ranking",
     description: "Check rank",
     usage: "rank [@tag]",
     example: "rank @phamleduy04",
+    note: "Max level là 999",
     run: async (client, message, args) => {
         const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'xpdata';").get();
         if (!table['count(*)']) {

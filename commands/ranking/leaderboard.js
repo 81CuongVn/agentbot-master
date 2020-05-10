@@ -6,9 +6,10 @@ const db = require('quick.db');
 module.exports = {
     name: "leaderboard",
     aliases: ["bxh"],
-    category: "info",
+    category: "ranking",
     description: "Xem bảng xếp hạng rank",
     usage: "leaderboard [số trang]",
+    note: "Max level là 999",
     example: "leaderboard 2",
     run: async (client, message, args) => {
         const server_prefix = db.get(`${message.guild.id}.prefix`) || "_"
