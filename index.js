@@ -128,6 +128,11 @@ client.on('voiceStateUpdate', (oldstate, newstate) => {
         db.set(`${oldstate.guild.id}.botdangnoi`, false)
     }
 })
+
+client.on('error', (err) => {
+    console.log(err)
+})
+
 //console chat
 let y = process.openStdin()
 y.addListener("data", res => {
