@@ -3,6 +3,7 @@ const { config } = require("dotenv");
 config({
     path: __dirname + "/.env"
 });
+
 const fs = require("fs");
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
@@ -11,6 +12,7 @@ const cooldown = new Set();
 const client = new Client({
     disableMentions: "everyone"
 });
+
 //top.gg API
 const DBL = require('dblapi.js');
 const dbl = new DBL(process.env.TOPGG, client);
@@ -24,9 +26,11 @@ const instance = axios.create({
     headers: {"Authorization": process.env.DBOTGG}
 })
 
+
 const db = require('quick.db');
 client.commands = new Collection();
 client.aliases = new Collection();
+
 
 dbl.on('posted', () => {
     console.log("Server count posted to top.gg")
@@ -35,7 +39,6 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
     console.log(e)
 })
-
 client.categories = fs.readdirSync("./commands/");
 
 
@@ -79,11 +82,13 @@ client.on("ready", () => {
         instance.post(`bots/${client.user.id}/stats`, {
             guildCount: client.guilds.cache.size
         })
+        
     }, 36e5) //1 hour
 
     instance.post(`bots/${client.user.id}/stats`, {
         guildCount: client.guilds.cache.size
     })
+
 });
 
 client.on("guildCreate", async newguild => { //bot join server
