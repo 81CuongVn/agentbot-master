@@ -6,6 +6,7 @@ const stopemoji = "🛑"
 const ms = require('ms')
 module.exports = {
     name: 'blackjack',
+    category: 'gamble',
     aliases: ['bj'],
     description: 'Chơi blackjack (xì dách)',
     note: 'Trên 21 điểm là thua :)',

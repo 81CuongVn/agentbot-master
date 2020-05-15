@@ -3,6 +3,7 @@ const eco = new Eco.Manager;
 const {laysodep} = require('../../functions')
 module.exports = {
     name: 'give',
+    category: 'gamble',
     aliases: ['transfer'],
     description: 'Chuyển tiền cho người khác!',
     usage: 'give <@tag or ID> <so tien>',

@@ -8,6 +8,7 @@ const instance = axios.create({
 })
 module.exports = {
     name: "daily",
+    category: 'gamble',
     aliases: ['hangngay'],
     description: "Nhận tiền ",
     usage: 'daily',

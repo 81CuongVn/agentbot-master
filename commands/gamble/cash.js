@@ -3,6 +3,7 @@ const eco = new Eco.Manager();
 const {laysodep} = require('../../functions.js')
 module.exports = {
     name: "cash",
+    category: 'gamble',
     aliases: ["balance", "bal"],
     description: "Show tiền!",
     usage: "cash",

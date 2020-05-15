@@ -11,6 +11,7 @@ const ms = require('ms');
 module.exports = {
     name: 'coinflip',
     aliases: ['cf'],
+    category: 'gamble',
     description: 'Tung đồng xu (50%)',
     usage: 'coinflip <user_choose> <ammount>',
     VD: 'coinflip t 50000',
