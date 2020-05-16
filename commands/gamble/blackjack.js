@@ -4,6 +4,7 @@ const {getcardvalue, randomcard, checkautowin, createembed, laysodep} = require(
 const hitemoji = "👊";
 const stopemoji = "🛑"
 const ms = require('ms')
+const cooldown = new Set();
 module.exports = {
     name: 'blackjack',
     category: 'gamble',
@@ -13,6 +14,7 @@ module.exports = {
     usage: 'backjack <tiền cược>',
     VD: 'bj 10000',
     run: async (client, message, args) => {
+        if (cooldown.has(message.author.id)) return message.channel.send('Bạn phải chờ 10 giây sau khi chơi xong để chơi tiếp.')
         let player_deck = [];
         let bots_deck = [];
         let maxbet = 100000;
@@ -60,6 +62,7 @@ module.exports = {
         //tính điểm
         msg.react(hitemoji);
         msg.react(stopemoji);
+        cooldown.add(message.author.id)
         const filter = (reaction, user) => {
             return (reaction.emoji.name === hitemoji || reaction.emoji.name === stopemoji) && user.id === message.author.id
         }
@@ -79,8 +82,10 @@ module.exports = {
         })
         collector.on('end', async (collected, reason) => {
             if (reason == 'time') msg.edit('Trò chơi hết hạn.')
-            await eco.removeMoney(message.author.id,bet)
         })
+        setTimeout(() => {
+            cooldown.delete(message.author.id)
+        }, ms('10s'))
     }
 }
 

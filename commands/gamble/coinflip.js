@@ -8,6 +8,7 @@ const dict = {
 }
 const {laysodep, sleep} = require('../../functions');
 const ms = require('ms');
+const cooldown = new Set();
 module.exports = {
     name: 'coinflip',
     aliases: ['cf'],
@@ -16,6 +17,7 @@ module.exports = {
     usage: 'coinflip <user_choose> <ammount>',
     VD: 'coinflip t 50000',
     run: async (client, message, args) => {
+        if (cooldown.has(message.author.id)) return message.channel.send('Bạn phải chờ 5 giây sau khi chơi xong để chơi tiếp.')
         let maxbet = 100000;
         let user_choose = args[0]
         if (!user_choose || user_choose == 'all' || !isNaN(user_choose)) return message.channel.send('Vui lòng chọn head hoặc tail.')
@@ -54,6 +56,10 @@ module.exports = {
             message.channel.send('Bot lỗi, bạn sẽ không bị trừ tiền!')
             //k trừ tiền
         }
+        cooldown.add(message.author.id)
+        setTimeout(() => {
+            cooldown.delete(message.author.id)
+        }, ms('5s'))
     }
 }
 
