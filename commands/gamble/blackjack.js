@@ -28,11 +28,8 @@ module.exports = {
         let usermoney = eco.fetchMoney(message.author.id)
         if (usermoney.amount < userbet || usermoney.amount == 0) return message.channel.send('Bạn không đủ tiền để cược')
         let bet = 1;
-        if (usermoney.amount > maxbet) bet = maxbet
-        else if (args[0] == "all"){
-            if (usermoney.amount > maxbet) bet = maxbet
-            else bet = usermoney.amount
-        } else bet = userbet
+        if (userbet > maxbet || args[0] == 'all') bet = maxbet
+        else if (userbet < maxbet) bet = userbet
         //2 card each
         for (let i = 0; i < 2; i++){
             player_deck.push(await randomcard(listofcard))
