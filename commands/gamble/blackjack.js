@@ -3,7 +3,7 @@ const eco = new Eco.Manager();
 const {getcardvalue, randomcard, checkautowin, createembed, laysodep} = require('../../functions.js');
 const hitemoji = "👊";
 const stopemoji = "🛑"
-const ms = require('ms')
+const ms = require('ms');
 const cooldown = new Set();
 module.exports = {
     name: 'blackjack',

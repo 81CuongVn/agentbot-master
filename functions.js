@@ -141,7 +141,7 @@ module.exports = {
             )
         } else if (end == 'thangx2'){
             embed.setColor("#90EE90")
-            embed.footer.text = `Bạn thắng ${parseInt(bet)*2} tiền!`
+            embed.footer.text = `Bạn thắng ${parseInt(bet.replace(',', ''))*2} tiền!`
             embed.addFields(
                 {name: `Bot: [${bot_val}]`, value: deck_bot},
                 {name: `User: [${nguoichoi_val}]`, value: deck_user}
