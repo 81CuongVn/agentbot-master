@@ -10,11 +10,12 @@ module.exports = {
     VD: 'give @phamleduy04 50000',
     run: async (client, message, args) => {
         let member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
+        let authordata = eco.fetchMoney(message.author.id)
         if (!member) return message.channel.send('Hãy tag hoặc đưa ID của người đó!')
-        let ammount = args[1]
-        if (!ammount) return message.channel.send('Hãy nhập số tiền cần chuyển.')
-        if (eco.fetchMoney(message.author.id).amount < ammount) return message.channel.send('Bạn không đủ tiền để chuyển')
-        eco.transfer(message.author.id, member.id, ammount)
-        return message.channel.send(`Bạn đã chuyển thành công **${laysodep(ammount)}** tiền tới **${member.user.tag}**.`)
+        let sotienchuyen = args[1]
+        if (!sotienchuyen || isNaN(sotienchuyen)) return message.channel.send('Hãy nhập số tiền cần chuyển.')
+        if (authordata.amount < sotienchuyen) return message.channel.send('Bạn không đủ tiền để chuyển')
+        eco.transfer(message.author.id, member.id, sotienchuyen)
+        return message.channel.send(`Bạn đã chuyển thành công **${laysodep(sotienchuyen)}** tiền tới **${member.user.tag}**.`)
     }
 }

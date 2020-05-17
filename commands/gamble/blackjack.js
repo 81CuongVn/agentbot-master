@@ -29,7 +29,7 @@ module.exports = {
         if (usermoney.amount < userbet || usermoney.amount == 0) return message.channel.send('Bạn không đủ tiền để cược')
         let bet = 1;
         if (usermoney.amount > maxbet) bet = maxbet
-        if (args[0] == "all"){
+        else if (args[0] == "all"){
             if (usermoney.amount > maxbet) bet = maxbet
             else bet = usermoney.amount
         } else bet = userbet
@@ -74,7 +74,7 @@ module.exports = {
                 listofcard.filter(e => e !== player_deck)
                 if (getcardvalue(player_deck) > 21 || parseInt(getcardvalue(player_deck).replace('*', '')) > 21){
                     collector.stop()
-                    return await stop(message.author, listofcard, bots_deck, player_deck, msg, bet)
+                    return await userautobust(message.author, bots_deck, player_deck, msg, bet)
                 }
                 await msg.edit(createembed(message.author, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), createembedfield(hide_deck), "not"))
             } else if (reaction.emoji.name === stopemoji){
@@ -82,7 +82,10 @@ module.exports = {
             }
         })
         collector.on('end', async (collected, reason) => {
-            if (reason == 'time') msg.edit('Trò chơi hết hạn.')
+            if (reason == 'time') msg.edit('Trò chơi hết hạn.')+
+            setTimeout(() => {
+                cooldown.delete(message.author.id)
+            }, ms('10s'))
         })
         setTimeout(() => {
             cooldown.delete(message.author.id)
@@ -126,23 +129,12 @@ async function stop(player, listofcard, bots_deck, player_deck, msg, bet){
         kind_of_winning = 'thua'
         await money(player.id, 'lose', bet)
     }
-    /*
-    if ((bot_points > 21 && user_points > 21) || (bot_points == user_points)){
-        kind_of_winning = "hoa"
-    } else if (user_points > 21 && bot_points < 21){
-        kind_of_winning = 'thua'
-        await money(player.id, 'lose', bet)
-    } else if (user_points < 21 && bot_points > 21){
-        kind_of_winning = 'thang'
-        await money(player.id, 'win', bet)
-    } else if (user_points > bot_points){
-        kind_of_winning = "thang"
-        await money(player.id, 'win', bet)
-    } else if (user_points < bot_points){
-        kind_of_winning = "thua"
-        await money(player.id, 'lose', bet)
-    }
-    */
+    return await msg.edit(createembed(player, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), null, kind_of_winning))
+}
+
+async function userautobust(player, bots_deck, player_deck, msg, bet){
+    let kind_of_winning = "thua";
+    await money(player.id, 'lose', bet)
     return await msg.edit(createembed(player, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), null, kind_of_winning))
 }
 
