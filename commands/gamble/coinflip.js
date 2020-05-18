@@ -35,10 +35,7 @@ module.exports = {
         if (!ammount || (isNaN(ammount) && ammount !== 'all')) return message.channel.send('Vui lòng nhập số tiền cược!')
         let usermoney = eco.fetchMoney(message.author.id).amount
         if (usermoney < ammount || usermoney == 0) return message.channel.send('Bạn không đủ tiền để chơi!')
-        if (args[1] == "all"){
-            if (usermoney > maxbet) ammount = maxbet
-            else ammount = usermoney
-        } else ammount = parseInt(ammount)
+        if (args[1] == 'all' || ammount > maxbet) ammount = maxbet
         await message.channel.send(`${coin_gif} **${message.author.tag}** cược **${laysodep(ammount)}** và đã chọn **${user_choose}**!`)
         //random
         let userrand = random[Math.floor(Math.random() * random.length)]
