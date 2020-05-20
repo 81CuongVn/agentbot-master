@@ -122,14 +122,21 @@ function getval(list){
     for (var i = 0; i < list.length; i++){
         let card = list[i].slice(2,3)
         if (!isNaN(card)){
-            countpoint += parseInt(card)
+            switch(parseInt(card)){
+                case 1:
+                    countpoint += 10;
+                    break;
+                default:
+                    countpoint += parseInt(card)
+                    break;
+            }
         } else {
             switch(card){
                 case "a":
                     countpoint++ //cộng 1
                     break;
                 default: 
-                    countpoint = countpoint+ 10;
+                    countpoint += 10;
                     jqk++;
                     break;
             }
