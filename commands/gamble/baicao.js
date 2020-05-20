@@ -1,12 +1,16 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
 const {randomcard, createembedfield} = require('../../functions');
+const cooldown = new Set();
+const ms = require('ms');
 module.exports = {
     name: 'baicao',
     aliases: ['bc'],
     description: 'bài cào',
     category: 'gamble',
     run: async (client, message, args) => {
+        if (cooldown.has(message.author.id)) return message.channel.send('Bạn phải chờ 5 giây để chơi tiếp!')
+        cooldown.add(message.author.id)
         let player_deck = [];
         let bots_deck =  [];
         let maxbet = 100000;
@@ -33,6 +37,9 @@ module.exports = {
         let userdata = getval(player_deck)
         let botdata = getval(bots_deck)
         let kind_of_winning = undefined;
+        setTimeout(() => {
+            cooldown.delete(message.author.id)
+        }, ms('5s'))
         //check instant win?
         if (userdata.jqk === 3){
             //x3 tiền + win
@@ -50,6 +57,9 @@ module.exports = {
         } else kind_of_winning = 'thua'
         msg.edit(createembed(message.author, bet, createembedfield(player_deck), createembedfield(bots_deck), userdata.point, botdata.point, createembedfield(hide_deck), kind_of_winning))
         if (kind_of_winning !== 'hoa') await money(message.author.id, kind_of_winning, bet)
+        setTimeout(() => {
+            cooldown.delete(message.author.id)
+        }, ms('5s'))
     }
 }
 
