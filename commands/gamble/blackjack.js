@@ -1,6 +1,6 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
-const {getcardvalue, randomcard, checkautowin, createembed, laysodep} = require('../../functions.js');
+const {getcardvalue, randomcard, checkautowin, createembed, laysodep, createembedfield} = require('../../functions.js');
 const hitemoji = "👊";
 const stopemoji = "🛑"
 const ms = require('ms');
@@ -64,7 +64,7 @@ module.exports = {
         const filter = (reaction, user) => {
             return (reaction.emoji.name === hitemoji || reaction.emoji.name === stopemoji) && user.id === message.author.id
         }
-        let collector = msg.createReactionCollector(filter, {time: ms('1m')}) //30s
+        let collector = msg.createReactionCollector(filter, {time: ms('1m')}) 
         collector.on('collect',async (reaction, user) => {
             if (reaction.emoji.name === hitemoji){
                 player_deck.push(await randomcard(listofcard))
@@ -79,7 +79,7 @@ module.exports = {
             }
         })
         collector.on('end', async (collected, reason) => {
-            if (reason == 'time') msg.edit('Trò chơi hết hạn.')+
+            if (reason == 'time') msg.edit('Trò chơi hết hạn.')
             setTimeout(() => {
                 cooldown.delete(message.author.id)
             }, ms('10s'))
@@ -90,15 +90,6 @@ module.exports = {
     }
 }
 
-function createembedfield(deck){
-    if (!Array.isArray(deck)) return null;
-    let line = ""
-    deck.forEach(card => {
-        line+= card
-    })
-    return line
-}
-
 async function stop(player, listofcard, bots_deck, player_deck, msg, bet){
     while (getcardvalue(bots_deck) < 15 || parseInt(getcardvalue(bots_deck).replace('*', '')) < 15){
         bots_deck.push(await randomcard(listofcard))
@@ -107,8 +98,8 @@ async function stop(player, listofcard, bots_deck, player_deck, msg, bet){
     let kind_of_winning = undefined
     let bot_points = getcardvalue(bots_deck) 
     let user_points = getcardvalue(player_deck)
-    if (isNaN(bot_points)) parseInt(bot_points.replace('*', ''))
-    if (isNaN(user_points)) parseInt(user_points.replace('*', '')) 
+    if (isNaN(bot_points)) bot_points = parseInt(bot_points.replace('*', ''))
+    if (isNaN(user_points)) user_points = parseInt(user_points.replace('*', ''))
     if (user_points > 21 && bot_points > 21){
         kind_of_winning = 'hoa'
     } else if (user_points == bot_points){

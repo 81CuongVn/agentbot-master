@@ -156,5 +156,12 @@ module.exports = {
     }, laysodep: function(num){
         let pattern = /\B(?=(\d{3})+(?!\d))/g;
         return num.toString().replace(pattern, ',')
+    }, createembedfield: function(deck){
+        if (!Array.isArray(deck)) return null;
+        let line = ""
+        deck.forEach(card => {
+            line+= card
+        })
+        return line
     }
 }
