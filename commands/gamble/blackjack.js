@@ -27,8 +27,7 @@ module.exports = {
         if (args[0] == 'all') bet = 100000;
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else if (args[0] <= userdata.amount && args[0] < maxbet) return bet = args[0]
-        else if (args[0] <= userdata.amount && args[0] > maxbet) return bet = maxbet
-        else return message.channel.send('Bạn không đủ tiền cược!')
+        else if (args[0] <= userdata.amount && args[0] > maxbet) return message.channel.send('Bạn không đủ tiền cược!')
         //2 card each
         for (let i = 0; i < 2; i++){
             player_deck.push(await randomcard(listofcard))
