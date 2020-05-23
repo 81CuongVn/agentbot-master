@@ -17,19 +17,18 @@ module.exports = {
         if (cooldown.has(message.author.id)) return message.channel.send('Bạn phải chờ 10 giây sau khi chơi xong để chơi tiếp.')
         let player_deck = [];
         let bots_deck = [];
-        let maxbet = 10000000;
+        let maxbet = 5000000;
         let backcard = '<:back:709983842542288899>'
         let hide_deck = []
         let listofcard = require('../../data/cardemojis.json').fulllist
         //check bet
-        let userbet = args[0]
-        if (!args[0] || (isNaN(args[0]) && args[0] !== 'all')) return message.channel.send('Vui lòng nhập số tiền cược.')
-        userbet = parseInt(userbet)
-        let usermoney = eco.fetchMoney(message.author.id)
-        if (usermoney.amount < userbet || usermoney.amount == 0) return message.channel.send('Bạn không đủ tiền để cược')
-        let bet = 1;
-        if (userbet > maxbet || args[0] == 'all') bet = 100000
-        else if (userbet < maxbet) bet = userbet
+        let userdata = eco.fetchMoney(message.author.id);
+        let bet = undefined;
+        if (args[0] == 'all') bet = 100000;
+        else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
+        else if (args[0] <= userdata.amount && args[0] < maxbet) bet = args[0]
+        else if (args[0] <= userdata.amount && args[0] > maxbet) bet = maxbet
+        else return message.channel.send('Bạn không đủ tiền cược!')
         //2 card each
         for (let i = 0; i < 2; i++){
             player_deck.push(await randomcard(listofcard))
