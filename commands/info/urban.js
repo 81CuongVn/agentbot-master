@@ -1,6 +1,5 @@
 const urban = require('relevant-urban');
 const { MessageEmbed } = require("discord.js");
-
 module.exports = {
     name: "urban",
     category: "info",

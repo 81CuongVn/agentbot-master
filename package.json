@@ -9,9 +9,11 @@
     "ascii-table": "0.0.9",
     "axios": "^0.19.2",
     "better-sqlite3": "^6.0.1",
-    "canvacord": "^1.0.0",
+    "canvacord": "^1.0.1",
     "canvas": "^2.6.1",
     "capitalize": "^2.0.3",
+    "chart.js": "^2.9.3",
+    "chartjs-node-canvas": "^3.0.6",
     "common-tags": "^1.8.0",
     "dateformat": "^3.0.3",
     "dblapi.js": "^2.4.0",
@@ -24,6 +26,7 @@
     "ksoft.js": "^3.1.4",
     "mathjs": "^6.6.0",
     "minimist": "^1.2.5",
+    "moment": "^2.25.3",
     "ms": "^2.1.2",
     "nodemon": "^2.0.2",
     "novelcovid": "^2.1.0",
@@ -41,7 +44,9 @@
     "vultrex.haste": "^1.0.1",
     "weather-js": "^2.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^7.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

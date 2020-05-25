@@ -17,7 +17,7 @@ module.exports = {
         if (message.deletable) message.delete();
 
         // No args
-        if (!args[0]) return message.reply("Vui lòng tag một người nào đó để ban.").then(m => m.delete({timeout: 5000}));
+        if (!args[0]) return message.reply("Vui lòng tag một người nào đó để kick.").then(m => m.delete({timeout: 5000}));
         let reason = args.slice(1).join(' ')
 
         // No reason
