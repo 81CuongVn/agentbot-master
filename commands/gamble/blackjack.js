@@ -120,12 +120,6 @@ async function stop(player, listofcard, bots_deck, player_deck, msg, bet){
     return await msg.edit(createembed(player, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), null, kind_of_winning))
 }
 
-async function userautobust(player, bots_deck, player_deck, msg, bet){
-    let kind_of_winning = "thua";
-    await money(player.id, 'lose', bet)
-    return await msg.edit(createembed(player, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), null, kind_of_winning))
-}
-
 async function money(userid, kind ,ammount){
     if (!userid || !ammount) return null;
     if (kind == 'win'){
