@@ -25,6 +25,7 @@ module.exports = {
         let userdata = eco.fetchMoney(message.author.id);
         let bet = undefined;
         if (args[0] == 'all') bet = 100000;
+        else if (args[0] > userdata.ammount) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else if (args[0] <= userdata.amount && args[0] < maxbet) bet = args[0]
         else if (args[0] <= userdata.amount && args[0] >= maxbet) bet = maxbet
