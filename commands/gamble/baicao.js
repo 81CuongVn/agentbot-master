@@ -1,6 +1,6 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
-const {randomcard, createembedfield} = require('../../functions');
+const {randomcard, createembedfield, laysodep} = require('../../functions');
 const cooldown = new Set();
 const ms = require('ms');
 module.exports = {
@@ -68,18 +68,18 @@ function createembed(nguoichoi, bet, deck_user, deck_bot ,nguoichoi_val, bot_val
     let embed = new MessageEmbed()
             .setColor("#00FFFF")
             .setFooter('Game đang diễn ra')
-            .setAuthor(`${nguoichoi.tag}, bạn đã cược ${bet} để chơi bài cào!`, nguoichoi.avatarURL())
+            .setAuthor(`${nguoichoi.tag}, bạn đã cược ${laysodep(bet)} để chơi bài cào!`, nguoichoi.avatarURL())
             .setFooter("Đang chơi!")
     if (end == 'thang'){ 
         embed.setColor("#90EE90") //light green
-        embed.footer.text = `Bạn thắng ${bet} tiền!`
+        embed.footer.text = `Bạn thắng ${laysodep(bet)} tiền!`
         embed.addFields(
             {name: `Bot: [${bot_val}]`, value: deck_bot},
             {name: `User: [${nguoichoi_val}]`, value: deck_user}
         )
     } else if (end == 'thua'){ //thua
         embed.setColor("#FF0000") //red
-        embed.footer.text = `Bạn thua ${bet} tiền!`
+        embed.footer.text = `Bạn thua ${laysodep(bet)} tiền!`
         embed.addFields(
             {name: `Bot: [${bot_val}]`, value: deck_bot},
             {name: `User: [${nguoichoi_val}]`, value: deck_user}
@@ -99,7 +99,7 @@ function createembed(nguoichoi, bet, deck_user, deck_bot ,nguoichoi_val, bot_val
     } else if (end == 'jqkwin'){
         embed.setColor("#77dd77") //pastel green
         embed.setTitle(`Bạn có 3 con tiên!`)
-        embed.footer.text = `Bạn thắng ${parseInt(bet.toString().replace(',', '')) *3} tiền!`
+        embed.footer.text = `Bạn thắng ${laysodep(parseInt(bet.toString().replace(',', '')) *3)} tiền!`
         embed.addFields(
             {name: `Bot: [${bot_val}]`, value: deck_bot},
             {name: `User: [${nguoichoi_val}]`, value: deck_user}

@@ -71,7 +71,7 @@ module.exports = {
                 listofcard.filter(e => e !== player_deck)
                 if (getcardvalue(player_deck) > 21 || parseInt(getcardvalue(player_deck).replace('*', '')) > 21){
                     collector.stop()
-                    return await userautobust(message.author, bots_deck, player_deck, msg, bet)
+                    return await stop(message.author, listofcard, bots_deck, player_deck, msg, bet)
                 }
                 await msg.edit(createembed(message.author, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), createembedfield(hide_deck), "not"))
             } else if (reaction.emoji.name === stopemoji){
