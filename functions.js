@@ -163,5 +163,9 @@ module.exports = {
             line+= card
         })
         return line
+    },
+    locbai : function(listOfCard, deck){
+        if (!Array.isArray(listOfCard) || !Array.isArray(deck)) return null;
+        return listOfCard.filter(item => !deck.includes(item))
     }
 }

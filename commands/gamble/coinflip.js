@@ -14,11 +14,11 @@ module.exports = {
     aliases: ['cf'],
     category: 'gamble',
     description: 'Tung đồng xu (50%)',
-    usage: 'coinflip <user_choose> <ammount>',
+    usage: 'coinflip <user_choose> <tiền cược>',
     VD: 'coinflip t 50000',
     run: async (client, message, args) => {
         if (cooldown.has(message.author.id)) return message.channel.send('Bạn phải chờ 5 giây sau khi chơi xong để chơi tiếp.')
-        let maxbet = 100000;
+        let maxbet = 500000;
         let user_choose = args[0]
         if (!user_choose || user_choose == 'all' || !isNaN(user_choose)) return message.channel.send('Vui lòng chọn head hoặc tail.')
         switch(user_choose.toLowerCase()){
@@ -31,23 +31,26 @@ module.exports = {
                 break;
             }
         }
-        let ammount = args[1]
-        if (!ammount || (isNaN(ammount) && ammount !== 'all')) return message.channel.send('Vui lòng nhập số tiền cược!')
-        let usermoney = eco.fetchMoney(message.author.id).amount
-        if (usermoney < ammount || usermoney == 0) return message.channel.send('Bạn không đủ tiền để chơi!')
-        if (args[1] == 'all' || ammount > maxbet) ammount = maxbet
-        await message.channel.send(`${coin_gif} **${message.author.tag}** cược **${laysodep(ammount)}** và đã chọn **${user_choose}**!`)
+        let userdata = eco.fetchMoney(message.author.id);
+        let bet = undefined;
+        if (args[1] == 'all') bet = 100000;
+        else if (args[1] > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
+        else if (isNaN(args[1])) return message.channel.send('Vui lòng nhập tiền cược!');
+        else if (args[1] <= parseInt(userdata.amount) && args[1] < maxbet) bet = args[1]
+        else if (args[1] <= parseInt(userdata.amount) && args[1] >= maxbet) bet = maxbet
+        else return message.channel.send('Bạn không có đủ tiền để chơi!')
+        await message.channel.send(`${coin_gif} **${message.author.tag}** cược **${laysodep(bet)}** và đã chọn **${user_choose}**!`)
         //random
         let userrand = random[Math.floor(Math.random() * random.length)]
         let final = check(user_choose, userrand)
         sleep(ms('4s'));
         if (final === true){
             //win
-            message.channel.send(`Và kết quả là **${dict[userrand]}**(${userrand}), bạn đã thắng **${laysodep(ammount)}**`)
-            await money(message.author.id, 'win', ammount)
+            message.channel.send(`Và kết quả là ${dict[userrand]}(**${userrand}**), bạn đã thắng **${laysodep(bet)}**`)
+            await money(message.author.id, 'win', bet)
         } else if (final === false){
-            message.channel.send(`Và kết quả là **${dict[userrand]}**(${userrand}), bạn đã mất hết tiền cược.`)
-            await money(message.author.id, 'lose', ammount)
+            message.channel.send(`Và kết quả là ${dict[userrand]}(**${userrand}**), bạn đã mất hết tiền cược.`)
+            await money(message.author.id, 'lose', bet)
             //lose
         } else {
             message.channel.send('Bot lỗi, bạn sẽ không bị trừ tiền!')
@@ -66,11 +69,11 @@ function check(user_choose, userrand){
     else return false;
 }
 
-async function money(userid, kind ,ammount){
-    if (!userid || !ammount) return null;
+async function money(userid, kind, bet){
+    if (!userid || !bet) return null;
     if (kind == 'win'){
-        await eco.addMoney(userid, ammount)
+        await eco.addMoney(userid, bet)
     } else {
-        await eco.removeMoney(userid, ammount)
+        await eco.removeMoney(userid, bet)
     }
 }

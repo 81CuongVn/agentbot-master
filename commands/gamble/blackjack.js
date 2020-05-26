@@ -1,6 +1,6 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
-const {getcardvalue, randomcard, checkautowin, createembed, laysodep, createembedfield} = require('../../functions.js');
+const {getcardvalue, randomcard, checkautowin, createembed, laysodep, createembedfield, locbai} = require('../../functions.js');
 const hitemoji = "👊";
 const stopemoji = "🛑"
 const ms = require('ms');
@@ -33,9 +33,9 @@ module.exports = {
         //2 card each
         for (let i = 0; i < 2; i++){
             player_deck.push(await randomcard(listofcard))
-            listofcard.filter(e => e !== player_deck)
+            listofcard = locbai(listofcard, player_deck)
             bots_deck.push(await randomcard(listofcard))
-            listofcard.filter(e => e !== player_deck)
+            listofcard = locbai(listofcard, bots_deck)
             hide_deck.push(backcard)
         }
         //max bet phải sửa lại
@@ -68,7 +68,7 @@ module.exports = {
         collector.on('collect',async (reaction, user) => {
             if (reaction.emoji.name === hitemoji){
                 player_deck.push(await randomcard(listofcard))
-                listofcard.filter(e => e !== player_deck)
+                listofcard = locbai(listofcard, player_deck)
                 if (getcardvalue(player_deck) > 21 || parseInt(getcardvalue(player_deck).replace('*', '')) > 21){
                     collector.stop()
                     return await stop(message.author, listofcard, bots_deck, player_deck, msg, bet)
@@ -93,7 +93,7 @@ module.exports = {
 async function stop(player, listofcard, bots_deck, player_deck, msg, bet){
     while (getcardvalue(bots_deck) < 15 || parseInt(getcardvalue(bots_deck).replace('*', '')) < 15){
         bots_deck.push(await randomcard(listofcard))
-        listofcard.filter(e => e !== player_deck)
+        listofcard = locbai(listofcard, bots_deck)
     }
     let kind_of_winning = undefined
     let bot_points = getcardvalue(bots_deck) 
@@ -128,3 +128,4 @@ async function money(userid, kind ,ammount){
         await eco.removeMoney(userid, ammount)
     }
 }
+
