@@ -14,14 +14,14 @@ module.exports = {
         if (cooldown.has(message.author.id)) return message.channel.send('Bạn phải chờ 5 giây để chơi tiếp!')
         let player_deck = [];
         let bots_deck =  [];
-        let maxbet = 5000000;
+        let maxbet = 500000;
         let backcard = '<:back:709983842542288899>'
         let listofcard = require('../../data/cardemojis.json').fulllist
         let hide_deck = []
         let bet = undefined;
         let userdata = eco.fetchMoney(message.author.id);
         if (args[0] == 'all') bet = 100000;
-        else if (args[0] > userdata.ammount) return message.channel.send('Bạn không có đủ tiền để chơi!')
+        else if (args[0] > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else if (args[0] <= parseInt(userdata.amount) && args[0] < maxbet) bet = args[0]
         else if (args[0] <= parseInt(userdata.amount) && args[0] >= maxbet) bet = maxbet
