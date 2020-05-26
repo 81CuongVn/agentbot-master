@@ -40,6 +40,9 @@ module.exports = {
         let msg = await message.channel.send(createembed(message.author, bet, createembedfield(player_deck), createembedfield(bots_deck), getval(player_deck).point, getval(bots_deck).point, createembedfield(hide_deck), "not"));
         let usercard = getval(player_deck)
         let botdata = getval(bots_deck)
+        setTimeout(() => {
+            cooldown.delete(message.author.id)
+        }, ms('5s'))
         if (usercard.jqk === 3){
             //x3 tiền + win
             await money(message.author.id, 'thang', bet*3)
@@ -63,11 +66,7 @@ module.exports = {
             } else if (reaction.emoji.name === stopEmoji){
                 await stop(usercard, botdata, bet, message.author, player_deck, bots_deck, hide_deck, msg)
             }
-        })
-        setTimeout(() => {
-            cooldown.delete(message.author.id)
-        }, ms('5s'))
-        
+        })        
     }
 }
 
