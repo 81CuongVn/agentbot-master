@@ -39,11 +39,11 @@ module.exports = {
         let botdata = getval(bots_deck)
         if (usercard.jqk === 3){
             //x3 tiền + win
-            await money(user.id, 'thang', bet*3)
+            await money(message.author.id, 'thang', bet*3)
             return msg.edit(createembed(message.author, bet, createembedfield(player_deck), createembedfield(bots_deck), usercard.point, botdata.point, createembedfield(hide_deck), 'jqkwin'))
         } else if (botdata.jqk === 3){
             //mất tiền + thua
-            await money(user.id, 'lose', bet)
+            await money(message.author.id, 'lose', bet)
             return msg.edit(createembed(message.author, bet, createembedfield(player_deck), createembedfield(bots_deck), usercard.point, botdata.point, createembedfield(hide_deck), 'jqklose'))
         }
         if (userdata.amount >= bet) msg.react(doubledownEmoji)
