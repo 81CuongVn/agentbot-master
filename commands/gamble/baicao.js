@@ -1,7 +1,9 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
 const {randomcard, createembedfield, laysodep, locbai} = require('../../functions');
-const cooldown = new Set();
+const cooldown = new Map();
+const Duration = require('humanize-duration');
+const timerEmoji = '<a:timer:714891786274734120>';
 const ms = require('ms');
 const doubledownEmoji = "👌";
 const stopEmoji = "🛑";
@@ -11,7 +13,7 @@ module.exports = {
     description: 'bài cào',
     category: 'gamble',
     run: async (client, message, args) => {
-        if (cooldown.has(message.author.id)) return message.channel.send('Bạn phải chờ 5 giây để chơi tiếp!')
+        if (cooldown.get(message.author.id)) return message.channel.send(`${timerEmoji} Bạn cần phải đợi thêm \`${Duration(cooldown.get(message.author.id) - Date.now(), {units: ['s'], round: true, language: 'vi'})}\` để có thể sử dụng tiếp lệnh này!`)
         let player_deck = [];
         let bots_deck =  [];
         let maxbet = 500000;
@@ -26,6 +28,7 @@ module.exports = {
         else if (args[0] <= parseInt(userdata.amount) && args[0] < maxbet) bet = args[0]
         else if (args[0] <= parseInt(userdata.amount) && args[0] >= maxbet) bet = maxbet
         else return message.channel.send('Bạn không có đủ tiền để chơi!')
+        cooldown.set(message.author.id, Date.now() + ms('5s'));
         //3 lá 1 set
         for (let i = 0; i < 3; i++){
             player_deck.push(await randomcard(listofcard))

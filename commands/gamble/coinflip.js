@@ -8,7 +8,9 @@ const dict = {
 }
 const {laysodep, sleep} = require('../../functions');
 const ms = require('ms');
-const cooldown = new Set();
+const cooldown = new Map();
+const Duration = require('humanize-duration');
+const timerEmoji = '<a:timer:714891786274734120>';
 module.exports = {
     name: 'coinflip',
     aliases: ['cf'],
@@ -17,7 +19,7 @@ module.exports = {
     usage: 'coinflip <user_choose> <tiền cược>',
     VD: 'coinflip t 50000',
     run: async (client, message, args) => {
-        if (cooldown.has(message.author.id)) return message.channel.send('Bạn phải chờ 5 giây sau khi chơi xong để chơi tiếp.')
+        if (cooldown.get(message.author.id)) return message.channel.send(`${timerEmoji} Bạn cần phải đợi thêm \`${Duration(cooldown.get(message.author.id) - Date.now(), {units: ['s'], round: true, language: 'vi'})}\` để có thể sử dụng tiếp lệnh này!`)
         let maxbet = 500000;
         let user_choose = args[0]
         if (!user_choose || user_choose == 'all' || !isNaN(user_choose)) return message.channel.send('Vui lòng chọn head hoặc tail.')
@@ -56,7 +58,7 @@ module.exports = {
             message.channel.send('Bot lỗi, bạn sẽ không bị trừ tiền!')
             //k trừ tiền
         }
-        cooldown.add(message.author.id)
+        cooldown.set(message.author.id, Date.now() + ms('5s'));
         setTimeout(() => {
             cooldown.delete(message.author.id)
         }, ms('5s'))

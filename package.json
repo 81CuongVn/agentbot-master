@@ -23,6 +23,7 @@
     "get-json": "^1.0.1",
     "google-translate": "^3.0.0",
     "graphql-request": "^1.8.2",
+    "humanize-duration": "^3.23.0",
     "ksoft.js": "^3.1.4",
     "mathjs": "^6.6.0",
     "minimist": "^1.2.5",
