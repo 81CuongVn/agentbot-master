@@ -11,8 +11,3 @@ module.exports = {
         message.channel.send(random)
     }
 }
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: 100
-}

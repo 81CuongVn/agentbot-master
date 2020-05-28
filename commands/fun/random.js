@@ -10,8 +10,3 @@ module.exports = {
         return message.channel.send(`🎲 Số của bạn là: ${await random(0, args[0])}`)
     }
 }
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: 100
-}

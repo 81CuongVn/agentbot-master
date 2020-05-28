@@ -3,6 +3,7 @@ const eco = new Eco.Manager();
 const {laysodep} = require('../../functions.js')
 module.exports = {
     name: "cash",
+    cooldown: 5,
     category: 'gamble',
     aliases: ["balance", "bal"],
     description: "Show tiền!",
@@ -12,9 +13,4 @@ module.exports = {
         let userdata = eco.fetchMoney(message.author.id)
         message.channel.send(`${money_emoji} Bạn đang có **${laysodep(userdata.amount)}** tiền!`)
     }
-}
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: 100
 }

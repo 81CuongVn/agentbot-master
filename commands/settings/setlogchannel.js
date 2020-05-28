@@ -24,8 +24,3 @@ module.exports = {
         message.channel.send(`Đã lưu ${channel} vào log channel!`)
     }
 }
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: 100
-}

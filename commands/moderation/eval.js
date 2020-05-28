@@ -34,8 +34,3 @@ module.exports = {
             } else return message.channel.send("Lệnh này chỉ dành cho owner của bot.")
     }
 }
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: 100
-}

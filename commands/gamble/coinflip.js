@@ -11,6 +11,7 @@ const ms = require('ms');
 module.exports = {
     name: 'coinflip',
     aliases: ['cf'],
+    cooldown: 5,
     category: 'gamble',
     description: 'Tung đồng xu (50%)',
     usage: 'coinflip <user_choose> <tiền cược>',
@@ -70,9 +71,4 @@ async function money(userid, kind, bet){
     } else {
         await eco.removeMoney(userid, bet)
     }
-}
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: ms('5s')
 }

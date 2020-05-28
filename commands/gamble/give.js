@@ -19,8 +19,3 @@ module.exports = {
         return message.channel.send(`Bạn đã chuyển thành công **${laysodep(sotienchuyen)}** tiền tới **${member.user.tag}**.`)
     }
 }
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: 100
-}

@@ -6,6 +6,7 @@ const doubledownEmoji = "👌";
 const stopEmoji = "🛑";
 module.exports = {
     name: 'baicao',
+    cooldown: 5,
     aliases: ['bc'],
     description: 'bài cào',
     category: 'gamble',
@@ -165,9 +166,3 @@ async function money(userid, kind, ammount){
         await eco.addMoney(userid, ammount)
     } else await eco.removeMoney(userid, ammount)
 }
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: ms('10s')
-}
-

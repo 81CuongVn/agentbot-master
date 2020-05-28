@@ -13,6 +13,7 @@ const client = new Client({
     disableMentions: "everyone"
 });
 const Duration = require('humanize-duration');
+const moment = require('moment');
 
 //top.gg API
 const DBL = require('dblapi.js');
@@ -31,7 +32,7 @@ const instance = axios.create({
 const db = require('quick.db');
 client.commands = new Collection();
 client.aliases = new Collection();
-client.limits = new Map();
+const cooldowns = new Collection();
 
 
 dbl.on('posted', () => {
@@ -155,21 +156,21 @@ client.on("message", async message => {
     let command = client.commands.get(cmd);
     if (!command) command = client.commands.get(client.aliases.get(cmd));
     if (command) {
-        if (command.limits) {
-            const current = client.limits.get(`${command}-${message.author.id}`);
-    
-            if (!current) client.limits.set(`${command}-${message.author.id}`, {rate: 1, timeend: Date.now() + command.limits.cooldown})
-            else {
-                if (current.rate >= command.limits.rateLimit) return message.channel.send(`${timerEmoji} Bạn cần phải chờ thêm \`${Duration(current.timeend - Date.now(), {units: ['s'], language: 'vi', round: false})}\` để có thể sử dụng tiếp lệnh này.`)
-                client.limits.set(`${command}-${message.author.id}`, {rate: current.rate + 1, timeend: current.timeend});
+        if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Collection());
+        let now = Date.now()
+        let timestamps = cooldowns.get(command.name)
+        let cooldownAmount = (command.cooldown || 3) * 1000;
+        if (timestamps.has(message.author.id)){
+            let expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+            if (now < expirationTime){
+                let timeLeft = (expirationTime - now)/1000;
+                return message.reply(`${timerEmoji} Vui lòng đợi thêm ${timeLeft.toFixed(1)} giây để có thể sử dụng lệnh này.`)
             }
-            setTimeout(() => {
-                client.limits.delete(`${command}-${message.author.id}`);
-            }, command.limits.cooldown);
-            command.run(client, message, args); 
-        } else command.run(client, message, args);
+        }
+        timestamps.set(message.author.id, now)
+        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount)
+        command.run(client, message, args);
     }
-    
 });
 
 client.on('voiceStateUpdate', (oldstate, newstate) => {

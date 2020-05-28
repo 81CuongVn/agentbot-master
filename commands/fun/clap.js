@@ -10,8 +10,3 @@ module.exports = {
         message.channel.send(clapped)
     }
 }
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: 100
-}

@@ -94,8 +94,3 @@ module.exports = {
         }
     }
 }
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: 100
-}

@@ -3,10 +3,11 @@ const eco = new Eco.Manager();
 const {getcardvalue, randomcard, checkautowin, createembed, laysodep, createembedfield, locbai} = require('../../functions.js');
 const hitemoji = "👊";
 const stopemoji = "🛑"
-const ms = require('ms');
+const ms = require('ms')
 module.exports = {
     name: 'blackjack',
     category: 'gamble',
+    cooldown: 10,
     aliases: ['bj'],
     description: 'Chơi blackjack (xì dách)',
     note: 'Trên 21 điểm là thua :)',
@@ -118,9 +119,4 @@ async function money(userid, kind ,ammount){
     } else {
         await eco.removeMoney(userid, ammount)
     }
-}
-
-module.exports.limits = {
-    rateLimit: 1,
-    cooldown: ms('10s')
 }
