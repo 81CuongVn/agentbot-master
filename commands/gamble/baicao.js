@@ -57,7 +57,7 @@ module.exports = {
         const filter = (reaction, user) => {
             return (reaction.emoji.name === doubledownEmoji || reaction.emoji.name === stopEmoji) && user.id === message.author.id
         }
-        let collector = msg.createReactionCollector(filter, {time: ms('1m')})
+        let collector = msg.createReactionCollector(filter, {time: ms('1m'), maxEmojis: 1})
         collector.on('collect', async (reaction, user) => {
             if (reaction.emoji.name === doubledownEmoji){
                 //check người ta có đủ điều kiện để cược x2
