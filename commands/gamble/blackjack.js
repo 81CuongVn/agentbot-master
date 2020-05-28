@@ -4,9 +4,6 @@ const {getcardvalue, randomcard, checkautowin, createembed, laysodep, createembe
 const hitemoji = "👊";
 const stopemoji = "🛑"
 const ms = require('ms');
-const cooldown = new Map();
-const Duration = require('humanize-duration');
-const timerEmoji = '<a:timer:714891786274734120>';
 module.exports = {
     name: 'blackjack',
     category: 'gamble',
@@ -16,7 +13,6 @@ module.exports = {
     usage: 'backjack <tiền cược>',
     VD: 'bj 10000',
     run: async (client, message, args) => {
-        if (cooldown.get(message.author.id)) return message.channel.send(`${timerEmoji} Bạn cần phải đợi thêm \`${Duration(cooldown.get(message.author.id) - Date.now(), {units: ['s'], round: true, language: 'vi'})}\` để có thể sử dụng tiếp lệnh này!`)
         let player_deck = [];
         let bots_deck = [];
         let maxbet = 500000;
@@ -62,7 +58,6 @@ module.exports = {
         //tính điểm
         msg.react(hitemoji);
         msg.react(stopemoji);
-        cooldown.set(message.author.id, Date.now() + ms('10s'));
         const filter = (reaction, user) => {
             return (reaction.emoji.name === hitemoji || reaction.emoji.name === stopemoji) && user.id === message.author.id
         }
@@ -83,10 +78,6 @@ module.exports = {
         collector.on('end', async (collected, reason) => {
             if (reason == 'time') msg.edit('Trò chơi hết hạn.')
         })
-
-        setTimeout(() => {
-            cooldown.delete(message.author.id)
-        }, ms('10s'))
     }
 }
 
@@ -129,3 +120,7 @@ async function money(userid, kind ,ammount){
     }
 }
 
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: ms('10s')
+}

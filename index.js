@@ -3,7 +3,7 @@ const { config } = require("dotenv");
 config({
     path: __dirname + "/.env"
 });
-
+const timerEmoji = '<a:timer:714891786274734120>';
 const fs = require("fs");
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
@@ -12,6 +12,7 @@ const cooldown = new Set();
 const client = new Client({
     disableMentions: "everyone"
 });
+const Duration = require('humanize-duration');
 
 //top.gg API
 const DBL = require('dblapi.js');
@@ -30,6 +31,7 @@ const instance = axios.create({
 const db = require('quick.db');
 client.commands = new Collection();
 client.aliases = new Collection();
+client.limits = new Map();
 
 
 dbl.on('posted', () => {
@@ -39,6 +41,7 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
     console.log(e)
 })
+
 client.categories = fs.readdirSync("./commands/");
 
 
@@ -88,7 +91,7 @@ client.on("ready", () => {
     instance.post(`bots/${client.user.id}/stats`, {
         guildCount: client.guilds.cache.size
     })
-
+    
 });
 
 client.on("guildCreate", async newguild => { //bot join server
@@ -145,13 +148,28 @@ client.on("message", async message => {
     }
     if (prefix === null) return;
     if (!message.content.startsWith(prefix)) return;
-    if (!message.member) message.member = await message.guild.fetchMember(message);
+
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
     if (cmd.length === 0) return;
     let command = client.commands.get(cmd);
     if (!command) command = client.commands.get(client.aliases.get(cmd));
-    if (command) command.run(client, message, args);
+    if (command) {
+        if (command.limits) {
+            const current = client.limits.get(`${command}-${message.author.id}`);
+    
+            if (!current) client.limits.set(`${command}-${message.author.id}`, {rate: 1, timeend: Date.now() + command.limits.cooldown})
+            else {
+                console.log(current)
+                if (current.rate >= command.limits.rateLimit) return message.channel.send(`${timerEmoji} Bạn cần phải chờ thêm \`${Duration(current.timeend - Date.now(), {units: ['s'], language: 'vi', round: false})}\` để có thể sử dụng tiếp lệnh này.`)
+                client.limits.set(`${command}-${message.author.id}`, {rate: current.rate + 1, timeend: current.timeend});
+            }
+        }
+        setTimeout(() => {
+            client.limits.delete(`${command}-${message.author.id}`);
+        }, command.limits.cooldown);
+        command.run(client, message, args);
+    }
 });
 
 client.on('voiceStateUpdate', (oldstate, newstate) => {
@@ -170,8 +188,8 @@ let y = process.openStdin()
 y.addListener("data", res => {
     let x = res.toString().trim().split(/ +/g)
     let send = x.join(' ')
-    if (send.length == 0) return console.log(`Đéo gởi được tin nhắn trống :)`)
-    client.channels.get("663966227332333628").send(send);
+    if (send.length == 0) return console.log("Kh gởi được tin nhắn trống :)")
+    client.channels.cache.get("702983688811708416").send(send);
 });
 //end console chat
 client.login(process.env.TOKEN);

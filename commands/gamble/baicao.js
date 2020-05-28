@@ -1,9 +1,6 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
 const {randomcard, createembedfield, laysodep, locbai} = require('../../functions');
-const cooldown = new Map();
-const Duration = require('humanize-duration');
-const timerEmoji = '<a:timer:714891786274734120>';
 const ms = require('ms');
 const doubledownEmoji = "👌";
 const stopEmoji = "🛑";
@@ -13,13 +10,12 @@ module.exports = {
     description: 'bài cào',
     category: 'gamble',
     run: async (client, message, args) => {
-        if (cooldown.get(message.author.id)) return message.channel.send(`${timerEmoji} Bạn cần phải đợi thêm \`${Duration(cooldown.get(message.author.id) - Date.now(), {units: ['s'], round: true, language: 'vi'})}\` để có thể sử dụng tiếp lệnh này!`)
         let player_deck = [];
         let bots_deck =  [];
         let maxbet = 500000;
-        let backcard = '<:back:709983842542288899>'
-        let listofcard = require('../../data/cardemojis.json').fulllist
-        let hide_deck = []
+        let backcard = '<:back:709983842542288899>';
+        let listofcard = require('../../data/cardemojis.json').fulllist;
+        let hide_deck = [];
         let bet = undefined;
         let userdata = eco.fetchMoney(message.author.id);
         if (args[0] == 'all') bet = 100000;
@@ -28,7 +24,6 @@ module.exports = {
         else if (args[0] <= parseInt(userdata.amount) && args[0] < maxbet) bet = args[0]
         else if (args[0] <= parseInt(userdata.amount) && args[0] >= maxbet) bet = maxbet
         else return message.channel.send('Bạn không có đủ tiền để chơi!')
-        cooldown.set(message.author.id, Date.now() + ms('5s'));
         //3 lá 1 set
         for (let i = 0; i < 3; i++){
             player_deck.push(await randomcard(listofcard))
@@ -40,9 +35,6 @@ module.exports = {
         let msg = await message.channel.send(createembed(message.author, bet, createembedfield(player_deck), createembedfield(bots_deck), getval(player_deck).point, getval(bots_deck).point, createembedfield(hide_deck), "not"));
         let usercard = getval(player_deck)
         let botdata = getval(bots_deck)
-        setTimeout(() => {
-            cooldown.delete(message.author.id)
-        }, ms('5s'))
         if (usercard.jqk === 3){
             //x3 tiền + win
             await money(message.author.id, 'thang', bet*3)
@@ -172,5 +164,10 @@ async function money(userid, kind, ammount){
     if (kind == 'thang'){
         await eco.addMoney(userid, ammount)
     } else await eco.removeMoney(userid, ammount)
+}
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: ms('10s')
 }
 
