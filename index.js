@@ -164,12 +164,13 @@ client.on("message", async message => {
                 if (current.rate >= command.limits.rateLimit) return message.channel.send(`${timerEmoji} Bạn cần phải chờ thêm \`${Duration(current.timeend - Date.now(), {units: ['s'], language: 'vi', round: false})}\` để có thể sử dụng tiếp lệnh này.`)
                 client.limits.set(`${command}-${message.author.id}`, {rate: current.rate + 1, timeend: current.timeend});
             }
-        }
             setTimeout(() => {
                 client.limits.delete(`${command}-${message.author.id}`);
             }, command.limits.cooldown);
+            command.run(client, message, args); 
+        } else command.run(client, message, args);
     }
-    command.run(client, message, args);
+    
 });
 
 client.on('voiceStateUpdate', (oldstate, newstate) => {
