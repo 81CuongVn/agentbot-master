@@ -11,3 +11,8 @@ module.exports = {
         return message.channel.send(attach)
     }
 }
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: 100
+}

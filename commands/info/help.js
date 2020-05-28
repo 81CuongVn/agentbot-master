@@ -55,3 +55,8 @@ function getCMD(client, message, input){
 
     return message.channel.send(embed.setColor("GREEN").setDescription(info));
 }
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: 100
+}

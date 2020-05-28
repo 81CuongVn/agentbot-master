@@ -23,3 +23,8 @@ module.exports = {
         message.channel.send(`Set nickname thành công cho ${user} từ **${user.displayName}** thành **${output}**`)
     }
 }
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: 100
+}

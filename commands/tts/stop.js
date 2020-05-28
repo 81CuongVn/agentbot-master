@@ -16,3 +16,8 @@ module.exports = {
         await db.set(`${message.guild.id}.botdangnoi`, false)
     }
 }
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: 100
+}

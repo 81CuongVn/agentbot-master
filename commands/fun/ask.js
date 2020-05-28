@@ -11,3 +11,8 @@ module.exports = {
         return message.reply(random);
     }
 }
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: 100
+}

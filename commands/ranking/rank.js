@@ -84,3 +84,8 @@ module.exports = {
         message.channel.send(`Rank của bạn **${member.user.username}**`,attachment);
     }
 }
+
+module.exports.limits = {
+  rateLimit: 1,
+  cooldown: 100
+}

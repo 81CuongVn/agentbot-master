@@ -13,3 +13,8 @@ module.exports = {
         message.channel.send(`${money_emoji} Bạn đang có **${laysodep(userdata.amount)}** tiền!`)
     }
 }
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: 100
+}

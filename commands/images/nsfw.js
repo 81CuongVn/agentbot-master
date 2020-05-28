@@ -19,3 +19,8 @@ module.exports = {
         return message.channel.send(embed)
     }
 }
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: 100
+}

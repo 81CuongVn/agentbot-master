@@ -19,3 +19,8 @@ module.exports = {
         else return message.channel.send('Bạn phải nhập on hoặc off để sử dụng lệnh này.')        
     }
 }
+
+module.exports.limits = {
+    rateLimit: 1,
+    cooldown: 100
+}
