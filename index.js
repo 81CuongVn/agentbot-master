@@ -165,11 +165,11 @@ client.on("message", async message => {
                 client.limits.set(`${command}-${message.author.id}`, {rate: current.rate + 1, timeend: current.timeend});
             }
         }
-        setTimeout(() => {
-            client.limits.delete(`${command}-${message.author.id}`);
-        }, command.limits.cooldown);
-        command.run(client, message, args);
+            setTimeout(() => {
+                client.limits.delete(`${command}-${message.author.id}`);
+            }, command.limits.cooldown);
     }
+    command.run(client, message, args);
 });
 
 client.on('voiceStateUpdate', (oldstate, newstate) => {
