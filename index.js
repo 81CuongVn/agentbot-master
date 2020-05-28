@@ -160,7 +160,6 @@ client.on("message", async message => {
     
             if (!current) client.limits.set(`${command}-${message.author.id}`, {rate: 1, timeend: Date.now() + command.limits.cooldown})
             else {
-                console.log(current)
                 if (current.rate >= command.limits.rateLimit) return message.channel.send(`${timerEmoji} Bạn cần phải chờ thêm \`${Duration(current.timeend - Date.now(), {units: ['s'], language: 'vi', round: false})}\` để có thể sử dụng tiếp lệnh này.`)
                 client.limits.set(`${command}-${message.author.id}`, {rate: current.rate + 1, timeend: current.timeend});
             }
