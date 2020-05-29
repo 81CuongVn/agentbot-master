@@ -79,12 +79,15 @@ module.exports = {
                 }
                 await msg.edit(createembed(message.author, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), createembedfield(hide_deck), "not"))
             } else if (reaction.emoji.name === stopemoji){
+                collector.stop()
                 await stop(message.author, listofcard, bots_deck, player_deck, msg, bet, check_game)
             }
         })
         collector.on('end', async (collected, reason) => {
-            if (reason == 'time') msg.edit('Trò chơi hết hạn. Bạn sẽ bị trừ tiền.')
-            money(message.author.id, "thua", bet)
+            if (reason == 'time') {
+                msg.edit('Trò chơi hết hạn. Bạn sẽ bị trừ tiền.')
+                money(message.author.id, "thua", bet)
+            }
             check_game.delete(message.author.id)
         })
     }

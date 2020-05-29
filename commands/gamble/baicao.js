@@ -64,13 +64,17 @@ module.exports = {
                 //check người ta có đủ điều kiện để cược x2
                 bet = bet * 2
                 await stop(usercard, botdata, bet, message.author, player_deck, bots_deck, hide_deck, msg, check_game)
+                collector.stop()
             } else if (reaction.emoji.name === stopEmoji){
                 await stop(usercard, botdata, bet, message.author, player_deck, bots_deck, hide_deck, msg, check_game)
+                collector.stop()
             }
         })
         collector.on('end', async (collected, reason) => {
-            if (reason == 'time') msg.edit('Trò chơi hết hạn. Bạn sẽ bị trừ tiền.')
-            money(message.author.id, "thua", bet)
+            if (reason == 'time') {
+                msg.edit('Trò chơi hết hạn. Bạn sẽ bị trừ tiền.')
+                money(message.author.id, "thua", bet)
+            }
             check_game.delete(message.author.id)
         })
     }
