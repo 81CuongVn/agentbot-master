@@ -21,13 +21,14 @@ module.exports = {
         let hide_deck = [];
         let bet = undefined;
         let userdata = eco.fetchMoney(message.author.id);
+        if (args[0] == 0) return message.channel.send('Bạn không thể cược 0.')
         if (args[0] == 'all') {
             bet = 100000;
-            if (bet < parseInt(userdata.ammount)) bet = parseInt(userdata.amount)
+            if (bet > userdata.amount) bet = userdata.amount
         }
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else bet = args[0]
-        if (bet >= parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
+        if (bet > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (bet > maxbet) bet = maxbet
         check_game.add(message.author.id)
         //3 lá 1 set
