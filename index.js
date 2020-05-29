@@ -12,8 +12,6 @@ const cooldown = new Set();
 const client = new Client({
     disableMentions: "everyone"
 });
-const Duration = require('humanize-duration');
-const moment = require('moment');
 
 //top.gg API
 const DBL = require('dblapi.js');
@@ -164,7 +162,7 @@ client.on("message", async message => {
             let expirationTime = timestamps.get(message.author.id) + cooldownAmount;
             if (now < expirationTime){
                 let timeLeft = (expirationTime - now)/1000;
-                return message.reply(`${timerEmoji} Vui lòng đợi thêm ${timeLeft.toFixed(1)} giây để có thể sử dụng lệnh này.`)
+                return message.reply(`${timerEmoji} Vui lòng đợi thêm \`${timeLeft.toFixed(1)} giây\` để có thể sử dụng lệnh này.`)
             }
         }
         timestamps.set(message.author.id, now)
