@@ -4,6 +4,7 @@ const {randomcard, createembedfield, laysodep, locbai} = require('../../function
 const ms = require('ms');
 const doubledownEmoji = "👌";
 const stopEmoji = "🛑";
+const check_game = new Set();
 module.exports = {
     name: 'baicao',
     cooldown: 5,
@@ -11,6 +12,8 @@ module.exports = {
     description: 'bài cào',
     category: 'gamble',
     run: async (client, message, args) => {
+        if (check_game.has(message.author.id)) return message.channel.send('Bạn chưa hoàn thành ván đấu, vui lòng hoàn thành ván chơi!')
+        check_game.add(message.author.id)
         let player_deck = [];
         let bots_deck =  [];
         let maxbet = 500000;
@@ -55,15 +58,20 @@ module.exports = {
             if (reaction.emoji.name === doubledownEmoji){
                 //check người ta có đủ điều kiện để cược x2
                 bet = bet * 2
-                await stop(usercard, botdata, bet, message.author, player_deck, bots_deck, hide_deck, msg)
+                await stop(usercard, botdata, bet, message.author, player_deck, bots_deck, hide_deck, msg, check_game)
             } else if (reaction.emoji.name === stopEmoji){
-                await stop(usercard, botdata, bet, message.author, player_deck, bots_deck, hide_deck, msg)
+                await stop(usercard, botdata, bet, message.author, player_deck, bots_deck, hide_deck, msg, check_game)
             }
-        })        
+        })
+        collector.on('end', async (collected, reason) => {
+            if (reason == 'time') msg.edit('Trò chơi hết hạn.')
+            check_game.delete(message.author.id)
+        })
     }
 }
 
-async function stop(usercard, botdata, bet, user, player_deck, bots_deck, hide_deck, msg) {
+async function stop(usercard, botdata, bet, user, player_deck, bots_deck, hide_deck, msg, check_game) {
+    check_game.delete(user.id)
     let kind_of_winning = undefined;
         if (usercard.point == botdata.point){
             kind_of_winning = 'hoa'

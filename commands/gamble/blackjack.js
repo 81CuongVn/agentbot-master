@@ -1,6 +1,7 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
 const {getcardvalue, randomcard, checkautowin, createembed, laysodep, createembedfield, locbai} = require('../../functions.js');
+const check_game = new Set();
 const hitemoji = "👊";
 const stopemoji = "🛑"
 const ms = require('ms')
@@ -14,6 +15,8 @@ module.exports = {
     usage: 'backjack <tiền cược>',
     VD: 'bj 10000',
     run: async (client, message, args) => {
+        if (check_game.has(message.author.id)) return message.channel.send('Bạn chưa hoàn thành ván đấu, vui lòng hoàn thành ván chơi!')
+        check_game.add(message.author.id)
         let player_deck = [];
         let bots_deck = [];
         let maxbet = 500000;
@@ -69,20 +72,22 @@ module.exports = {
                 listofcard = locbai(listofcard, player_deck)
                 if (getcardvalue(player_deck) > 21 || parseInt(getcardvalue(player_deck).replace('*', '')) > 21){
                     collector.stop()
-                    return await stop(message.author, listofcard, bots_deck, player_deck, msg, bet)
+                    return await stop(message.author, listofcard, bots_deck, player_deck, msg, bet, check_game)
                 }
                 await msg.edit(createembed(message.author, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), createembedfield(hide_deck), "not"))
             } else if (reaction.emoji.name === stopemoji){
-                await stop(message.author, listofcard, bots_deck, player_deck, msg, bet)
+                await stop(message.author, listofcard, bots_deck, player_deck, msg, bet, check_game)
             }
         })
         collector.on('end', async (collected, reason) => {
             if (reason == 'time') msg.edit('Trò chơi hết hạn.')
+            check_game.delete(message.author.id)
         })
     }
 }
 
-async function stop(player, listofcard, bots_deck, player_deck, msg, bet){
+async function stop(player, listofcard, bots_deck, player_deck, msg, bet, check_game){
+    check_game.delete(player.id)
     while (getcardvalue(bots_deck) < 15 || parseInt(getcardvalue(bots_deck).replace('*', '')) < 15){
         bots_deck.push(await randomcard(listofcard))
         listofcard = locbai(listofcard, bots_deck)
