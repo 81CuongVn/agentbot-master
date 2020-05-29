@@ -33,11 +33,10 @@ module.exports = {
         let userdata = eco.fetchMoney(message.author.id);
         let bet = undefined;
         if (args[1] == 'all') bet = 100000;
-        else if (args[1] > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (isNaN(args[1])) return message.channel.send('Vui lòng nhập tiền cược!');
-        else if (args[1] <= parseInt(userdata.amount) && args[1] < maxbet) bet = args[1]
-        else if (args[1] <= parseInt(userdata.amount) && args[1] >= maxbet) bet = maxbet
-        else return message.channel.send('Bạn không có đủ tiền để chơi!')
+        else bet = args[1]
+        if (bet > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
+        else if (bet > maxbet) bet = maxbet
         await message.channel.send(`${coin_gif} **${message.author.tag}** cược **${laysodep(bet)}** và đã chọn **${user_choose}**!`)
         //random
         let userrand = random[Math.floor(Math.random() * random.length)]

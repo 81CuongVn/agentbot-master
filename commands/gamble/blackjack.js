@@ -27,11 +27,10 @@ module.exports = {
         let userdata = eco.fetchMoney(message.author.id);
         let bet = undefined;
         if (args[0] == 'all') bet = 100000;
-        else if (args[0] > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
-        else if (args[0] <= parseInt(userdata.amount) && args[0] < maxbet) bet = args[0]
-        else if (args[0] <= parseInt(userdata.amount) && args[0] >= maxbet) bet = maxbet
-        else return message.channel.send('Bạn không có đủ tiền để chơi!')
+        else bet = args[0]
+        if (bet > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
+        else if (bet > maxbet) bet = maxbet
         //2 card each
         for (let i = 0; i < 2; i++){
             player_deck.push(await randomcard(listofcard))
