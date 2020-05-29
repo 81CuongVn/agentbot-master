@@ -80,7 +80,8 @@ module.exports = {
             }
         })
         collector.on('end', async (collected, reason) => {
-            if (reason == 'time') msg.edit('Trò chơi hết hạn.')
+            if (reason == 'time') msg.edit('Trò chơi hết hạn. Bạn sẽ bị trừ tiền.')
+            money(message.author.id, "thua", bet)
             check_game.delete(message.author.id)
         })
     }
