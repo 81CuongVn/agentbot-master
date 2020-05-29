@@ -27,7 +27,7 @@ module.exports = {
         let bet = undefined;
         if (args[0] == 'all') {
             bet = 100000;
-            if (bet > parseInt(userdata.ammount)) bet = parseInt(userdata.amount)
+            if (bet < parseInt(userdata.ammount)) bet = parseInt(userdata.amount)
         }
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else bet = args[0]
