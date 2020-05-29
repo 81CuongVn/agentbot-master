@@ -16,7 +16,6 @@ module.exports = {
     VD: 'bj 10000',
     run: async (client, message, args) => {
         if (check_game.has(message.author.id)) return message.channel.send('Bạn chưa hoàn thành ván đấu, vui lòng hoàn thành ván chơi!')
-        check_game.add(message.author.id)
         let player_deck = [];
         let bots_deck = [];
         let maxbet = 500000;
@@ -26,11 +25,15 @@ module.exports = {
         //check bet
         let userdata = eco.fetchMoney(message.author.id);
         let bet = undefined;
-        if (args[0] == 'all') bet = 100000;
+        if (args[0] == 'all') {
+            bet = 100000;
+            if (bet > parseInt(userdata.ammount)) bet = parseInt(userdata.amount)
+        }
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else bet = args[0]
         if (bet > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (bet > maxbet) bet = maxbet
+        check_game.add(message.author.id)
         //2 card each
         for (let i = 0; i < 2; i++){
             player_deck.push(await randomcard(listofcard))

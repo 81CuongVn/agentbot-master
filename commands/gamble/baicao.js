@@ -13,7 +13,6 @@ module.exports = {
     category: 'gamble',
     run: async (client, message, args) => {
         if (check_game.has(message.author.id)) return message.channel.send('Bạn chưa hoàn thành ván đấu, vui lòng hoàn thành ván chơi!')
-        check_game.add(message.author.id)
         let player_deck = [];
         let bots_deck =  [];
         let maxbet = 500000;
@@ -22,11 +21,15 @@ module.exports = {
         let hide_deck = [];
         let bet = undefined;
         let userdata = eco.fetchMoney(message.author.id);
-        if (args[0] == 'all') bet = 100000;
+        if (args[0] == 'all') {
+            bet = 100000;
+            if (bet > parseInt(userdata.ammount)) bet = parseInt(userdata.amount)
+        }
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else bet = args[0]
         if (bet > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (bet > maxbet) bet = maxbet
+        check_game.add(message.author.id)
         //3 lá 1 set
         for (let i = 0; i < 3; i++){
             player_deck.push(await randomcard(listofcard))
@@ -41,10 +44,12 @@ module.exports = {
         if (usercard.jqk === 3){
             //x3 tiền + win
             await money(message.author.id, 'thang', bet*3)
+            check_game.delete(message.author.id)
             return msg.edit(createembed(message.author, bet, createembedfield(player_deck), createembedfield(bots_deck), usercard.point, botdata.point, createembedfield(hide_deck), 'jqkwin'))
         } else if (botdata.jqk === 3){
             //mất tiền + thua
             await money(message.author.id, 'lose', bet)
+            check_game.delete(message.author.id)
             return msg.edit(createembed(message.author, bet, createembedfield(player_deck), createembedfield(bots_deck), usercard.point, botdata.point, createembedfield(hide_deck), 'jqklose'))
         }
         if (userdata.amount >= bet) msg.react(doubledownEmoji)

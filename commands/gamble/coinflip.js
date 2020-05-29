@@ -32,7 +32,10 @@ module.exports = {
         }
         let userdata = eco.fetchMoney(message.author.id);
         let bet = undefined;
-        if (args[1] == 'all') bet = 100000;
+        if (args[0] == 'all') {
+            bet = 100000;
+            if (bet > parseInt(userdata.ammount)) bet = parseInt(userdata.amount)
+        }
         else if (isNaN(args[1])) return message.channel.send('Vui lòng nhập tiền cược!');
         else bet = args[1]
         if (bet > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
