@@ -31,7 +31,7 @@ module.exports = {
         }
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else bet = args[0]
-        if (bet > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
+        if (bet >= parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (bet > maxbet) bet = maxbet
         check_game.add(message.author.id)
         //2 card each
