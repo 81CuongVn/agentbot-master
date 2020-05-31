@@ -52,14 +52,17 @@ module.exports = {
             if (player_first.loaiwin == 'xidach'){
                 //cong tien thuong
                 await eco.addMoney(message.author.id, bet)
+                check_game.delete(message.author.id)
                 return await msg.edit(createembed(message.author, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), createembedfield(hide_deck), "thang"))
             } else if (player_first.loaiwin == 'xibang'){
                 //x2 tien thuong
                 await eco.addMoney(message.author.id, bet*2)
+                check_game.delete(message.author.id)
                 return await msg.edit(createembed(message.author, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), createembedfield(hide_deck), "thangx2"))
             }
         } else if (checkautowin(bots_deck).check == true) {
                 await eco.removeMoney(message.author.id, bet)
+                check_game.delete(message.author.id)
                 return await msg.edit(createembed(message.author, laysodep(bet), createembedfield(player_deck), createembedfield(bots_deck), getcardvalue(player_deck), getcardvalue(bots_deck), createembedfield(hide_deck), "thua"))
         }
         //tính điểm
