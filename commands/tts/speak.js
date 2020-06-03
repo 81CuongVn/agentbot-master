@@ -24,6 +24,7 @@ module.exports = {
         const botpermission = voiceChannel.permissionsFor(client.user);
         if (!botpermission.has('CONNECT')) return message.channel.send('Bot không có quyền vào channel của bạn!');
         if (!botpermission.has('SPEAK')) return message.channel.send('Bot không có quyền nói trong channel của bạn!');
+        if (voiceChannel.full) return message.channel.send('Phòng của bạn đầy, bot không vào được.')
         let text = args.join(' ')
         let lang = await db.get(`${message.guild.id}.defaulttts`)
         if (!lang || lang === null) lang = 'vi-VN'
@@ -41,7 +42,7 @@ module.exports = {
         const [response] = await ttsclient.synthesizeSpeech(request);
         const writeFile = util.promisify(fs.writeFile);
         await writeFile(`./data/ttsdata/${message.guild.id}.mp3`, response.audioContent, 'binary');
-        //sau khi sử lý xong âm thanh, phát cho người dùng
+        //sau khi xử lý xong âm thanh, phát cho người dùng
         let connection = await voiceChannel.join().catch()
         if (!connection) return message.channel.send('Channel đầy, không vào được!')
         sleep(500);
