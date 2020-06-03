@@ -38,7 +38,6 @@ module.exports = {
             let statename = args.splice(1).join(' ')
             let data = await api.states({state: statename})
             if (data.message) return message.channel.send('Không tìm thấy bang mà bạn yêu cầu')
-            console.log(data)
             let embed = new MessageEmbed()
                 .setAuthor(`Thông tin về COVID-19 ở bang ${data.state}`)
                 .addField('Tất cả ca nhiễm: ', `${laysodep(data.cases)}(+${laysodep(data.todayCases)})`, true)

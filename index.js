@@ -181,7 +181,8 @@ client.on('voiceStateUpdate', (oldstate, newstate) => {
 client.on('error', (err) => {
     console.log(err)
 })
-
+//warning from nodejs
+process.on('warning', console.warn);
 //console chat
 let y = process.openStdin()
 y.addListener("data", res => {

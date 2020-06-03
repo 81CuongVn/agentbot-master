@@ -42,11 +42,16 @@ module.exports = {
         const writeFile = util.promisify(fs.writeFile);
         await writeFile(`./data/ttsdata/${message.guild.id}.mp3`, response.audioContent, 'binary');
         //sau khi sử lý xong âm thanh, phát cho người dùng
-        voiceChannel.join().then(connection => {
-            let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
-            dispatcher.on('finish', async () => {
-                await db.set(`${message.guild.id}.botdangnoi`, false)
-            })
-        }) 
+        try {
+            voiceChannel.join().then(connection => {
+                let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
+                dispatcher.on('finish', async () => {
+                    await db.set(`${message.guild.id}.botdangnoi`, false)
+                })
+            }) 
+        }
+        catch(e) {
+            message.channel.send(`Bot lỗi: ${e.message}!`)
+        }
     }
 }
