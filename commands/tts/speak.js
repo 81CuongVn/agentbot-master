@@ -2,6 +2,7 @@ const tts =  require('@google-cloud/text-to-speech');
 const fs = require('fs');
 const util = require('util');
 const ttsclient = new tts.TextToSpeechClient();
+const { sleep } = require('../../functions')
 const lang_list = {
     "en": "en-US",
     "vi": "vi-VN"
@@ -44,6 +45,7 @@ module.exports = {
         //sau khi sử lý xong âm thanh, phát cho người dùng
         try {
             voiceChannel.join().then(connection => {
+                sleep(500);
                 let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
                 dispatcher.on('finish', async () => {
                     await db.set(`${message.guild.id}.botdangnoi`, false)
