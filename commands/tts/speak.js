@@ -42,7 +42,7 @@ module.exports = {
         const writeFile = util.promisify(fs.writeFile);
         await writeFile(`./data/ttsdata/${message.guild.id}.mp3`, response.audioContent, 'binary');
         //sau khi sử lý xong âm thanh, phát cho người dùng
-        let connection = voiceChannel.join().catch()
+        let connection = await voiceChannel.join().catch()
         if (!connection) return message.channel.send('Channel đầy, không vào được!')
         sleep(500);
         let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
