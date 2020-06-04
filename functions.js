@@ -167,5 +167,13 @@ module.exports = {
     locbai : function(listOfCard, deck){
         if (!Array.isArray(listOfCard) || !Array.isArray(deck)) return null;
         return listOfCard.filter(item => !deck.includes(item))
+    },
+    checkemptyobject: function(obj){
+        if (!obj) return true
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key))
+                return false
+        }
+        return true
     }
 }

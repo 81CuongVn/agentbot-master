@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
-
-const fetch = require("node-fetch");
+const { checkemptyobject } = require('../../functions')
+const getJSON = require('get-json');
 
 module.exports = {
     name: "instagram",
@@ -16,16 +16,15 @@ module.exports = {
 
 
         const url = `https://instagram.com/${name}/?__a=1`;
-
         let res;
-
-        try {
-            res = await fetch(url).then(url => url.json());
-        } catch (e) {
-            return message.reply("Không tìm thấy account Instagram, bạn hãy kiểm tra lại giúp mình nha")
-                .then(m => m.delete({timeout: 5000}));
-        }
-
+        getJSON(url)
+            .then(function(response){
+                res = response
+            })
+            .catch(err => {
+                return;
+            })
+        if (checkemptyobject(res)) return message.channel.send('Không tìm thấy tài khoản của bạn!').then(m => m.delete({timeout: 5000}))
         const account = res.graphql.user;
 
         const embed = new MessageEmbed()
