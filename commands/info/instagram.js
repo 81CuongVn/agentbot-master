@@ -1,46 +1,46 @@
 const { MessageEmbed } = require("discord.js");
-const { stripIndents } = require("common-tags");
-
-const fetch = require("node-fetch");
-
+const axios = require('axios');
+const db = require('quick.db');
+const { stripIndent } = require('common-tags'); 
 module.exports = {
     name: "instagram",
     aliases: ["insta"],
     category: "info",
     description: "Trả về thông tin cơ bản của tài khoản Instagram",
-    usage: "instagram <instagram username>",
+    usage: "instagram <token>",
     run: async(client, message, args) => {
-        const name = args.join(" ");
-
-        if (!name) return message.reply("Bạn phải ghi gì đó để search chứ").then(m => m.delete({timeout: 5000}));
-
-
-        const url = `https://instagram.com/${name}/?__a=1`;
-
-        let res;
-
-        try {
-            res = await fetch(url).then(url => url.json());
-        } catch (e) {
-            return message.reply("Không tìm thấy account Instagram, bạn hãy kiểm tra lại giúp mình nha")
-                .then(m => m.delete({timeout: 5000}));
+        if (message.deletable) message.delete()
+        else message.channel.send('Bạn nên xoá tin nhắn của bạn sau khi sử dụng lệnh để bảo mật thông tin!').then(m => m.delete({ timeout: 10000 }))
+        if (!args[0]) {
+            let embed = new MessageEmbed()
+                .setTitle('Click here')
+                .setURL('https://archetypethemes.co/pages/instagram-token-generator')
+                .setDescription(`Bạn hãy lấy token ở website trên và sử dụng lệnh \`${db.get(`${message.guild.id}.prefix`)}instagram <token-cua-ban>\``)
+                .setFooter('Sau khi nhắn tin cho bot hãy xoá tin nhắn đi nhé!')
+            return message.channel.send(embed)
         }
-
-        const account = res.graphql.user;
-
-        const embed = new MessageEmbed()
-            .setColor("RANDOM")
-            .setTitle(account.full_name)
-            .setURL(`https://instagram.com/${name}`)
-            .setThumbnail(account.profile_pic_url_hd)
-            .addField("Thông tin cá nhân", stripIndents `**- Tên người dùng:** ${account.username}
+        await axios.get(`https://api.instagram.com/v1/users/self/?access_token=${args[0]}`).then(response => {
+            let data = response.data
+            let account = data.data
+            let embed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(account.full_name)
+                .setURL(`https://instagram.com/${account.username}`)
+                .setThumbnail(account.profile_picture)
+                .addField("Thông tin cá nhân", stripIndent `**- Tên người dùng: ** ${account.username}
             **- Tên đầy đủ:** ${account.full_name}
-            **- Bio:** ${account.biography.length == 0 ? "Không có" : account.biography}
-            **- Số bài đăng:** ${account.edge_owner_to_timeline_media.count}
-            **- Followers:** ${account.edge_followed_by.count}
-            **- Following:** ${account.edge_follow.count}
-            **- Private?:** ${account.is_private ? "Có 🔐" : "Không 🔓"}`);
+            **- Giới thiệu:** ${account.bio.length == 0 ? "Không có" : account.bio}
+            **- Số bài đăng:** ${account.counts.media}
+            **- Followers:** ${account.counts.followed_by}
+            **- Following:** ${account.counts.follows}
+            **- Website:** ${account.website.length == 0 ? "Không có" : account.website}
+            **- Bussiness account?** ${account.is_business ? "Có" : "Không"}`)
+                .setFooter(`Instagram ID: ${account.id}`)
+            message.channel.send(embed)
+        })
+        .catch(error => {
+            message.channel.send(`Lỗi: ${error.response.data.meta.error_message}`)
+        });
 
-        message.channel.send(embed);
     }
 }
