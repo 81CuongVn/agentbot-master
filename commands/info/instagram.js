@@ -9,8 +9,6 @@ module.exports = {
     description: "Trả về thông tin cơ bản của tài khoản Instagram",
     usage: "instagram <token>",
     run: async(client, message, args) => {
-        if (message.deletable) message.delete()
-        else message.channel.send('Bạn nên xoá tin nhắn của bạn sau khi sử dụng lệnh để bảo mật thông tin!').then(m => m.delete({ timeout: 10000 }))
         if (!args[0]) {
             let embed = new MessageEmbed()
                 .setTitle('Click here')
@@ -19,6 +17,8 @@ module.exports = {
                 .setFooter('Sau khi nhắn tin cho bot hãy xoá tin nhắn đi nhé!')
             return message.channel.send(embed)
         }
+        if (message.deletable) message.delete()
+        else message.channel.send('Bạn nên xoá tin nhắn của bạn sau khi sử dụng lệnh để bảo mật thông tin!').then(m => m.delete({ timeout: 10000 }))
         await axios.get(`https://api.instagram.com/v1/users/self/?access_token=${args[0]}`).then(response => {
             let data = response.data
             let account = data.data

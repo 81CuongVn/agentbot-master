@@ -15,7 +15,7 @@ module.exports = {
         if (check_game.has(message.author.id)) return message.channel.send('Bạn chưa hoàn thành ván đấu, vui lòng hoàn thành ván chơi!')
         let player_deck = [];
         let bots_deck =  [];
-        let maxbet = 500000;
+        let maxbet = 250000;
         let backcard = '<:back:709983842542288899>';
         let listofcard = require('../../data/cardemojis.json').fulllist;
         let hide_deck = [];
