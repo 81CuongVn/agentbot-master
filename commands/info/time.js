@@ -1,6 +1,6 @@
 const getJSON = require('get-json');
 const uri = require('strict-uri-encode');
-const {gggeolocaionkey, timezonedb} = require('../../config.json');
+const { gggeolocaionkey, timezonedb } = require('../../config.json');
 module.exports = {
     name: 'time',
     category: 'info',

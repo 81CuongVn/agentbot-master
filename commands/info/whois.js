@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
-const { getMember, formatDate } = require("../../functions.js");
+const { getMember, formatDate, trimArray} = require("../../functions.js");
 
 module.exports = {
     name: "whois",
@@ -10,19 +10,12 @@ module.exports = {
     usage: "whois <tag,username,ID>",
     run: (client, message, args) => {
         const member = getMember(message, args.join(" "));
-        let gtrole = message.guild.roles.cache.get('684848725574680689')
-        let qgrole = message.guild.roles.cache.get('684848710605078571')
-        let gamerole = message.guild.roles.cache.get('684848750795161644')
-        let statusrole = message.guild.roles.cache.get('684848749004193798')
             // Member variables
         const joined = formatDate(member.joinedAt);
         const roles = member.roles.cache
+            .sort((a, b) => b.position - a.position)
             .filter(r => r.id !== message.guild.id)
             .map(r => r)
-        roles.splice(roles.indexOf(gtrole), 1);
-        roles.splice(roles.indexOf(qgrole), 1);
-        roles.splice(roles.indexOf(gamerole), 1);
-        roles.splice(roles.indexOf(statusrole), 1);
         roles.join(", ") || 'none';
         // User variables
         const created = formatDate(member.user.createdAt);
@@ -34,7 +27,7 @@ module.exports = {
 
         .addField('Member information:', stripIndents `**- Display name:** ${member.displayName}
             **- Joined at:** ${joined}
-            **- Roles:** ${roles}`, true)
+            **- Roles:** ${roles.length < 10 ? roles.join(', ') : roles.length > 10 ? trimArray(roles) : 'None'}`, true)
 
         .addField('User information:', stripIndents `**- ID:** ${member.user.id}
             **- Username**: ${member.user.username}

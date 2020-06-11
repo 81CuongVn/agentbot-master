@@ -19,6 +19,7 @@ module.exports = {
             if (matches.bestMatch.rating < 0.6) return message.channel.send(`Không tìm thấy channel tên ${channel_name}`)
             channel = message.guild.channels.cache.find(channel => channel.name == matches.bestMatch.target)
         }
+        if (!channel) return message.channel.send('Không tìm thấy channel!')
         //log to database
         await db.set(`${message.guild.id}.logchannel`, channel.id)
         message.channel.send(`Đã lưu ${channel} vào log channel!`)
