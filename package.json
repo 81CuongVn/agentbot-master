@@ -1,15 +1,41 @@
 {
   "name": "agent-bot",
-  "version": "5.0.0",
-  "description": "",
+  "version": "5.1.0",
   "main": "index.js",
   "dependencies": {
+    "@google-cloud/text-to-speech": "^2.3.0",
+    "ascii-table": "0.0.9",
+    "axios": "^0.19.2",
     "better-sqlite3": "^7.0.1",
+    "canvacord": "^2.0.2",
+    "canvas": "^2.6.1",
+    "capitalize": "^2.0.3",
+    "chartjs-node-canvas": "^3.0.6",
+    "common-tags": "^1.8.0",
+    "dateformat": "^3.0.3",
     "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
     "ffmpeg-static": "^4.2.2",
-    "mathjs": "^7.0.0",
+    "get-json": "^1.0.1",
+    "ksoft.js": "^3.1.4",
+    "mathjs": "^7.0.1",
+    "moment": "^2.26.0",
+    "ms": "^2.1.2",
     "node-fetch": "^2.6.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "novelcovid": "^2.2.0",
+    "pretty-ms": "^7.0.0",
+    "quick.db": "^7.1.1",
+    "quick.eco": "^3.0.1",
+    "random-number-csprng": "^1.0.2",
+    "random-puppy": "^1.1.0",
+    "relevant-urban": "^2.0.0",
+    "strict-uri-encode": "^2.0.0",
+    "string-similarity": "^4.0.1",
+    "unsplash-js": "^6.0.0",
+    "usa-states": "0.0.5",
+    "vultrex.haste": "^1.0.1",
+    "weather-js": "^2.0.0"
   },
   "devDependencies": {},
   "scripts": {
@@ -24,5 +50,6 @@
   "bugs": {
     "url": "https://github.com/phamleduy04/agentbot-master/issues"
   },
-  "homepage": "https://github.com/phamleduy04/agentbot-master#readme"
+  "homepage": "https://github.com/phamleduy04/agentbot-master#readme",
+  "description": ""
 }
