@@ -21,8 +21,8 @@ module.exports = {
         let hide_deck = [];
         let bet = undefined;
         let userdata = eco.fetchMoney(message.author.id);
-        if (args[0] == 0) return message.channel.send('Bạn không thể cược 0.')
-        if (args[0] == 'all') {
+        if (args[0] == 0 || userdata.amount == 0) return message.channel.send('Bạn không thể cược 0.')
+        else if (args[0] == 'all') {
             bet = 100000;
             if (bet > userdata.amount) bet = userdata.amount
         }
