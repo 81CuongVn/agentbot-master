@@ -27,7 +27,7 @@ module.exports = {
 
         .addField('Member information:', stripIndents `**- Display name:** ${member.displayName}
             **- Joined at:** ${joined}
-            **- Roles:** ${roles.length < 10 ? roles.join(', ') : roles.length > 10 ? trimArray(roles) : 'None'}`, true)
+            **- Roles:** ${roles.length < 10 ? roles.join(', ') : roles.length > 10 ? trimArray(roles, 10) : 'None'}`, true)
 
         .addField('User information:', stripIndents `**- ID:** ${member.user.id}
             **- Username**: ${member.user.username}

@@ -1,5 +1,6 @@
 let SS = require('string-similarity');
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js');
+const { trimArray } = require('../../functions')
 module.exports = {
     name: "members",
     category: "info",
@@ -13,7 +14,7 @@ module.exports = {
         var members = message.guild.roles.cache.find(role => role.name == matches.bestMatch.target).members.map(m => m.user)
         const embed = new MessageEmbed()
             .setTitle(`Thành viên trong role ${matches.bestMatch.target}`)
-            .setDescription(members)
+            .setDescription(members.length < 30 ? members.join('\n') : roles.length > 30 ? trimArray(members, 30) : 'None')
         message.channel.send(embed)
     }
 }

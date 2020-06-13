@@ -36,7 +36,7 @@ module.exports = {
         **--> Không làm phiền:** ${members.filter(m => m.presence.status === 'dnd').size}
         **--> Offline:** ${members.filter(m => m.presence.status === 'offline').size}
         `)
-            .addField(`Roles: `, roles.length < 10 ? roles.join(', ') : roles.length > 10 ? trimArray(roles) : 'None')
+            .addField(`Roles: `, roles.length < 10 ? roles.join(', ') : roles.length > 10 ? trimArray(roles, 10) : 'None')
             .setTimestamp()
         message.channel.send(embed)
     }
