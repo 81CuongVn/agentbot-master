@@ -53,14 +53,14 @@ module.exports = {
             check_game.delete(message.author.id)
             return msg.edit(createembed(message.author, bet, createembedfield(player_deck), createembedfield(bots_deck), usercard.point, botdata.point, createembedfield(hide_deck), 'jqklose'))
         }
-        if (userdata.amount >= bet) msg.react(doubledownEmoji)
+        if (userdata.amount >= bet *2) msg.react(doubledownEmoji)
         msg.react(stopEmoji)
         const filter = (reaction, user) => {
             return (reaction.emoji.name === doubledownEmoji || reaction.emoji.name === stopEmoji) && user.id === message.author.id
         }
         let collector = msg.createReactionCollector(filter, {time: ms('1m'), maxEmojis: 1})
         collector.on('collect', async (reaction, user) => {
-            if (reaction.emoji.name === doubledownEmoji){
+            if (reaction.emoji.name === doubledownEmoji && userdata.amount >= bet *2){
                 //check người ta có đủ điều kiện để cược x2
                 bet = bet * 2
                 await stop(usercard, botdata, bet, message.author, player_deck, bots_deck, hide_deck, msg, check_game)
