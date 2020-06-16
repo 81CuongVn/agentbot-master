@@ -8,6 +8,7 @@ const lang_list = {
     "vi": "vi-VN"
 }
 const db = require('quick.db');
+const ms = require('ms');
 module.exports = {
     name: 'speak',
     aliases: ['say', 's'],
@@ -24,7 +25,7 @@ module.exports = {
         const botpermission = voiceChannel.permissionsFor(client.user);
         if (!botpermission.has('CONNECT')) return message.channel.send('Bot không có quyền vào channel của bạn!');
         if (!botpermission.has('SPEAK')) return message.channel.send('Bot không có quyền nói trong channel của bạn!');
-        if (voiceChannel.full) return message.channel.send('Phòng của bạn đầy, bot không vào được.')
+        if (!voiceChannel.joinable) return message.channel.send('Bot không vào được phòng của bạn')
         let text = args.join(' ')
         let lang = await db.get(`${message.guild.id}.defaulttts`)
         if (!lang || lang === null) lang = 'vi-VN'
@@ -48,8 +49,15 @@ module.exports = {
         sleep(500);
         let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
         await db.set(`${message.guild.id}.botdangnoi`, true)
+        let endTime = Date.now() + ms('1m')
         dispatcher.on('finish', async () => {
             await db.set(`${message.guild.id}.botdangnoi`, false)
+            setTimeout(() => {
+                if (Date.now() > endTime){
+                    connection.disconnect()
+                    voiceChannel.leave()
+                }
+            })
         })
     }
 }
