@@ -57,7 +57,7 @@ module.exports = {
                     connection.disconnect()
                     voiceChannel.leave()
                 }
-            })
+            }, ms('1m') + 1000)
         })
     }
 }
