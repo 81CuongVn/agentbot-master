@@ -49,13 +49,15 @@ module.exports = {
         sleep(500);
         let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
         await db.set(`${message.guild.id}.botdangnoi`, true)
-        let endTime = Date.now() + ms('1m')
+        await db.set(`${message.guild.id}.endTime`, Date.now() + ms('1m'))
         dispatcher.on('finish', async () => {
             await db.set(`${message.guild.id}.botdangnoi`, false)
-            setTimeout(() => {
-                if (Date.now() > endTime){
+            setTimeout(async () => {
+                let checkTime = await db.get(`${message.guild.id}.endTime`)
+                if (Date.now() > checkTime) {
                     connection.disconnect()
                     voiceChannel.leave()
+                    message.channel.send('Đã rời phòng vì không hoạt động!')
                 }
             }, ms('1m') + 1000)
         })
