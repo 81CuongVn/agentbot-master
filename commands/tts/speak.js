@@ -3,10 +3,7 @@ const fs = require('fs');
 const util = require('util');
 const ttsclient = new tts.TextToSpeechClient();
 const { sleep } = require('../../functions')
-const lang_list = {
-    "en": "en-US",
-    "vi": "vi-VN"
-}
+const lang_list = require('../../data/ttslang.json');
 const db = require('quick.db');
 const ms = require('ms');
 module.exports = {

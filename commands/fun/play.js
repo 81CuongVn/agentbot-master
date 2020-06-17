@@ -1,6 +1,7 @@
 const db = require('quick.db');
 const canrunID = ["455935236262592512", "199276237250625536", "621890949244518451", "649875543759781898"]
-const dict = require('../../data/playdatadict.json')
+const dict = require('../../data/playdatadict.json');
+const ms = require('ms');
 module.exports = {
     name: 'play',
     aliases: ['p'],
@@ -23,8 +24,17 @@ module.exports = {
         } else {
             voiceChannel.join().then(connection => {
                 let dispatcher = connection.play(dict[args[0]])
+                await db.set(`${message.guild.id}.endTime`, Date.now() + ms('1m'))
                 dispatcher.on('finish', async () => {
                     await db.set(`${message.guild.id}.botdangnoi`, false)
+                    setTimeout(async () => {
+                        let time = await db.get(`${message.guild.id}.endTime`)
+                        if (Date.now() > time){
+                            connection.disconnect()
+                            voiceChannel.leave()
+                            message.channel.send('Đã rời phòng vì không hoạt động!')
+                        }
+                    }, ms('1m') + 1000)
                 })
             })
         }
