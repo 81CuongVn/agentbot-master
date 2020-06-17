@@ -22,7 +22,7 @@ module.exports = {
             let prefix = await db.get(`${message.guild.id}.prefix`)
             return message.channel.send(`Sử dụng lệnh \`${prefix}play showdict \` để xem tất cả file hiện có`)
         } else {
-            voiceChannel.join().then(connection => {
+            voiceChannel.join().then(async connection => {
                 let dispatcher = connection.play(dict[args[0]])
                 await db.set(`${message.guild.id}.endTime`, Date.now() + ms('1m'))
                 dispatcher.on('finish', async () => {
