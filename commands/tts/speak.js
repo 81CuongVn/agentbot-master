@@ -2,7 +2,7 @@ const tts =  require('@google-cloud/text-to-speech');
 const fs = require('fs');
 const util = require('util');
 const ttsclient = new tts.TextToSpeechClient();
-const { sleep } = require('../../functions')
+const { sleep } = require('../../functions');
 const lang_list = require('../../data/ttslang.json');
 const db = require('quick.db');
 const ms = require('ms');
@@ -51,7 +51,8 @@ module.exports = {
             await db.set(`${message.guild.id}.botdangnoi`, false)
             setTimeout(async () => {
                 let checkTime = await db.get(`${message.guild.id}.endTime`)
-                if (Date.now() > checkTime) {
+                if (checkTime && Date.now() > checkTime) {
+                    await db.delete(`${message.guild.id}.endTime`)
                     connection.disconnect()
                     voiceChannel.leave()
                     message.channel.send('Đã rời phòng vì không hoạt động!')
