@@ -31,7 +31,7 @@ module.exports = {
                 `**--> CPU:**`,
                 `\u3000 Cores: ${os.cpus().length}`,
                 `\u3000 Model: ${core.model}`,
-                `\u3000 Cores: ${core.speed}MHz`,
+                `\u3000 Speed: ${core.speed}MHz`,
                 `**--> Memory:**`,
                 `\u3000 Total: ${formatBytes(process.memoryUsage().heapTotal)}`,
                 `\u3000 Used: ${formatBytes(process.memoryUsage().heapUsed)}`,
