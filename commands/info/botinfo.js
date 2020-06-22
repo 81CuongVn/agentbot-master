@@ -23,7 +23,7 @@ module.exports = {
                 `**--> Node.js version:** ${process.version}`,
                 `**--> Bot version: ** v${version}`,
                 `**--> Discord.js version:** v${djsversion}`,
-                `**--> License: ${license}`,
+                `**--> License:** ${license}`,
                 '\u200b'
             ])
             .addField('System', [
