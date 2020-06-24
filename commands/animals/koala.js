@@ -7,6 +7,7 @@ module.exports = {
     run: async(client, message, args) => {
         let url = `https://some-random-api.ml/img/koala`
         getJSON(url, function(error, response) {
+            if (error) return message.channel.send('Bot lỗi, vui lòng thử lại sau!')
             const embed = new MessageEmbed()
                 .setTitle(`Koalaaaa`)
                 .setURL(response.link)

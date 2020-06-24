@@ -7,6 +7,7 @@ module.exports = {
     run: (client, message, args) => {
         let url = `https://random.dog/woof.json`
         getJSON(url, function(error, response) {
+            if (error) return message.channel.send('Bot lỗi, vui lòng thử lại sau!')
             const embed = new MessageEmbed()
                 .setTitle(`Dogs <3`)
                 .setURL(response.url)
