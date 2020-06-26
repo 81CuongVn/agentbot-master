@@ -1,6 +1,6 @@
 {
   "name": "agent-bot",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "main": "index.js",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
@@ -33,6 +33,7 @@
     "strict-uri-encode": "^2.0.0",
     "string-similarity": "^4.0.1",
     "systeminformation": "^4.26.9",
+    "twemoji-parser": "^13.0.0",
     "unsplash-js": "^6.0.0",
     "usa-states": "0.0.5",
     "vultrex.haste": "^1.0.1",
