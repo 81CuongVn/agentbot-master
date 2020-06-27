@@ -13,7 +13,8 @@ const client = new Client({
     disableMentions: "everyone"
 });
 const fetch = require('node-fetch');
-
+const { bid, brainkey } = require('./config.json');
+/*
 //top.gg API
 const DBL = require('dblapi.js');
 const dbl = new DBL(process.env.TOPGG, client);
@@ -26,14 +27,14 @@ const instance = axios.create({
     timeout: 10000,
     headers: {"Authorization": process.env.DBOTGG}
 })
-
+*/
 
 const db = require('quick.db');
 client.commands = new Collection();
 client.aliases = new Collection();
 const cooldowns = new Collection();
 
-
+/*
 dbl.on('posted', () => {
     console.log("Server count posted to top.gg")
 })
@@ -41,7 +42,7 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
     console.log(e)
 })
-
+*/
 client.categories = fs.readdirSync("./commands/");
 
 
@@ -82,15 +83,16 @@ client.on("ready", () => {
                 type: 'PLAYING'
             }
         });
-        instance.post(`bots/${client.user.id}/stats`, {
+        /*instance.post(`bots/${client.user.id}/stats`, {
             guildCount: client.guilds.cache.size
         })
-        
+        */
     }, 36e5) //1 hour
 
-    instance.post(`bots/${client.user.id}/stats`, {
+    /*instance.post(`bots/${client.user.id}/stats`, {
         guildCount: client.guilds.cache.size
     })
+    */
 });
 
 client.on("guildCreate", async newguild => { //bot join server
@@ -159,7 +161,7 @@ client.on("message", async message => {
     let aiChannel = await db.get(`${message.guild.id}.aiChannel`)
     if (!aiChannel) await db.set(`${message.guild.id}.aiChannel`, null) 
     else if (message.channel.id == aiChannel) {
-        fetch(`http://api.brainshop.ai/get?bid=73962&key=yxVuArq3Y11UQyJB&uid=1&msg=${encodeURIComponent(message.content)}`)
+        fetch(`http://api.brainshop.ai/get?bid=${bid}&key=${brainkey}&uid=1&msg=${encodeURIComponent(message.content)}`)
         .then(res => res.json())
         .then(data => {
             message.channel.send(data.cnt)
