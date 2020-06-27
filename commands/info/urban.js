@@ -5,7 +5,7 @@ module.exports = {
     category: "info",
     description: "Từ điển từ lóng của Tiếng Anh",
     usage: "urban <query>",
-    VD: "urban yeet",
+    example: "urban yeet",
     run: async(client, message, args, tools) => {
         if (!args[0]) return message.reply(`Bạn phải nhập gì đó để mình tìm chứ`);
         if (!message.channel.nsfw) return  message.channel.send("Lệnh này chỉ sử dụng được ở channel có bật mode NSFW!");

@@ -9,7 +9,7 @@ module.exports = {
     category: "info",
     description: "Tìm lời bài hát",
     usage: "lyrics <tên bài hát>",
-    VD: "lyrics bad guy",
+    example: "lyrics bad guy",
     run: async(client, message, args) => {
         if (!args[0]) return message.reply("Nhập tên bài hát cần tìm lyrics")
         let song = args.join(' ')

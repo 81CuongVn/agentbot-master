@@ -8,7 +8,7 @@ module.exports = {
         aliases: ["e"],
         description: "Execute javascript code",
         usage: "eval <js code>",
-        VD: "e message.guild",
+        example: "e message.guild",
         run: async(client, message, args) => {
             if (message.author.id == ownerID){
                 if (!args[0]) return message.reply('Nhập lệnh để chạy code...')

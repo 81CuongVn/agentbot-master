@@ -5,7 +5,7 @@ module.exports = {
     category: "info",
     description: "Weather info",
     usage: "weather <query> (zipcode or city)",
-    VD: "weather Ho Chi Minh",
+    example: "weather Ho Chi Minh",
     run: (client, message, args) => {
         if (!args[0]) return message.channel.send("Vui lòng ghi tên thành phố")
         var query = args.join(' ');

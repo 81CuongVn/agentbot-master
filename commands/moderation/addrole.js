@@ -5,7 +5,7 @@ module.exports = {
     category: "moderation",
     description: "Thêm role",
     usage: "addrole <tag> <rolename>",
-    VD: "ar @phamleduy04 DJ",
+    example: "ar @phamleduy04 DJ",
     run: async(client, message, args) => {
         if (!args[0]) {
             return message.reply("Bạn phải tag ai đó").then(m => m.delete({timeout: 5000}));

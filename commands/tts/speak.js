@@ -13,7 +13,7 @@ module.exports = {
     description: 'talk',
     usage: 'speak [lang] <text>',
     note: 'lang = en hoặc vi',
-    VD: 'speak en hello world',
+    example: 'speak en hello world',
     run: async(client, message, args) => {
         if (db.get(`${message.guild.id}.botdangnoi`) === true) return message.channel.send(`Có người khác đang xài lệnh rồi, vui lòng thử lại sau D:. Nếu bạn nghĩ đây là lỗi, sử dụng lệnh \`${db.get(`${message.guild.id}.prefix`)}fix\` để sửa lỗi!`)
         if (!args[0]) return message.channel.send('Vui lòng nhập gì đó :D.');

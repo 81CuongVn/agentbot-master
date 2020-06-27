@@ -5,7 +5,7 @@ module.exports = {
     category: 'tts',
     description: 'Fix lỗi Có người khác đang sử dụng bot',
     usage: 'fixtts',
-    VD: 'fix',
+    example: 'fix',
     run: async(client, message, args) => {
         await db.set(`${message.guild.id}.botdangnoi`, false)
         message.react('✅')

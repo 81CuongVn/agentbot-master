@@ -6,7 +6,7 @@ module.exports = {
     category: "info",
     description: "Đặt lời nhắc",
     usage: "reminder <time> (5s,15m,1h,2d) <text>",
-    VD: "reminder 1h Đi học",
+    example: "reminder 1h Đi học",
     run: async(client, message, args) => {
         let reminderTime = args[0]
         if (!reminderTime) return message.reply("Éo ghi thời gian sao tao biết tao nhắc mày.")

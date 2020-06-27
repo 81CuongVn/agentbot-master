@@ -7,7 +7,7 @@ module.exports = {
     aliases: ['transfer'],
     description: 'Chuyển tiền cho người khác!',
     usage: 'give <@tag or ID> <so tien>',
-    VD: 'give @phamleduy04 50000',
+    example: 'give @phamleduy04 50000',
     run: async (client, message, args) => {
         let member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
         let authordata = eco.fetchMoney(message.author.id)

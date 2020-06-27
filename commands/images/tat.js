@@ -7,7 +7,7 @@ module.exports = {
     category: "images",
     description: "Tát (batslap)",
     usage: "tat [@tag]",
-    VD: "tat @phamleduy04",
+    example: "tat @phamleduy04",
     run: async (client, message, args) => {
         let url1 = message.author.avatarURL({format: 'png', dynamic: false})
         let nguoitag = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member

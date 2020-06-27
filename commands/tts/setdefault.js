@@ -8,7 +8,7 @@ module.exports = {
     aliases: ["setdef"],
     description: "Set default tts lang for tts command",
     usage: "setdefault <en or vi>",
-    VD: "setdefault en",
+    example: "setdefault en",
     run: async(client, message, args) => {
         if(!args[0]){
             let defaulttts = await db.get(`${message.guild.id}.defaulttts`)

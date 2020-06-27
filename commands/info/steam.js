@@ -8,7 +8,7 @@ module.exports = {
     category: "info",
     description: "Pull out steam info",
     usage: "steam <custom url name trên steamlink>",
-    VD: "steam dacvu008",
+    example: "steam dacvu008",
     run: async(bot, message, args) => {
         if (!args[0]) return message.channel.send("Hãy nhập tên custom url của bạn.")
         const url = `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${steam_token}&vanityurl=${args.join(" ")}`;

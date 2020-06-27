@@ -1,12 +1,11 @@
 const ss = require('string-similarity');
 const db = require('quick.db');
 module.exports = {
-    name: "setlogchannel",
-    category: "settings",
-    description: "Set log channel for kick and ban",
-    usage: "setlogchannel <#channel, tên channel hoặc id>",
-    example: "setlogchannel #log-channel",
-    run: async(client, message, args) => {
+    name: 'setaichannel',
+    aliases: ['aichannel', 'ai'],
+    description: 'Set channel cho bot AI nói chuyện',
+    note: 'English only',
+    run: async (client, message, args) => {
         if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply('Bạn cần có quyền MANAGE_GUILD để chạy')
         if (!args[0]) return message.channel.send("Vui lòng nhập channel!")
         let id = args[0]
@@ -21,7 +20,7 @@ module.exports = {
         }
         if (!channel) return message.channel.send('Không tìm thấy channel!')
         //log to database
-        await db.set(`${message.guild.id}.logchannel`, channel.id)
-        message.channel.send(`Đã lưu ${channel} vào log channel!`)
+        await db.set(`${message.guild.id}.aiChannel`, channel.id)
+        message.channel.send(`Đã lưu ${channel} vào AI channel!`)
     }
 }

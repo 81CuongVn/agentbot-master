@@ -9,7 +9,7 @@ module.exports = {
     aliases: ['cgraph'],
     description: 'Graph corona stuff',
     usage: 'coronagraph <country name or country code>',
-    VD: 'coronagraph us',
+    example: 'coronagraph us',
     run: async (client, message, args) => {
         const setup = (ChartJS) => {
             ChartJS.defaults.global.defaultFontColor='#fff'

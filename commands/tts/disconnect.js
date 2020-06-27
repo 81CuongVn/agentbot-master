@@ -6,7 +6,7 @@ module.exports = {
     category: 'tts',
     description: 'Để disconnect cho bot',
     usage: 'disconnect',
-    VD: 'disconnect',
+    example: 'disconnect',
     run: async(client, message, args) => {
         let voiceChannel = message.member.voice.channel;
         if (!voiceChannel) return message.channel.send('Bạn phải vào voice mới có thể sử dụng lệnh này!')

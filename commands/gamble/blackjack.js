@@ -13,7 +13,7 @@ module.exports = {
     description: 'Chơi blackjack (xì dách)',
     note: 'Trên 21 điểm là thua :)',
     usage: 'backjack <tiền cược>',
-    VD: 'bj 10000',
+    example: 'bj 10000',
     run: async (client, message, args) => {
         if (check_game.has(message.author.id)) return message.channel.send('Bạn chưa hoàn thành ván đấu, vui lòng hoàn thành ván chơi!')
         let player_deck = [];

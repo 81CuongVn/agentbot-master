@@ -6,7 +6,7 @@ module.exports = {
     category: "images",
     description: "Vỗ mông :))",
     usage: "spank [@tag]",
-    VD: "spank @phamleduy04",
+    example: "spank @phamleduy04",
     run: async (client, message, args) => {
         let url1 = message.author.avatarURL({format: 'png', dynamic: false})
         let nguoitag = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member

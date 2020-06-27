@@ -5,7 +5,7 @@ module.exports = {
     category: "moderation",
     description: "Xoá tin nhắn",
     usage: "clear [@tag] <số tin nhắn>",
-    VD: "clear @phamleduy04 10",
+    example: "clear @phamleduy04 10",
     run: async(client, message, args) => {
         await message.delete();
         // Member doesn't have permissions

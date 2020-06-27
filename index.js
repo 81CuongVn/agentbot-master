@@ -1,4 +1,4 @@
-const { Collection, MessageEmbed, Client} = require("discord.js");
+const { Collection, MessageEmbed, Client, MessageAttachment} = require("discord.js");
 const { config } = require("dotenv");
 config({
     path: __dirname + "/.env"
@@ -12,7 +12,8 @@ const cooldown = new Set();
 const client = new Client({
     disableMentions: "everyone"
 });
-
+const fetch = require('node-fetch');
+/*
 //top.gg API
 const DBL = require('dblapi.js');
 const dbl = new DBL(process.env.TOPGG, client);
@@ -25,14 +26,14 @@ const instance = axios.create({
     timeout: 10000,
     headers: {"Authorization": process.env.DBOTGG}
 })
-
+*/
 
 const db = require('quick.db');
 client.commands = new Collection();
 client.aliases = new Collection();
 const cooldowns = new Collection();
 
-
+/*
 dbl.on('posted', () => {
     console.log("Server count posted to top.gg")
 })
@@ -40,7 +41,7 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
     console.log(e)
 })
-
+*/
 client.categories = fs.readdirSync("./commands/");
 
 
@@ -81,16 +82,16 @@ client.on("ready", () => {
                 type: 'PLAYING'
             }
         });
-        instance.post(`bots/${client.user.id}/stats`, {
+        /*instance.post(`bots/${client.user.id}/stats`, {
             guildCount: client.guilds.cache.size
         })
-        
+        */
     }, 36e5) //1 hour
 
-    instance.post(`bots/${client.user.id}/stats`, {
+    /*instance.post(`bots/${client.user.id}/stats`, {
         guildCount: client.guilds.cache.size
     })
-    
+    */
 });
 
 client.on("guildCreate", async newguild => { //bot join server
@@ -113,6 +114,21 @@ client.on("guildDelete", async oldguild => { //bot leave server
         .addField("Owner server: ", oldguild.owner.user.tag, true)
         .setFooter(`OwnerID: ${oldguild.ownerID}`)
     client.channels.cache.get('700071755146068099').send(embed) //agent's server
+})
+
+client.on('guildMemberAdd', async member => {
+    let serverdata = db.get(member.guild.id)
+    if (!serverdata.welcomechannel) return;
+    if (!serverdata.discrim) {
+        serverdata.discrim = 'Chào mừng bạn đã vào server!'
+        await db.set(member.guild.id, serverdata)
+    }
+    let image = await welcome(member.user.username, member.user.discriminator, member.user.avatarURL({dynamic: false, format: 'png'}), serverdata.discrim)
+    let attachment = new MessageAttachment(image, 'welcome.png')
+    let channel = member.guild.channels.cache.get(serverdata.welcomechannel)
+    console.log(channel)
+    if (!channel) return;
+    return channel.send(attachment)
 })
 
 client.on("message", async message => {
@@ -138,7 +154,17 @@ client.on("message", async message => {
     }
     //prefix
     if (!db.get(message.guild.id)){
-        db.set(message.guild.id, {prefix: "_", logchannel: null, msgcount: true, defaulttts: null, botdangnoi: false})
+        db.set(message.guild.id, { prefix: "_", logchannel: null, msgcount: true, defaulttts: null, botdangnoi: false, aiChannel: null })
+    }
+    //ai channel
+    let aiChannel = await db.get(`${message.guild.id}.aiChannel`)
+    if (!aiChannel) await db.set(`${message.guild.id}.aiChannel`, null) 
+    else if (message.channel.id == aiChannel) {
+        fetch(`http://api.brainshop.ai/get?bid=73962&key=yxVuArq3Y11UQyJB&uid=1&msg=${encodeURIComponent(message.content)}`)
+        .then(res => res.json())
+        .then(data => {
+            message.channel.send(data.cnt)
+        })
     }
     const prefixlist = [`<@${client.user.id}>`, `<@!${client.user.id}>`, db.get(`${message.guild.id}.prefix`)]
     let prefix = null;
@@ -181,7 +207,7 @@ client.on('voiceStateUpdate', (oldstate, newstate) => {
 client.on('error', (err) => {
     console.log(err)
 })
-//warning from nodejs
+
 process.on('warning', console.warn);
 //console chat
 let y = process.openStdin()
@@ -193,3 +219,59 @@ y.addListener("data", res => {
 });
 //end console chat
 client.login(process.env.TOKEN);
+
+/*
+const Canvas = require('canvas');
+async function welcome(username, discrim, avatarURL, description){
+    if (!username) throw new Error("No username was provided")
+    if (!discrim) throw new Error("No discrim was provided!");
+    if (!avatarURL) throw new Error("No avatarURL was provided!");
+    if (!description) throw new Error("No description was provided!")
+
+    Canvas.registerFont(__dirname + '/assets/Cadena.ttf', {family: 'Cadena', weight: "regular", style: "normal"})
+    console.log('register')
+    //create canvas
+    const canvas = Canvas.createCanvas(700, 250);
+    const ctx = canvas.getContext('2d');
+
+    const background = await Canvas.loadImage(__dirname + '/assets/background.png');
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+    console.log('background')
+    const font = 'Cadena';
+
+    ctx.font = `20px ${font}`;
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'start';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = 'black';
+    ctx.fillText('Welcome', 260, 100);
+
+    const welcometextPosition = { width: 260, height: 150 };
+    console.log('welcome')
+    let fontSize = 55;
+    ctx.font = `${fontSize}px ${font}`;
+
+    do {
+        fontSize -= 1;
+        ctx.font = `${fontSize}px ${font}`
+    } while (ctx.measureText(`${username}#${discrim}!).width > 430`));
+
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'start';
+    ctx.fillText(`${username}`, welcometextPosition.width, welcometextPosition.height, 455);
+    console.log('start')
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.textAlign = 'start';
+    ctx.fillText(`#${discrim}!`, ctx.measureText(`${username}`).width + welcometextPosition.width, welcometextPosition.height);
+    ctx.shadowBlur = 0;
+    ctx.beginPath();
+    ctx.arc(125, 125, 100, 0, Math.PI *2, true);
+    ctx.closePath();
+    ctx.clip();
+    console.log('export')
+    const avatar = await Canvas.loadImage(avatarURL);
+    ctx.drawImage(avatar, 25, 25, 200, 200);
+    console.log('return')
+    return canvas.toBuffer()
+}
+*/

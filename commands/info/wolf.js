@@ -7,7 +7,7 @@ module.exports = {
     category: "info",
     description: "Hỏi gì cũng được",
     note: 'Hỏi bằng tiếng anh',
-    VD: "wolf GDP of vietnam",
+    example: "wolf GDP of vietnam",
     usage: "wolf <query>",
     run: async (client, message, args) => {
         var query = encode(args.join(' '))

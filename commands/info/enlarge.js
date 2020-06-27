@@ -6,7 +6,7 @@ module.exports = {
     category: 'info',
     description: 'Phóng to emoji',
     usage: 'enlarge <emoji>',
-    VD: 'enlarge :joy:',
+    example: 'enlarge :joy:',
     note: 'Một số emoji sẽ không làm được.',
     cooldown: 5,
     run: async (client, message, args) => {

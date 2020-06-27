@@ -7,7 +7,7 @@ module.exports = {
     category: "moderation",
     description: "Kick người khác",
     usage: "kick <@tag, id> [lý do]",
-    VD: "kick @phamleduy04",
+    example: "kick @phamleduy04",
     run: async(client, message, args) => {
         let serverdata = db.get(message.guild.id)
         if (serverdata.logchannel == null) return message.reply(`Bạn chưa set log channel, vui lòng sử dụng lệnh \`${serverdata.prefix}setlogchannel\` để set log channel.`)

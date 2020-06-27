@@ -6,7 +6,7 @@ module.exports = {
     category: 'info',
     description: 'tìm giờ bằng cách nhập tên TP',
     usage: 'time <nhập địa chỉ, zipcode, hay gì cũng được>',
-    VD: 'time Dallas,TX',
+    example: 'time Dallas,TX',
     run: async (client, message, args) => {
         if (!args[0]) return message.reply('Ghi tên thành phố hoặc địa chỉ của bạn!.')
         let search = args.join(' ')

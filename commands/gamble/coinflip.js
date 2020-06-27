@@ -15,7 +15,7 @@ module.exports = {
     category: 'gamble',
     description: 'Tung đồng xu (50%)',
     usage: 'coinflip <user_choose> <tiền cược>',
-    VD: 'coinflip t 50000',
+    example: 'coinflip t 50000',
     run: async (client, message, args) => {
         let maxbet = 500000;
         let user_choose = args[0]
