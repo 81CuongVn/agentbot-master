@@ -14,7 +14,7 @@ const client = new Client({
 });
 const fetch = require('node-fetch');
 const { bid, brainkey } = require('./config.json');
-/*
+
 //top.gg API
 const DBL = require('dblapi.js');
 const dbl = new DBL(process.env.TOPGG, client);
@@ -27,14 +27,14 @@ const instance = axios.create({
     timeout: 10000,
     headers: {"Authorization": process.env.DBOTGG}
 })
-*/
+
 
 const db = require('quick.db');
 client.commands = new Collection();
 client.aliases = new Collection();
 const cooldowns = new Collection();
 
-/*
+
 dbl.on('posted', () => {
     console.log("Server count posted to top.gg")
 })
@@ -42,7 +42,7 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
     console.log(e)
 })
-*/
+
 client.categories = fs.readdirSync("./commands/");
 
 
@@ -83,16 +83,16 @@ client.on("ready", () => {
                 type: 'PLAYING'
             }
         });
-        /*instance.post(`bots/${client.user.id}/stats`, {
+        instance.post(`bots/${client.user.id}/stats`, {
             guildCount: client.guilds.cache.size
         })
-        */
+        
     }, 36e5) //1 hour
 
-    /*instance.post(`bots/${client.user.id}/stats`, {
+    instance.post(`bots/${client.user.id}/stats`, {
         guildCount: client.guilds.cache.size
     })
-    */
+    
 });
 
 client.on("guildCreate", async newguild => { //bot join server
