@@ -34,7 +34,7 @@ client.commands = new Collection();
 client.aliases = new Collection();
 const cooldowns = new Collection();
 
-/*
+
 dbl.on('posted', () => {
     console.log("Server count posted to top.gg")
 })
@@ -42,7 +42,7 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
     console.log(e)
 })
-*/
+
 client.categories = fs.readdirSync("./commands/");
 
 
@@ -83,16 +83,15 @@ client.on("ready", () => {
                 type: 'PLAYING'
             }
         });
-        /*instance.post(`bots/${client.user.id}/stats`, {
+        instance.post(`bots/${client.user.id}/stats`, {
             guildCount: client.guilds.cache.size
         })
-        */
+        
     }, 36e5) //1 hour
 
-    /*instance.post(`bots/${client.user.id}/stats`, {
+    instance.post(`bots/${client.user.id}/stats`, {
         guildCount: client.guilds.cache.size
     })
-    */
 });
 
 client.on("guildCreate", async newguild => { //bot join server
