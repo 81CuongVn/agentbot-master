@@ -14,7 +14,7 @@ const client = new Client({
 });
 const fetch = require('node-fetch');
 const { bid, brainkey } = require('./config.json');
-/*
+
 //top.gg API
 const DBL = require('dblapi.js');
 const dbl = new DBL(process.env.TOPGG, client);
@@ -27,7 +27,7 @@ const instance = axios.create({
     timeout: 10000,
     headers: {"Authorization": process.env.DBOTGG}
 })
-*/
+
 
 const db = require('quick.db');
 client.commands = new Collection();
