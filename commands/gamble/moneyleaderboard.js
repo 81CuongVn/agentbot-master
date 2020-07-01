@@ -1,5 +1,5 @@
 const Eco = require('quick.eco');
-const eco = new Eco.GuildManager();
+const eco = new Eco.Manager();
 const { MessageEmbed } = require('discord.js');
 const { laysodep } = require('../../functions');
 module.exports = {
