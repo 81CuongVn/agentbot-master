@@ -7,8 +7,16 @@ module.exports = {
     usage: 'msgchannel <#channel>',
     example: 'msgchannel #welcome',
     run: async (client, message, args) => {
-        if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply('Bạn cần có quyền MANAGE_GUILD để chạy')
-        if (!args[0]) return message.channel.send("Vui lòng nhập channel!")
+        if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply('Bạn cần có quyền MANAGE_GUILD để chạy lệnh này!')
+        if (!args[0]) {
+            let listChannel = await db.get(`${message.guild.id}.msgChannelOff`);
+            let channels = []
+            listChannel.forEach(id => {
+                let channel = message.guild.channels.cache.get(id);
+                if (channel) channels.push(channel);
+            })
+            message.channel.send(`Những phòng đang tắt tính kinh nghiệm là: ${channel.join(' ')}`)
+        }
         let id = args[0]
         if (id.startsWith("<#")) id = id.slice(2, id.length -1)
         let channel = message.guild.channels.cache.get(id)
