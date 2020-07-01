@@ -189,5 +189,12 @@ module.exports = {
         const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
         const i = Math.floor(Math.log(bytes) / Math.log(1024));
         return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`
+    },
+    getIDs: function(cache) {
+        let result = "";
+        cache.forEach(function(ele, key, map) {
+            result += "money_"+key +",";
+        });
+        return result.slice(0,-1);
     }
 }
