@@ -10,12 +10,13 @@ module.exports = {
         if(!message.member.hasPermission("MANAGE_GUILD")) return message.reply('Bạn cần có quyền MANAGE_GUILD để chạy lệnh này!')
         if (!args[0]) {
             let listChannel = await db.get(`${message.guild.id}.msgChannelOff`);
+            if (listChannel.length == 0) return message.channel.send('Server không có phòng nào đang tắt tính exp!')
             let channels = []
             listChannel.forEach(id => {
                 let channel = message.guild.channels.cache.get(id);
                 if (channel) channels.push(channel);
             })
-            message.channel.send(`Những phòng đang tắt tính kinh nghiệm là: ${channel.join(' ')}`)
+            await message.channel.send(`Những phòng đang tắt tính kinh nghiệm là: ${channel.join(' ')}`)
         }
         let id = args[0]
         if (id.startsWith("<#")) id = id.slice(2, id.length -1)
