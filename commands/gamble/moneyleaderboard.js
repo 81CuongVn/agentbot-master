@@ -10,8 +10,8 @@ module.exports = {
     cooldown: 10,
     usage: 'mlb',
     run: async (client, message, args) => {
-        let bxh = eco.leaderboard(message.guild.id,{ limit: 10, raw: false })
-        let userdata = eco.fetchMoney(message.author.id)
+        let bxh = eco.leaderboard(message.guild.id, { limit: 10, raw: false })
+        let userdata = eco.fetchMoney(message.author.id, message.guild.id)
         let embed = new MessageEmbed()
             .setAuthor('Bảng xếp hạng tiền')
             .setDescription(`Hạng của bạn: **${userdata.position}**`)
