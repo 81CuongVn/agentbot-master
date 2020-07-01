@@ -16,7 +16,7 @@ module.exports = {
                 let channel = message.guild.channels.cache.get(id);
                 if (channel) channels.push(channel);
             })
-            await message.channel.send(`Những phòng đang tắt tính kinh nghiệm là: ${channels.join(' ')}`)
+            return await message.channel.send(`Những phòng đang tắt tính kinh nghiệm là: ${channels.join(' ')}`)
         }
         let id = args[0]
         if (id.startsWith("<#")) id = id.slice(2, id.length -1)
