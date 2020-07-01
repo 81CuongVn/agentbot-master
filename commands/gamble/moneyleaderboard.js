@@ -1,7 +1,7 @@
 const Eco = require('quick.eco');
 const eco = new Eco.GuildManager();
 const { MessageEmbed } = require('discord.js');
-const { laysodep } = require('../../functions') 
+const { laysodep } = require('../../functions');
 module.exports = {
     name: 'moneyleaderboard',
     aliases: ['mleaderboard', 'mlb'],
@@ -10,8 +10,8 @@ module.exports = {
     cooldown: 10,
     usage: 'mlb',
     run: async (client, message, args) => {
-        let bxh = eco.leaderboard(message.guild.id, { limit: 10, raw: false })
-        let userdata = eco.fetchMoney(message.author.id, message.guild.id)
+        let bxh = eco.leaderboard(message.guild.id,{ limit: 10, raw: false })
+        let userdata = eco.fetchMoney(message.author.id)
         let embed = new MessageEmbed()
             .setAuthor('Bảng xếp hạng tiền')
             .setDescription(`Hạng của bạn: **${userdata.position}**`)
