@@ -1,0 +1,1 @@
+[![supportserver](https://img.shields.io/discord/699872807605108744?style=for-the-badge)](https://discord.gg/MaNsV7a)
