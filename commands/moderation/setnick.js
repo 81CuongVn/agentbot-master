@@ -20,6 +20,6 @@ module.exports = {
             });
         if (status.code == 50013) return message.channel.send(`Mình không có quyền đổi nickname cho người này!`)
         if (status.message && status.name) return message.channel.send(`Lỗi: ${status.name}, ${status.message}`)
-        message.channel.send(`Set nickname thành công cho ${user} từ **${user.displayName}** thành **${output}**`)
+        message.channel.send(`Set nickname thành công cho ${user} thành **${output}**`)
     }
 }
