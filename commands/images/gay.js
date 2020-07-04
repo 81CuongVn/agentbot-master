@@ -1,6 +1,6 @@
 const Canvacord = require('canvacord');
 const canva = new Canvacord.Canvas();
-const {MessageAttachment} = require('discord.js')
+const { MessageAttachment } = require('discord.js')
 module.exports = {
     name: "gay",
     category: "images",
