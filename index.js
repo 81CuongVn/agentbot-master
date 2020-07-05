@@ -15,18 +15,18 @@ const client = new Client({
 const fetch = require('node-fetch');
 const { bid, brainkey } = require('./config.json');
 if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build")
+const DBL = require('dblapi.js');
+const dbl = new DBL(process.env.TOPGG, client);
+
+//discord.bots.gg api
+const axios = require('axios');
+const instance = axios.create({
+    baseURL: 'https://discord.bots.gg/api/v1/',
+    timeout: 10000,
+    headers: {"Authorization": process.env.DBOTGG}
+})
 if (process.env.TYPE_RUN == 'production') {
     //top.gg API
-    const DBL = require('dblapi.js');
-    const dbl = new DBL(process.env.TOPGG, client);
-
-    //discord.bots.gg api
-    const axios = require('axios');
-    const instance = axios.create({
-        baseURL: 'https://discord.bots.gg/api/v1/',
-        timeout: 10000,
-        headers: {"Authorization": process.env.DBOTGG}
-    })
     dbl.on('posted', () => {
         console.log("Server count posted to top.gg")
     })
