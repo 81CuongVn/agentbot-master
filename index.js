@@ -14,34 +14,31 @@ const client = new Client({
 });
 const fetch = require('node-fetch');
 const { bid, brainkey } = require('./config.json');
+if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build")
+if (process.env.TYPE_RUN == 'production') {
+    //top.gg API
+    const DBL = require('dblapi.js');
+    const dbl = new DBL(process.env.TOPGG, client);
 
-//top.gg API
-const DBL = require('dblapi.js');
-const dbl = new DBL(process.env.TOPGG, client);
-
-//discord.bots.gg api
-
-const axios = require('axios');
-const instance = axios.create({
-    baseURL: 'https://discord.bots.gg/api/v1/',
-    timeout: 10000,
-    headers: {"Authorization": process.env.DBOTGG}
-})
-
-
+    //discord.bots.gg api
+    const axios = require('axios');
+    const instance = axios.create({
+        baseURL: 'https://discord.bots.gg/api/v1/',
+        timeout: 10000,
+        headers: {"Authorization": process.env.DBOTGG}
+    })
+    dbl.on('posted', () => {
+        console.log("Server count posted to top.gg")
+    })
+    
+    dbl.on('error', e => {
+        console.log(e)
+    })
+}
 const db = require('quick.db');
 client.commands = new Collection();
 client.aliases = new Collection();
 const cooldowns = new Collection();
-
-
-dbl.on('posted', () => {
-    console.log("Server count posted to top.gg")
-})
-
-dbl.on('error', e => {
-    console.log(e)
-})
 
 client.categories = fs.readdirSync("./commands/");
 
@@ -83,15 +80,17 @@ client.on("ready", () => {
                 type: 'PLAYING'
             }
         });
-        instance.post(`bots/${client.user.id}/stats`, {
-            guildCount: client.guilds.cache.size
-        })
-        
+        if (process.env.TYPE_RUN == 'production') {
+            instance.post(`bots/${client.user.id}/stats`, {
+                guildCount: client.guilds.cache.size
+            })
+            }
     }, 36e5) //1 hour
-
+    if (process.env.TYPE_RUN == 'production') {
     instance.post(`bots/${client.user.id}/stats`, {
         guildCount: client.guilds.cache.size
     })
+    }
 });
 
 client.on("guildCreate", async newguild => { //bot join server
