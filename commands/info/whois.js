@@ -9,7 +9,7 @@ module.exports = {
     description: "Returns user information",
     usage: "whois <tag,username,ID>",
     run: async (client, message, args) => {
-        const member = getMember(message, args.join(" "));
+        const member = getMember(message, args.join(' '));
             // Member variables
         const joined = formatDate(member.joinedAt);
         const roles = member.roles.cache
@@ -19,7 +19,8 @@ module.exports = {
         roles.join(", ") || 'none';
         // User variables
         const created = formatDate(member.user.createdAt);
-        const userFlags = member.user.flags.toArray()
+        let userFlags = ""
+        if (member.user.flags) userFlags = member.user.flags.toArray()
         const embed = new MessageEmbed()
             .setFooter(member.displayName, member.user.avatarURL())
             .setThumbnail(member.user.avatarURL())
