@@ -6,9 +6,9 @@ module.exports = {
     category: 'moderation',
     run: async (client, message, args) => {
         let serverID = args[0];
-        if (!serverID) return message.channel.send('Nhập server ID!')
+        if (!serverID) return message.channel.send('Nhập server ID!');
         // check server
-        let server = client.guilds.cache.get(serverID);
+        let server = client.guilds.cache.get(serverID.toString());
         if (!server) return message.channel.send('Server không hợp lệ!')
         let blacklistStatus = await db.get(`${server.id}.blacklist`);
         if (!blacklistStatus) await db.set(`${server.id}.blacklist`, false);

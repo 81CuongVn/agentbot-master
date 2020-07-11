@@ -133,9 +133,6 @@ client.on('guildMemberAdd', async member => {
 client.on("message", async message => {
     if (message.author.bot) return;
     if (!message.guild) return;
-    let blacklist_status = await db.get(`${message.guild.id}.blacklist`);
-    if (!blacklist_status) await db.set(`${message.guild.id}.blacklist`, false);
-    if (blacklist_status === true) return message.channel.send('Server bạn đang nằm trong blacklist, vui lòng liên hệ owner của bot hoặc vào support server tại: https://top.gg/bot/645883401500622848');
     if (!db.has(`${message.guild.id}.msgChannelOff`)) await db.set(`${message.guild.id}.msgChannelOff`, [])
     let listChannelMsg = await db.get(`${message.guild.id}.msgChannelOff`);
     if (message.guild && db.get(`${message.guild.id}.msgcount`) && !cooldown.has(message.author.id) && !listChannelMsg.includes(message.channel.id)) {
@@ -177,7 +174,9 @@ client.on("message", async message => {
     }
     if (prefix === null) return;
     if (!message.content.startsWith(prefix)) return;
-
+    let blacklist_status = await db.get(`${message.guild.id}.blacklist`);
+    if (!blacklist_status) await db.set(`${message.guild.id}.blacklist`, false);
+    if (blacklist_status === true) return message.channel.send('Server bạn đang nằm trong blacklist, vui lòng liên hệ owner của bot hoặc vào support server tại: https://top.gg/bot/645883401500622848');
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
     if (cmd.length === 0) return;
