@@ -20,7 +20,7 @@ module.exports = {
                     .setDescription(`${message.member} đã tát vỡ mồm ${nguoitag} 🤚`)
                     .setImage(response.link)
                 return message.channel.send(embed)
-                }
+            }
         })
     }
 }

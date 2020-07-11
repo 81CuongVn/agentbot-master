@@ -133,6 +133,9 @@ client.on('guildMemberAdd', async member => {
 client.on("message", async message => {
     if (message.author.bot) return;
     if (!message.guild) return;
+    let blacklist_status = await db.get(`${message.guild.id}.blacklist`);
+    if (!blacklist_status) await db.set(`${message.guild.id}.blacklist`, false);
+    if (blacklist_status === true) return message.channel.send('Server bạn đang nằm trong blacklist, vui lòng liên hệ owner của bot hoặc vào support server tại: https://top.gg/bot/645883401500622848');
     if (!db.has(`${message.guild.id}.msgChannelOff`)) await db.set(`${message.guild.id}.msgChannelOff`, [])
     let listChannelMsg = await db.get(`${message.guild.id}.msgChannelOff`);
     if (message.guild && db.get(`${message.guild.id}.msgcount`) && !cooldown.has(message.author.id) && !listChannelMsg.includes(message.channel.id)) {
@@ -155,7 +158,7 @@ client.on("message", async message => {
     }
     //prefix
     if (!db.get(message.guild.id)){
-        db.set(message.guild.id, { prefix: "_", logchannel: null, msgcount: true, defaulttts: null, botdangnoi: false, aiChannel: null, msgChannelOff: [] })
+        db.set(message.guild.id, { prefix: "_", logchannel: null, msgcount: true, defaulttts: null, botdangnoi: false, aiChannel: null, msgChannelOff: [], blacklist: false })
     }
     //ai channel
     let aiChannel = await db.get(`${message.guild.id}.aiChannel`)
