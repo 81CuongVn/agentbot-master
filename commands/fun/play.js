@@ -17,12 +17,12 @@ module.exports = {
         if (!botPremission.has('CONNECT')) return message.channel.send('Bot không có quyền vào channel này!');
         if (!botPremission.has('SPEAK')) return message.channel.send('Bot không có quyền nói ở channel này!');
         if (args[0] == 'showdict') return message.channel.send(JSON.stringify(dict, null, 4), {code: "json"})
-        await db.set(`${message.guild.id}.botdangnoi`, true)
         if (!dict[args[0]]){
             let prefix = await db.get(`${message.guild.id}.prefix`)
             return message.channel.send(`Sử dụng lệnh \`${prefix}play showdict \` để xem tất cả file hiện có`)
         } else {
             voiceChannel.join().then(async connection => {
+                await db.set(`${message.guild.id}.botdangnoi`, true);
                 let dispatcher = connection.play(dict[args[0]])
                 await db.set(`${message.guild.id}.endTime`, Date.now() + ms('1m'))
                 dispatcher.on('finish', async () => {
