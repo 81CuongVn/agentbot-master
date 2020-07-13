@@ -133,6 +133,11 @@ client.on('guildMemberAdd', async member => {
 client.on("message", async message => {
     if (message.author.bot) return;
     if (!message.guild) return;
+    //prefix
+    let serverData = await db.get(message.guild.id);
+    if (!serverData){
+        serverData = db.set(message.guild.id, { prefix: "_", logchannel: null, msgcount: true, defaulttts: null, botdangnoi: false, aiChannel: null, msgChannelOff: [], blacklist: false })
+    }
     if (!db.has(`${message.guild.id}.msgChannelOff`)) await db.set(`${message.guild.id}.msgChannelOff`, [])
     let listChannelMsg = await db.get(`${message.guild.id}.msgChannelOff`);
     if (message.guild && db.get(`${message.guild.id}.msgcount`) && !cooldown.has(message.author.id) && !listChannelMsg.includes(message.channel.id)) {
@@ -153,10 +158,6 @@ client.on("message", async message => {
         }, ms('1m'))
         }
     }
-    //prefix
-    if (!db.get(message.guild.id)){
-        db.set(message.guild.id, { prefix: "_", logchannel: null, msgcount: true, defaulttts: null, botdangnoi: false, aiChannel: null, msgChannelOff: [], blacklist: false })
-    }
     //ai channel
     let aiChannel = await db.get(`${message.guild.id}.aiChannel`)
     if (!aiChannel) await db.set(`${message.guild.id}.aiChannel`, null) 
@@ -167,7 +168,7 @@ client.on("message", async message => {
             message.channel.send(data.cnt)
         })
     }
-    const prefixlist = [`<@${client.user.id}>`, `<@!${client.user.id}>`, db.get(`${message.guild.id}.prefix`)]
+    const prefixlist = [`<@${client.user.id}>`, `<@!${client.user.id}>`, serverData.prefix]
     let prefix = null;
     for (const thisprefix of prefixlist) {
         if (message.content.toLowerCase().startsWith(thisprefix)) prefix = thisprefix
