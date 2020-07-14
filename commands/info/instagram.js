@@ -17,11 +17,11 @@ module.exports = {
         } catch(e) {
             return message.channel.send('Mình không tìm thấy tên instagram của bạn!')
         }
-        const account = res.graphql.user;
+        const account = res.data.graphql.user;
         const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTitle(account.full_name)
-            .setURL(`https://instagram.com/${name}`)
+            .setURL(`https://instagram.com/${instagram}`)
             .setThumbnail(account.profile_pic_url_hd)
             .addField("Thông tin cá nhân", stripIndents `**- Tên người dùng:** ${account.username}
             **- Tên đầy đủ:** ${account.full_name}
