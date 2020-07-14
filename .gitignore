@@ -1,3 +1,9 @@
 node_modules
 config.json
 .env
+data.json
+data.sqlite
+data.sqlite-shm
+data.sqlite-wal
+/data/ttsdata
+json.sqlite
