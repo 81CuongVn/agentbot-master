@@ -16,9 +16,10 @@ module.exports = {
         if (!args[0]){
             const categories = readdirSync('./commands/')
             embed.setDescription(`Danh sách lệnh cho bot **${message.guild.me.displayName}**\n Prefix của bot là: \`${server_prefix}\``)
-            embed.setFooter(`Tổng lệnh bot có: ${client.commands.size}`, client.user.displayAvatarURL())
+            let commandsize = 0;
             categories.forEach(category => {
                 const dir = client.commands.filter(c => c.category === category)
+                commandsize += parseInt(dir.size);
                 const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
                 try {
                     embed.addField(`❯ ${capitalise} [${dir.size} lệnh]:`, dir.map(c => `\`${c.name}\``).join(' '))
@@ -26,6 +27,7 @@ module.exports = {
                     console.log(e)
                 }
             })
+            embed.setFooter(`Tổng lệnh bot có: ${commandsize}`, client.user.displayAvatarURL())
             return message.channel.send(embed)
         } else {
             return getCMD(client, message, args[0])

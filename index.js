@@ -15,8 +15,6 @@ const client = new Client({
 const fetch = require('node-fetch');
 const { bid, brainkey } = require('./config.json');
 if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build")
-const DBL = require('dblapi.js');
-const dbl = new DBL(process.env.TOPGG, client);
 
 //discord.bots.gg api
 const axios = require('axios');
@@ -26,6 +24,8 @@ const instance = axios.create({
     headers: {"Authorization": process.env.DBOTGG}
 })
 if (process.env.TYPE_RUN == 'production') {
+    const DBL = require('dblapi.js');
+    const dbl = new DBL(process.env.TOPGG, client);
     //top.gg API
     dbl.on('posted', () => {
         console.log("Server count posted to top.gg")
@@ -71,25 +71,24 @@ client.on("ready", () => {
             type: "PLAYING"
         }
     });
-
-    setInterval(function() {
-        client.user.setPresence({
-            status: "online",
-            activity: {
-                name: `Đang phục vụ ${client.guilds.cache.size} servers`,
-                type: 'PLAYING'
-            }
-        });
-        if (process.env.TYPE_RUN == 'production') {
+    if (process.env.TYPE_RUN == 'production') {
+        instance.post(`bots/${client.user.id}/stats`, {
+            guildCount: client.guilds.cache.size
+        })
+        setInterval(function() {
+            client.user.setPresence({
+                status: "online",
+                activity: {
+                    name: `Đang phục vụ ${client.guilds.cache.size} servers`,
+                    type: 'PLAYING'
+                }
+            });
+            
             instance.post(`bots/${client.user.id}/stats`, {
                 guildCount: client.guilds.cache.size
             })
-            }
-    }, 36e5) //1 hour
-    if (process.env.TYPE_RUN == 'production') {
-    instance.post(`bots/${client.user.id}/stats`, {
-        guildCount: client.guilds.cache.size
-    })
+                
+        }, 36e5) //1 hour
     }
 });
 
@@ -114,7 +113,7 @@ client.on("guildDelete", async oldguild => { //bot leave server
         .setFooter(`OwnerID: ${oldguild.ownerID}`)
     client.channels.cache.get('700071755146068099').send(embed) //agent's server
 })
-
+/*
 client.on('guildMemberAdd', async member => {
     let serverdata = db.get(member.guild.id)
     if (!serverdata.welcomechannel) return;
@@ -129,6 +128,7 @@ client.on('guildMemberAdd', async member => {
     if (!channel) return;
     return channel.send(attachment)
 })
+*/
 
 client.on("message", async message => {
     if (message.author.bot) return;
