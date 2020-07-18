@@ -5,6 +5,7 @@ const lang_list = {
 }
 module.exports = {
     name: "setdefault",
+    category: 'tts',
     aliases: ["setdef"],
     description: "Set default tts lang for tts command",
     usage: "setdefault <en or vi>",

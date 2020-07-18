@@ -2,6 +2,7 @@ const ss = require('string-similarity');
 const db = require('quick.db');
 module.exports = {
     name: 'setaichannel',
+    category: 'settings',
     aliases: ['aichannel', 'ai'],
     description: 'Set channel cho bot AI nói chuyện',
     note: 'English only',

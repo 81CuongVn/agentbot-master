@@ -6,6 +6,7 @@ const { formatBytes, laysodep } = require('../../functions');
 module.exports = {
     cooldown: 10,
     name: 'botinfo',
+    category: 'info',
     description: 'Show info của bot!',
     usage: 'botinfo',
     run: async (client, message, args) => {
