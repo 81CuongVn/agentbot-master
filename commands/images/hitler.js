@@ -1,5 +1,5 @@
 const Canacord = require('canvacord');
-const canva = new Canacord.Canvas();
+const canva = new Canacord();
 const { MessageAttachment } = require('discord.js');
 module.exports = {
     name: "hitler",
