@@ -1,5 +1,5 @@
 const Canvacord = require('canvacord');
-const canva = new Canvacord.Canvas();
+const canva = new Canvacord();
 const {MessageAttachment} = require('discord.js')
 module.exports = {
     name: "tat",
