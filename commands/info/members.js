@@ -3,18 +3,25 @@ const { MessageEmbed } = require('discord.js');
 const { trimArray } = require('../../functions')
 module.exports = {
     name: "members",
+    aliases: ['member'],
     category: "info",
     description: "Xem member của 1 role nhất định.",
     usage: "members <role_name>",
     run: async(client, message, args) => {
         if (!args[0]) return message.reply(`Ghi tên role giúp mình với D:`).then(m => m.delete({timeout: 5000}))
-        var roles = message.guild.roles.cache.filter(r => r.managed === false).array().map(g => g.name)
-        var search = args.join(' ')
-        var matches = SS.findBestMatch(search, roles)
-        var members = message.guild.roles.cache.find(role => role.name == matches.bestMatch.target).members.map(m => m.user)
+        var role = message.guild.roles.cache.get(args[0])
+        console.log(role)
+        if (!role) {
+            role = message.guild.roles.cache.filter(r => r.managed === false).array().map(g => g.name)
+            var search = args.join(' ')
+            var matches = SS.findBestMatch(search, roles)
+            role = message.guild.roles.cache.find(role => role.name == matches.bestMatch.target)
+        }
+        var members = role.members.map(m => m.user)
         const embed = new MessageEmbed()
-            .setTitle(`Thành viên trong role ${matches.bestMatch.target}`)
+            .setTitle(`Thành viên trong \`${role.name}\``)
             .setDescription(members.length < 30 ? members.join('\n') : roles.length > 30 ? trimArray(members, 30) : 'None')
+            .setFooter(`Số người có role này: ${role.members.size}`)
         message.channel.send(embed)
     }
 }
