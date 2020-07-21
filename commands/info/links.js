@@ -13,7 +13,7 @@ module.exports = {
             .setColor('RANDOM')
             .setDescription(cmtag.stripIndent `[Add AgentBot vào server:](https://discordapp.com/api/oauth2/authorize?client_id=645883401500622848&permissions=8&scope=bot)
         
-        [Support server:](https://discord.gg/sn3nBCJ)
+        [Support server:](https://discord.gg/xAPtFDK)
 
         [Top.gg:](https://top.gg/bot/645883401500622848)
 
