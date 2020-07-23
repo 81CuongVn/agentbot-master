@@ -1,5 +1,7 @@
 const Snowshot = require('snowshot');
-const window = new Snowshot();
+const window = new Snowshot({
+    removeTags: ['script']
+});
 const { MessageAttachment } = require('discord.js');
 const isUrl = require('is-url');
 module.exports = {
