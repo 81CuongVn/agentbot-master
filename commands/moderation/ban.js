@@ -77,7 +77,7 @@ module.exports = {
             // Verification stuffs
             if (emoji === "✅") {
                 msg.delete();
-                toBan.send(`Bạn vừa bị ban ở server \`${toKick.guild.name}\`. Lý do: \`${args.slice(1).join(' ')}\``)
+                toBan.send(`Bạn vừa bị ban ở server \`${toBan.guild.name}\`. Lý do: \`${args.slice(1).join(' ')}\``)
                 toBan.ban(reason)
                     .catch(err => {
                         if (err) return message.channel.send(`Bị lỗi khi ban: ${err.message}`)
