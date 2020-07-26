@@ -41,12 +41,18 @@ module.exports = {
         const writeFile = util.promisify(fs.writeFile);
         await writeFile(`./data/ttsdata/${message.guild.id}.mp3`, response.audioContent, 'binary');
         //sau khi xử lý xong âm thanh, phát cho người dùng
-        let connection = await voiceChannel.join().catch()
-        if (!connection) return message.channel.send('Channel đầy, không vào được!')
+        let connection;
+        try {
+            connection = await voiceChannel.join()
+        }
+        catch(e) {
+            return message.channel.send('Bot không thể vào channel của bạn vào lúc này, vui lòng thử lại sau!')
+        }
+        if (!connection) return message.channel.send('Bot không thể vào channel của bạn vào lúc này, vui lòng thử lại sau!')
         sleep(500);
         let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
         await db.set(`${message.guild.id}.botdangnoi`, true)
-        await db.set(`${message.guild.id}.endTime`, Date.now() + ms('1m'))
+        await db.set(`${message.guild.id}.endTime`, Date.now() + ms('5m'))
         dispatcher.on('finish', async () => {
             await db.set(`${message.guild.id}.botdangnoi`, false)
             setTimeout(async () => {
@@ -57,7 +63,7 @@ module.exports = {
                     voiceChannel.leave()
                     message.channel.send('Đã rời phòng vì không hoạt động!')
                 }
-            }, ms('1m') + 1000)
+            }, ms('5m') + 1000)
         })
     }
 }
