@@ -10,9 +10,7 @@ module.exports = {
     example: "kick @phamleduy04",
     run: async(client, message, args) => {
         let serverdata = db.get(message.guild.id)
-        if (serverdata.logchannel == null) return message.reply(`Bạn chưa set log channel, vui lòng sử dụng lệnh \`${serverdata.prefix}setlogchannel\` để set log channel.`)
-        const logChannel = message.guild.channels.cache.get(serverdata.logchannel);
-        if (!logChannel) return message.reply(`Log channel của bạn đã bị xoá, vui lòng kiểm tra lại hoặc sử dụng lệnh \`${serverdata.prefix}setlogchannel\` để set lại log channel.`)
+        const logChannel = message.guild.channels.cache.get(serverdata.logchannel) || message.channel;
 
         if (message.deletable) message.delete();
 
