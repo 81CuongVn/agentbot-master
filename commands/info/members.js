@@ -10,11 +10,10 @@ module.exports = {
     run: async(client, message, args) => {
         if (!args[0]) return message.reply(`Ghi tên role giúp mình với D:`).then(m => m.delete({timeout: 5000}))
         var role = message.guild.roles.cache.get(args[0])
-        console.log(role)
         if (!role) {
             role = message.guild.roles.cache.filter(r => r.managed === false).array().map(g => g.name)
             var search = args.join(' ')
-            var matches = SS.findBestMatch(search, roles)
+            var matches = SS.findBestMatch(search, role)
             role = message.guild.roles.cache.find(role => role.name == matches.bestMatch.target)
         }
         var members = role.members.map(m => m.user)
