@@ -1,4 +1,4 @@
-const { Collection, MessageEmbed, Client, Util} = require("discord.js");
+const { Collection, MessageEmbed, Client, Util } = require("discord.js");
 const { config } = require("dotenv");
 config({
     path: __dirname + "/.env"
@@ -9,12 +9,10 @@ const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
 const ms = require('ms')
 const cooldown = new Set();
-const client = new Client({
-    disableMentions: "everyone"
-});
+const client = new Client({disableMentions: "everyone"});
 const fetch = require('node-fetch');
-const { bid, brainkey } = require('./config.json');
-if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build")
+const { bid, brainkey, timezone } = require('./config.json');
+if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build");
 
 //discord.bots.gg api
 const axios = require('axios');
@@ -27,10 +25,6 @@ if (process.env.TYPE_RUN == 'production') {
     const DBL = require('dblapi.js');
     const dbl = new DBL(process.env.TOPGG, client);
     //top.gg API
-    dbl.on('posted', () => {
-        console.log("Server count posted to top.gg")
-    })
-    
     dbl.on('error', e => {
         console.log(e)
     })
@@ -83,11 +77,9 @@ client.on("ready", () => {
                     type: 'PLAYING'
                 }
             });
-            
             instance.post(`bots/${client.user.id}/stats`, {
                 guildCount: client.guilds.cache.size
             })
-                
         }, 36e5) //1 hour
     }
 });
@@ -141,7 +133,11 @@ client.on("message", async message => {
     if (!db.has(`${message.guild.id}.msgChannelOff`)) await db.set(`${message.guild.id}.msgChannelOff`, [])
     let listChannelMsg = await db.get(`${message.guild.id}.msgChannelOff`);
     if (message.guild && db.get(`${message.guild.id}.msgcount`) && !cooldown.has(message.author.id) && !listChannelMsg.includes(message.channel.id)) {
-        let emoji = Util.parseEmoji(message.content);
+        let emoji;
+        try {
+            emoji = Util.parseEmoji(message.content);
+        }
+        catch(e){}
         if (!emoji || emoji == null || emoji.id == null){
             let userdata = client.getScore.get(message.author.id, message.guild.id);
             if (!userdata) userdata = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, xp: 0, level: 1 }
@@ -200,6 +196,7 @@ client.on("message", async message => {
         timestamps.set(message.author.id, now)
         setTimeout(() => timestamps.delete(message.author.id), cooldownAmount)
         if (blacklist_status === true && command.name !== 'blacklist') return message.channel.send('Server bạn đang nằm trong blacklist, vui lòng liên hệ owner của bot hoặc vào support server tại: https://top.gg/bot/645883401500622848');
+        logging(`${message.author.tag} đã sử dụng lệnh ${command.name} ở server ${message.guild.name}`);
         command.run(client, message, args);
     }
 });
@@ -282,3 +279,8 @@ async function welcome(username, discrim, avatarURL, description){
     return canvas.toBuffer()
 }
 */
+
+function logging(content){
+    const moment = require('moment-timezone');
+    console.log(`${moment.tz(timezone).format("LTS")} || ${content}`);
+}
