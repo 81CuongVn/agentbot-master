@@ -8,3 +8,4 @@ data.sqlite-wal
 package-lock.json
 /data/ttsdata
 json.sqlite
+.env
