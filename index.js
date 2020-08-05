@@ -154,12 +154,12 @@ client.on("message", async message => {
             }
             userdata.xp += xpAdd
             client.setScore.run(userdata);
-            cooldown.add(message.author.id)
-            setTimeout(() => {
-                cooldown.delete(message.author.id)
-            }, ms('1m'))
             }
         }
+        cooldown.add(message.author.id);
+            setTimeout(() => {
+                cooldown.delete(message.author.id)
+        }, ms('1m'))
     }
     //ai channel
     let aiChannel = await db.get(`${message.guild.id}.aiChannel`)
