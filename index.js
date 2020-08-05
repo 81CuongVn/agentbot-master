@@ -1,4 +1,4 @@
-const { Collection, MessageEmbed, Client, MessageAttachment} = require("discord.js");
+const { Collection, MessageEmbed, Client, Util} = require("discord.js");
 const { config } = require("dotenv");
 config({
     path: __dirname + "/.env"
@@ -141,21 +141,24 @@ client.on("message", async message => {
     if (!db.has(`${message.guild.id}.msgChannelOff`)) await db.set(`${message.guild.id}.msgChannelOff`, [])
     let listChannelMsg = await db.get(`${message.guild.id}.msgChannelOff`);
     if (message.guild && db.get(`${message.guild.id}.msgcount`) && !cooldown.has(message.author.id) && !listChannelMsg.includes(message.channel.id)) {
-        let userdata = client.getScore.get(message.author.id, message.guild.id);
-        if (!userdata) userdata = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, xp: 0, level: 1 }
-        if (userdata.level !== 999){
-        let xpAdd = Math.floor(Math.random() * 12) //from 1 to 12
-        const nextlvl = userdata.level * 300
-        if(userdata.xp > nextlvl) {
-            userdata.level++;
-            message.reply(`Bạn đã lên cấp **${userdata.level}**!`);
-        }
-        userdata.xp += xpAdd
-        client.setScore.run(userdata);
-        cooldown.add(message.author.id)
-        setTimeout(() => {
-            cooldown.delete(message.author.id)
-        }, ms('1m'))
+        let emoji = Util.parseEmoji(message.content);
+        if (!emoji.id){
+            let userdata = client.getScore.get(message.author.id, message.guild.id);
+            if (!userdata) userdata = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, xp: 0, level: 1 }
+            if (userdata.level !== 999){
+            let xpAdd = Math.floor(Math.random() * 12) //from 1 to 12
+            const nextlvl = userdata.level * 300
+            if(userdata.xp > nextlvl) {
+                userdata.level++;
+                message.reply(`Bạn đã lên cấp **${userdata.level}**!`);
+            }
+            userdata.xp += xpAdd
+            client.setScore.run(userdata);
+            cooldown.add(message.author.id)
+            setTimeout(() => {
+                cooldown.delete(message.author.id)
+            }, ms('1m'))
+            }
         }
     }
     //ai channel
