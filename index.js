@@ -142,7 +142,7 @@ client.on("message", async message => {
     let listChannelMsg = await db.get(`${message.guild.id}.msgChannelOff`);
     if (message.guild && db.get(`${message.guild.id}.msgcount`) && !cooldown.has(message.author.id) && !listChannelMsg.includes(message.channel.id)) {
         let emoji = Util.parseEmoji(message.content);
-        if (!emoji.id){
+        if (!emoji || emoji == null || emoji.id == null){
             let userdata = client.getScore.get(message.author.id, message.guild.id);
             if (!userdata) userdata = { id: `${message.guild.id}-${message.author.id}`, user: message.author.id, guild: message.guild.id, xp: 0, level: 1 }
             if (userdata.level !== 999){
