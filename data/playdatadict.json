@@ -18,6 +18,5 @@
     "trandan4": "./data/playdata/tu_nhin_tui_thay_1_hien_tuong_la.mp3",
     "tradepbove": "./data/playdata/tradepbove.mp3",
     "truylac": "./data/playdata/truylac.mp3",
-    "votay": "./data/playdata/votay.mp3",
-    "unknown": "./data/playdata/unknown-audio.au"
+    "votay": "./data/playdata/votay.mp3"
 }

@@ -30,7 +30,7 @@ module.exports = {
         rank++; //real rank
         const canvas = createCanvas(1000, 333);
         const ctx = canvas.getContext("2d");
-        const background = await loadImage(join(__dirname, "..", "..",  "background", "rank.jpg"))
+        const background = await loadImage(join(__dirname, "..", "..",  "assets", "rank.jpg"))
         let next_level_xp = data.level * 300
         if (next_level_xp.toString().length >= 4) {
           next_level_xp = next_level_xp/1000

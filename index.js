@@ -1,4 +1,4 @@
-const { Collection, MessageEmbed, Client, Util } = require("discord.js");
+const { Collection, MessageEmbed, Client, Util, MessageAttachment } = require("discord.js");
 const { config } = require("dotenv");
 config({
     path: __dirname + "/.env"
@@ -12,6 +12,7 @@ const cooldown = new Set();
 const client = new Client({disableMentions: "everyone"});
 const fetch = require('node-fetch');
 const { bid, brainkey, timezone } = require('./config.json');
+const { welcome } = require('./functions');
 if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build");
 
 //discord.bots.gg api
@@ -21,6 +22,7 @@ const instance = axios.create({
     timeout: 10000,
     headers: {"Authorization": process.env.DBOTGG}
 })
+
 if (process.env.TYPE_RUN == 'production') {
     const DBL = require('dblapi.js');
     const dbl = new DBL(process.env.TOPGG, client);
@@ -105,22 +107,16 @@ client.on("guildDelete", async oldguild => { //bot leave server
         .setFooter(`OwnerID: ${oldguild.ownerID}`)
     client.channels.cache.get('700071755146068099').send(embed) //agent's server
 })
-/*
+
 client.on('guildMemberAdd', async member => {
-    let serverdata = db.get(member.guild.id)
+    let serverdata = db.get(member.guild.id);
     if (!serverdata.welcomechannel) return;
-    if (!serverdata.discrim) {
-        serverdata.discrim = 'Chào mừng bạn đã vào server!'
-        await db.set(member.guild.id, serverdata)
-    }
-    let image = await welcome(member.user.username, member.user.discriminator, member.user.avatarURL({dynamic: false, format: 'png'}), serverdata.discrim)
-    let attachment = new MessageAttachment(image, 'welcome.png')
-    let channel = member.guild.channels.cache.get(serverdata.welcomechannel)
-    console.log(channel)
+    let channel = member.guild.channels.cache.get(serverdata.welcomechannel);
     if (!channel) return;
-    return channel.send(attachment)
+    let image = await welcome(member.user.username, member.user.discriminator, member.user.avatarURL({ format: 'png', dynamic: false }), member.guild.members.cache.size);
+    let attachment = new MessageAttachment(image, 'welcome.png');
+    return channel.send(attachment);
 })
-*/
 
 client.on("message", async message => {
     if (message.author.bot) return;
@@ -213,6 +209,7 @@ client.on('error', (err) => {
 })
 
 process.on('warning', console.warn);
+
 //console chat
 let y = process.openStdin()
 y.addListener("data", res => {
@@ -222,65 +219,10 @@ y.addListener("data", res => {
     client.channels.cache.get("702983688811708416").send(send);
 });
 //end console chat
-client.login(process.env.TOKEN);
-
-/*
-const Canvas = require('canvas');
-async function welcome(username, discrim, avatarURL, description){
-    if (!username) throw new Error("No username was provided")
-    if (!discrim) throw new Error("No discrim was provided!");
-    if (!avatarURL) throw new Error("No avatarURL was provided!");
-    if (!description) throw new Error("No description was provided!")
-
-    Canvas.registerFont(__dirname + '/assets/Cadena.ttf', {family: 'Cadena', weight: "regular", style: "normal"})
-    console.log('register')
-    //create canvas
-    const canvas = Canvas.createCanvas(700, 250);
-    const ctx = canvas.getContext('2d');
-
-    const background = await Canvas.loadImage(__dirname + '/assets/background.png');
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-    console.log('background')
-    const font = 'Cadena';
-
-    ctx.font = `20px ${font}`;
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'start';
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = 'black';
-    ctx.fillText('Welcome', 260, 100);
-
-    const welcometextPosition = { width: 260, height: 150 };
-    console.log('welcome')
-    let fontSize = 55;
-    ctx.font = `${fontSize}px ${font}`;
-
-    do {
-        fontSize -= 1;
-        ctx.font = `${fontSize}px ${font}`
-    } while (ctx.measureText(`${username}#${discrim}!).width > 430`));
-
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'start';
-    ctx.fillText(`${username}`, welcometextPosition.width, welcometextPosition.height, 455);
-    console.log('start')
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-    ctx.textAlign = 'start';
-    ctx.fillText(`#${discrim}!`, ctx.measureText(`${username}`).width + welcometextPosition.width, welcometextPosition.height);
-    ctx.shadowBlur = 0;
-    ctx.beginPath();
-    ctx.arc(125, 125, 100, 0, Math.PI *2, true);
-    ctx.closePath();
-    ctx.clip();
-    console.log('export')
-    const avatar = await Canvas.loadImage(avatarURL);
-    ctx.drawImage(avatar, 25, 25, 200, 200);
-    console.log('return')
-    return canvas.toBuffer()
-}
-*/
 
 function logging(content){
     const moment = require('moment-timezone');
     console.log(`${moment.tz(timezone).format("LTS")} || ${content}`);
 }
+
+client.login(process.env.TOKEN);

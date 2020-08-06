@@ -18,6 +18,6 @@ module.exports = {
             bxh.forEach(user => {
                 embed.addField(`\`${user.position}\`. ${client.users.cache.get(user.id).tag}`, `Tiền: ${laysodep(user.money)} 💸`)
             })
-        return message.channel.send(embed)
+        return message.channel.send(embed);
     }
 }
