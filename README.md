@@ -4,4 +4,4 @@
 [![Dependency Status](https://david-dm.org/phamleduy04/agentbot-master.svg)](https://david-dm.org/phamleduy04/agentbot-master)
 
 # Thanks to
-[@inhalingzone]([https://www.instagram.com/inhalingzone/](https://www.instagram.com/inhalingzone/)) aka Quanh` đã hỗ trợ hình <3
+[@inhalingzone](https://www.instagram.com/inhalingzone/) aka Quanh` đã hỗ trợ hình <3
