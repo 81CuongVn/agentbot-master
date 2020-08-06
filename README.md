@@ -2,3 +2,6 @@
 [![issue](https://img.shields.io/github/issues/phamleduy04/agentbot-master?style=for-the-badge)](https://github.com/phamleduy04/agentbot-master/issues)
 [![package.json](https://img.shields.io/github/package-json/v/phamleduy04/agentbot-master?label=Package.json&style=for-the-badge)](https://github.com/phamleduy04/agentbot-master/blob/master/package.json)
 [![Dependency Status](https://david-dm.org/phamleduy04/agentbot-master.svg)](https://david-dm.org/phamleduy04/agentbot-master)
+
+# Thanks to
+[@inhalingzone]([https://www.instagram.com/inhalingzone/](https://www.instagram.com/inhalingzone/)) aka Quanh` đã hỗ trợ hình <3
