@@ -13,7 +13,12 @@ module.exports = {
         search = uri(search)
         getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=${gggeolocaionkey}`, function(error, response){
             if (error) return message.channel.send('Bot lỗi, vui lòng thử lại sau!')
-            if (response.status == 'ZERO_RESULTS') return message.channel.send('Từ khoá bạn vừa nhập không có trong bản đồ!')
+            console.log(response)
+            if (response.status == 'ZERO_RESULTS') return message.channel.send('Từ khoá bạn vừa nhập không có trong bản đồ!');
+            if (response.status == 'REQUEST_DENIED') {
+                console.log('Cần thay đổi API KEY của ggeolocation!');
+                return message.channel.send('Bot lỗi, vui lòng thử lại sau!');
+            }
             let res = response.results[0]
             if (res.geometry) {
                 let timeurl = `http://api.timezonedb.com/v2.1/get-time-zone?key=${timezonedb}&format=json&by=position&lat=${res.geometry.location.lat}&lng=${res.geometry.location.lng}`
