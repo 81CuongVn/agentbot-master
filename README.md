@@ -8,6 +8,6 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/phamleduy04/agentbot-master?style=for-the-badge)
 
 
-[![Dependency Status](https://david-dm.org/phamleduy04/agentbot-master.svg)](https://david-dm.org/phamleduy04/agentbot-master)
+[![David](https://img.shields.io/david/phamleduy04/agentbot-master?style=for-the-badge)](https://david-dm.org/phamleduy04/agentbot-master)
 # Thanks to
 [@inhalingzone](https://www.instagram.com/inhalingzone/) aka Quanh` đã hỗ trợ hình <3
