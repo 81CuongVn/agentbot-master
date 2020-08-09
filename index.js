@@ -10,7 +10,6 @@ const sql = new SQLite('./data.sqlite');
 const ms = require('ms')
 const cooldown = new Set();
 const client = new Client({disableMentions: "everyone"});
-const fetch = require('node-fetch');
 const { bid, brainkey, timezone } = require('./config.json');
 const { welcome } = require('./functions');
 if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build");
@@ -32,6 +31,7 @@ if (process.env.TYPE_RUN == 'production') {
     })
 }
 const db = require('quick.db');
+const afkData = new db.table('afkdata');
 client.commands = new Collection();
 client.aliases = new Collection();
 const cooldowns = new Collection();
@@ -157,12 +157,19 @@ client.on("message", async message => {
     let aiChannel = await db.get(`${message.guild.id}.aiChannel`)
     if (!aiChannel) await db.set(`${message.guild.id}.aiChannel`, null) 
     else if (message.channel.id == aiChannel) {
-        fetch(`http://api.brainshop.ai/get?bid=${bid}&key=${brainkey}&uid=1&msg=${encodeURIComponent(message.content)}`)
-        .then(res => res.json())
-        .then(data => {
-            message.channel.send(data.cnt)
-        })
+        await axios.get(`http://api.brainshop.ai/get?bid=${bid}&key=${brainkey}&uid=1&msg=${encodeURIComponent(message.content)}`)
+            .then(response => {
+                message.channel.send(response.data.cnt)
+            })
     }
+    let mention = message.mentions.members.array();
+    if (mention.length !== 0) {
+    mention.forEach(async member => {
+        let userAFK = await afkData.get(member.id);
+        if (!userAFK) userAFK = await afkData.set(member.id, { afk: false, loinhan: '' })
+        if (userAFK.afk === true) message.channel.send(`${member.user.username} đã AFK, lời nhắn: ${userAFK.loinhan}`);
+    })
+    }   
     const prefixlist = [`<@${client.user.id}>`, `<@!${client.user.id}>`, serverData.prefix]
     let prefix = null;
     for (const thisprefix of prefixlist) {

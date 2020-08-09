@@ -19,9 +19,17 @@ module.exports = {
             if (matches.bestMatch.rating < 0.6) return message.channel.send(`Không tìm thấy channel tên ${channel_name}`)
             channel = message.guild.channels.cache.find(channel => channel.name == matches.bestMatch.target)
         }
-        if (!channel) return message.channel.send('Không tìm thấy channel!')
-        //log to database
-        await db.set(`${message.guild.id}.aiChannel`, channel.id)
-        message.channel.send(`Đã lưu ${channel} vào AI channel!`)
+        if (!channel) return message.channel.send('Không tìm thấy channel!');
+        //check in db
+        let guildData = await db.get(message.guild.id);
+        let aiChannelID = guildData.aiChannel;
+        if (aiChannelID == channel.id) {
+            await db.set(`${message.guild.id}.aiChannel`, null);
+            message.channel.send(`Đã xoá ${channel}!`);
+        } else {
+            //log to database
+            await db.set(`${message.guild.id}.aiChannel`, channel.id);
+            message.channel.send(`Đã lưu ${channel} vào AI channel!`);
+        }
     }
 }
