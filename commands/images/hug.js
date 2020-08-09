@@ -1,14 +1,31 @@
 const { MessageEmbed } = require("discord.js");
-var getJSON = require("get-json");
+const axios = require("axios");
 module.exports = {
     name: "hug",
     category: "images",
     description: "Ôm ai đó hoặc tất cả",
     usage: "hug [@tag]",
     example: "hug (ôm tất cả) hoặc hug @phamleduy04",
-    run: (client, message, args) => {
-        let url = `https://some-random-api.ml/animu/hug`
+    run: async (client, message, args) => {
         let nguoitag = message.mentions.members.array() || message.guild.members.cache.get(args[0])
+        try {
+            const embed = new MessageEmbed()
+            await axios.get('https://some-random-api.ml/animu/hug').then(response => {
+                if (nguoitag.length == 0) {
+                        embed.setDescription(`${message.member} đã ôm tất cả mọi người <3`)
+                            .setImage(response.data.link)
+                } else {
+                    embed.setDescription(`Awwww, ${message.member} đã ôm ${nguoitag} <3`)
+                        .setImage(response.data.link)
+                }
+                return message.channel.send(embed)
+            })
+        }
+        catch(e){
+            console.log(e);
+            return message.channel.send("Bot lỗi khi cố gắng lấy hình, hãy thử lại sau")
+        }
+        /*
         getJSON(url, function(error, response) {
             if (!error) {
                 if (nguoitag.length == 0) {
@@ -25,5 +42,6 @@ module.exports = {
                 return message.channel.send("Bot lỗi khi cố gắng lấy hình, hãy thử lại sau")
             }
         });
+        */
     }
 }

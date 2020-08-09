@@ -1,5 +1,4 @@
-const encode = require('strict-uri-encode')
-const {MessageEmbed} = require('discord.js')
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: "askgoogle",
     category: "fun",
@@ -7,7 +6,7 @@ module.exports = {
     run: async(client, message, args, tools) => {
         message.delete()
         if (!args[0]) return message.reply(`**Mày đéo nhập gì tao tìm bằng cu**`)
-        let question = encode(args.join(' '));
+        let question = encodeURIComponent(args.join(' '));
         let link = `http://letmegooglethat.com/?q=${question}`;
         let embed = new MessageEmbed()
             .setTitle('Câu trả lời của bạn đây')

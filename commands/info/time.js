@@ -1,5 +1,4 @@
-const getJSON = require('get-json');
-const uri = require('strict-uri-encode');
+const axios = require('axios');
 const { gggeolocaionkey, timezonedb } = require('../../config.json');
 module.exports = {
     name: 'time',
@@ -9,23 +8,23 @@ module.exports = {
     example: 'time Dallas,TX',
     run: async (client, message, args) => {
         if (!args[0]) return message.reply('Ghi tên thành phố hoặc địa chỉ của bạn!.')
-        let search = args.join(' ')
-        search = uri(search)
-        getJSON(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=${gggeolocaionkey}`, function(error, response){
-            if (error) return message.channel.send('Bot lỗi, vui lòng thử lại sau!')
-            if (response.status == 'ZERO_RESULTS') return message.channel.send('Từ khoá bạn vừa nhập không có trong bản đồ!');
-            if (response.status == 'REQUEST_DENIED') {
-                console.log('Cần thay đổi API KEY của ggeolocation!');
-                return message.channel.send('Bot lỗi, vui lòng thử lại sau!');
+        let search = encodeURIComponent(args.join(' '));
+        try {
+            let googleData = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${search}&key=${gggeolocaionkey}`);
+            googleData = googleData.data;
+            if (googleData.status == 'ZERO_RESULTS') return message.channel.send('Từ khoá bạn vừa nhập không có trong bản đồ!');
+            if (googleData.status == 'REQUEST_DENIED') throw new Error('Cần thay đổi API KEY của ggeolocation!')
+            googleData = googleData.results[0]
+            if (googleData.geometry) {
+                let geo = googleData.geometry
+                let timedb = await axios.get(`http://api.timezonedb.com/v2.1/get-time-zone?key=${timezonedb}&format=json&by=position&lat=${geo.location.lat}&lng=${geo.location.lng}`);
+                timedb = timedb.data;
+                message.channel.send(`Múi giờ ${timedb.zoneName}, ${timedb.formatted}`)
             }
-            let res = response.results[0]
-            if (res.geometry) {
-                let timeurl = `http://api.timezonedb.com/v2.1/get-time-zone?key=${timezonedb}&format=json&by=position&lat=${res.geometry.location.lat}&lng=${res.geometry.location.lng}`
-                getJSON(timeurl, function(error, response){
-                    if (error) return message.channel.send('Bot lỗi, vui lòng thử lại sau!')
-                    message.channel.send(`Múi giờ ${response.zoneName}, ${response.formatted}`)
-                })
-            }
-        })
+        }
+        catch(e) {
+            console.log(e);
+            message.channel.send('Bot lỗi khi đang cố gắng truy xuất dữ liệu, vui lòng thử lại sau!')
+        }
     }
 }

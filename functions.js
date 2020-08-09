@@ -1,6 +1,7 @@
 const random = require('random-number-csprng');
 const { MessageEmbed }= require('discord.js');
 const Canvas = require('canvas');
+const axios = require('axios');
 module.exports = {
     getMember: function(message, toFind = '') {
         toFind = toFind.toLowerCase();
@@ -247,8 +248,26 @@ module.exports = {
         ctx.clip();
         const avatar = await Canvas.loadImage(avatarURL);
         ctx.drawImage(avatar, 25, 25, 200, 200);
-        
-    
         return canvas.toBuffer()
+    },
+    getunplash: async function(query){
+        if (!query) throw new Error('Query is empty!');
+        const { unsplashapikey } = require('./config.json');
+        try {
+            let response = await axios.get(`https://api.unsplash.com/photos/random/`, {
+                headers: {"Authorization": `Client-ID ${unsplashapikey}`},
+                params: { query: query, count: 1 }
+            })
+            let json = response.data[0];
+            let embed = new MessageEmbed()
+                .setTitle('Click vào để download')
+                .setURL(json.links.download)
+                .setImage(json.urls.small)
+                .setFooter(`Photo by ${json.user.name} at unsplash.com`)
+            return embed;
+        }
+        catch(e){
+            return null;
+        }
     }
 }

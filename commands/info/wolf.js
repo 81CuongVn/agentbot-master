@@ -1,4 +1,3 @@
-const encode = require('strict-uri-encode');
 var { wolfarm_key } = require('../../config.json');
 const axios = require('axios');
 const { MessageEmbed } = require('discord.js');
@@ -10,9 +9,8 @@ module.exports = {
     example: "wolf GDP of vietnam",
     usage: "wolf <query>",
     run: async (client, message, args) => {
-        var query = encode(args.join(' '))
-        var url = `https://api.wolframalpha.com/v2/query?input=${query}&format=image&output=JSON&appid=${wolfarm_key}`
-        let data = await axios.get(url)
+        var query = encodeURIComponent(args.join(' '));
+        let data = await axios.get(`https://api.wolframalpha.com/v2/query?input=${query}&format=image&output=JSON&appid=${wolfarm_key}`)
         .catch(err => {
             if (err) return message.channel.send(`Bot lỗi: ${err.message}`)
         })

@@ -1,22 +1,11 @@
-var getJSON = require("get-json")
-const { MessageEmbed } = require("discord.js")
+const { getunplash } = require('../../functions');
 module.exports = {
     name: "cat",
     category: "animals",
     description: "Gởi ảnh/video về moè",
-    run: (client, message, args) => {
-        let url = `http://aws.random.cat/meow`
-        getJSON(url, function(error, response) {
-            if (!error) {
-                const embed = new MessageEmbed()
-                    .setTitle(`Moèeeeee!`)
-                    .setURL(response.file)
-                    .setImage(response.file)
-                message.channel.send(embed)
-            } else {
-                message.channel.send(`Bot lỗi trong khi lấy hình, vui lòng thử lại sau.`)
-            }
-
-        });
+    run: async (client, message, args) => {
+        let embed = await getunplash('cat');
+        if (embed === null) return message.channel.send('Bot lỗi, vui lòng thử lại sau!');
+        message.channel.send(embed);
     }
 }

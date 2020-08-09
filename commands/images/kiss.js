@@ -1,25 +1,26 @@
 const { MessageEmbed } = require("discord.js");
-var getJSON = require("get-json");
-var { giphy_key } = require("../../config.json")
+var { giphy_key } = require("../../config.json");
+const axios = require("axios");
 module.exports = {
     name: "kiss",
     category: "images",
     description: "Chụt chụt :D",
     usage: "kiss <@tag>",
-    run: (client, message, args) => {
-        let url = `https://api.giphy.com/v1/gifs/random?api_key=${giphy_key}&tag=kiss&rating=R`
-        getJSON(url, function(error, response) {
-            if (error) return message.channel.send('Bot gặp lỗi trong khi lấy hình, vui lòng thử lại sau')
+    run: async (client, message, args) => {
+        try {
             let person = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-            if (!person) {
-                return message.reply(`Tính tự thơm chính mình à?`)
-            } else {
-                const embed = new MessageEmbed()
-                    .setDescription(`${message.member} đã thơm ${person} 💋`)
-                    .setImage(response.data.images.original.url)
-                    .setFooter(`By AgentBot đẹp trai`)
-                return message.channel.send(embed)
-            }
-        });
+            await axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${giphy_key}&tag=kiss&rating=R`).then(response => {
+            if (!person) return message.reply('Tag 1 người nào đi bạn.')
+            const embed = new MessageEmbed()
+                .setDescription(`${message.member} đã thơm ${person} 💋`)
+                .setImage(response.data.data.images.original.url)
+                .setFooter(`By AgentBot đẹp trai`)
+            return message.channel.send(embed)
+            })
+        }
+        catch(e){
+            console.log(e);
+            return message.channel.send("Bot lỗi khi cố gắng lấy hình, hãy thử lại sau");
+        }
     }
 }

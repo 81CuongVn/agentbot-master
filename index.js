@@ -10,7 +10,7 @@ const sql = new SQLite('./data.sqlite');
 const ms = require('ms')
 const cooldown = new Set();
 const client = new Client({disableMentions: "everyone"});
-const { bid, brainkey, timezone } = require('./config.json');
+const { bid, brainkey, timezone, unsplashapikey } = require('./config.json');
 const { welcome } = require('./functions');
 if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build");
 
@@ -159,7 +159,7 @@ client.on("message", async message => {
     else if (message.channel.id == aiChannel) {
         await axios.get(`http://api.brainshop.ai/get?bid=${bid}&key=${brainkey}&uid=1&msg=${encodeURIComponent(message.content)}`)
             .then(response => {
-                message.channel.send(response.data.cnt)
+                message.channel.send(response.data.cnt);
             })
     }
     let mention = message.mentions.members.array();
