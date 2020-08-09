@@ -5,6 +5,7 @@
 [![Code Quality](https://img.shields.io/scrutinizer/quality/g/phamleduy04/agentbot-master?style=for-the-badge)](https://img.shields.io/scrutinizer/quality/g/phamleduy04/agentbot-master?style=for-the-badge)
 [![Codacy grade](https://img.shields.io/codacy/grade/727feecc6fa84cbfbd973cba270006a3?label=Codacy%20Grade&style=for-the-badge)](https://img.shields.io/codacy/grade/727feecc6fa84cbfbd973cba270006a3?label=Codacy%20Grade&style=for-the-badge)
 [![Visits Badge](https://badges.pufler.dev/visits/phamleduy04/agentbot-master)](https://badges.pufler.dev)
+![GitHub top language](https://img.shields.io/github/languages/top/phamleduy04/agentbot-master?style=for-the-badge)
 
 
 [![Dependency Status](https://david-dm.org/phamleduy04/agentbot-master.svg)](https://david-dm.org/phamleduy04/agentbot-master)
