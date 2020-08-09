@@ -21,7 +21,7 @@ module.exports = {
                 .addField(`Feels like®: `, `${current.feelslike} °C`, true)
                 .addField(`Gió: `, current.winddisplay, true)
                 .addField(`Độ ẩm: `, `${current.humidity}%`, true)
-            message.channel.send(embed)
+            return message.channel.send(embed)
         });
     }
 }
