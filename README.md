@@ -22,6 +22,10 @@ Cần sự giúp đỡ nhiều hơn? Có bất kỳ ý tưởng cho bot? Muốn 
 
 Hoặc có thể mở [issue](https://github.com/phamleduy04/agentbot-master/issues) hoặc [pull request](https://github.com/phamleduy04/agentbot-master/pulls).
 
+## Người đóng góp
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 ## Credits
 
 **Creators of [Agent Bot](https://top.gg/bot/645883401500622848) :**
