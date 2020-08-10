@@ -21,6 +21,15 @@
         "bug",
         "doc"
       ]
+    },
+    {
+      "login": "doduc12306",
+      "name": "Đức Đỗ",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/38607396?v=4",
+      "profile": "https://github.com/doduc12306",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
