@@ -1,4 +1,7 @@
 ![Agent](https://cdn.discordapp.com/attachments/699884417069613076/742485462358163597/flanders-bannerBOT.png)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![issue](https://img.shields.io/github/issues/phamleduy04/agentbot-master?style=for-the-badge)](https://github.com/phamleduy04/agentbot-master/issues)
 [![package.json](https://img.shields.io/github/package-json/v/phamleduy04/agentbot-master?label=Package.json&style=for-the-badge)](https://github.com/phamleduy04/agentbot-master/blob/master/package.json)
@@ -20,3 +23,16 @@ Cần sự giúp đỡ nhiều hơn? Có bất kỳ ý tưởng cho bot? Muốn 
 [![widget](https://discordapp.com/api/v7/guilds/699872807605108744/widget.png?style=banner4)](https://discord.gg/SEMXgcj)
 
 Hoặc có thể mở [issue](https://github.com/phamleduy04/agentbot-master/issues) hoặc [pull request](https://github.com/phamleduy04/agentbot-master/pulls).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
