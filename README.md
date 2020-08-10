@@ -10,7 +10,7 @@
 
 
 
-[![](https://discordapp.com/api/v7/guilds/699872807605108744)](https://discord.gg/SEMXgcj)
+[![](https://discordapp.com/api/v7/guilds/699872807605108744/widget.png?style=banner4)](https://discord.gg/SEMXgcj)
 
 # Thanks to
 [@inhalingzone](https://www.instagram.com/inhalingzone/) aka Quanh` đã hỗ trợ hình <3
