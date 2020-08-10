@@ -15,7 +15,6 @@ module.exports = {
             .setThumbnail(client.user.displayAvatarURL())
         if (!args[0]){
             const categories = readdirSync('./commands/')
-            embed.setDescription(`Danh sách lệnh cho bot **${message.guild.me.displayName}**\n Prefix của bot là: \`${server_prefix}\``)
             let commandsize = 0;
             categories.forEach(category => {
                 const dir = client.commands.filter(c => c.category === category)
@@ -27,7 +26,8 @@ module.exports = {
                     console.log(e)
                 }
             })
-            embed.setFooter(`Tổng lệnh bot có: ${commandsize}`, client.user.displayAvatarURL())
+            embed.setDescription(`Danh sách lệnh cho bot **${message.guild.me.displayName}**\n Prefix của bot là: \`${server_prefix}\`\nTổng lệnh bot có: ${commandsize} lệnh\nCần sự giúp đỡ nhiều hơn? Hãy tham gia [Agent's Server](https://discord.gg/SEMXgcj)`)
+                .setFooter(`Sử dụng ${server_prefix}help {lệnh} để xem chi tiết.`)
             return message.channel.send(embed)
         } else {
             return getCMD(client, message, args[0])
