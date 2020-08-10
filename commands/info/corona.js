@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 const axios = require('axios');
 const api = require('novelcovid');
 api.settings({baseUrl: 'https://disease.sh'})
-const {laysodep} = require('../../functions');
+const { laysodep } = require('../../functions/utils');
 const capitalize = require("capitalize");
 const UsaStates = require('usa-states').UsaStates;
 module.exports = {

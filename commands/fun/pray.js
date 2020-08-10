@@ -1,4 +1,4 @@
-const { getMember } = require("../../functions.js");
+const { getMember } = require('../../functions/utils');
 module.exports = {
     name: "pray",
     category: "fun",
@@ -9,7 +9,7 @@ module.exports = {
         if (!args[0]) return message.reply("Cầu nguyện thì phải cần tag nha bạn")
         let person = getMember(message, args[0]);
         if (message.author.id === person.id) return message.reply("Có thờ có thiêng có duyên chết liền. Cầu cho người khác chứ cầu cho mình hoài vậy.");
-        message.channel.send(`🙏 ${message.member.displayName} cầu nguyện cho ${person.displayName} \n Chúc bạn may mắn :D`);
+        message.channel.send(`🙏 ${message.member.displayName} đã cầu nguyện cho ${person.displayName} \n Chúc bạn may mắn :D`);
 
     }
 }

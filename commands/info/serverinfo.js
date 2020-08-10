@@ -1,6 +1,6 @@
-const serverFlags = require('../../data/serverflag.json');
+const serverFlags = require('../../assets/serverflag.json');
 const { MessageEmbed } = require('discord.js');
-const { trimArray } = require('../../functions');
+const { trimArray } = require('../../functions/utils');
 const moment = require('moment');
 module.exports = {
     name: 'serverinfo',

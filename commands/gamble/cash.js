@@ -1,6 +1,6 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
-const {laysodep} = require('../../functions.js')
+const { laysodep } = require('../../functions/utils')
 module.exports = {
     name: "cash",
     cooldown: 5,

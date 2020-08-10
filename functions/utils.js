@@ -1,6 +1,5 @@
 const random = require('random-number-csprng');
 const { MessageEmbed }= require('discord.js');
-const Canvas = require('canvas');
 const axios = require('axios');
 module.exports = {
     getMember: function(message, toFind = '') {
@@ -199,60 +198,9 @@ module.exports = {
         });
         return result.slice(0,-1);
     },
-    welcome: async function welcome(username, discrim, avatarURL, membersize){
-        if (!username) throw new Error("No username was provided");
-        if (!discrim) throw new Error("No discrim was provided!");
-        if (!avatarURL) throw new Error("No avatarURL was provided!");
-        if (!membersize) throw new Error("No membersize was provided!");
-    
-        Canvas.registerFont(__dirname + '/assets/Cadena.ttf', { family: 'Cadena', weight: "regular", style: "normal" })
-        //create canvas
-        const canvas = Canvas.createCanvas(700, 250);
-        const ctx = canvas.getContext('2d');
-    
-        const background = await Canvas.loadImage(__dirname + '/assets/moscow.png');
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-        const font = 'Cadena';
-    
-        ctx.font = `30px ${font}`;
-        ctx.fillStyle = '#ffffff';
-        ctx.textAlign = 'start';
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = 'black';
-        ctx.fillText('Chào mừng', 260, 100);
-    
-        const welcometextPosition = { width: 260, height: 150 };
-        let fontSize = 55;
-        ctx.font = `${fontSize}px ${font}`;
-    
-        do {
-            fontSize -= 1;
-            ctx.font = `${fontSize}px ${font}`
-        } while (ctx.measureText(`${username}#${discrim}!`).width > 430);
-    
-        ctx.fillStyle = '#ffffff';
-        ctx.textAlign = 'start';
-        ctx.fillText(`${username}`, welcometextPosition.width, welcometextPosition.height, 455);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-        ctx.textAlign = 'start';
-        ctx.fillText(`#${discrim}!`, ctx.measureText(`${username}`).width + welcometextPosition.width, welcometextPosition.height);
-        ctx.shadowBlur = 0;
-        
-        ctx.fillStyle = '#ffffff';
-        ctx.textAlign = 'start';
-        ctx.font = `29px ${font}`
-        ctx.fillText(`Bạn là người thứ ${membersize} của server!`, welcometextPosition.width, welcometextPosition.height + 40)
-        ctx.beginPath();
-        ctx.arc(125, 125, 100, 0, Math.PI *2, true);
-        ctx.closePath();
-        ctx.clip();
-        const avatar = await Canvas.loadImage(avatarURL);
-        ctx.drawImage(avatar, 25, 25, 200, 200);
-        return canvas.toBuffer()
-    },
     getunplash: async function(query){
         if (!query) throw new Error('Query is empty!');
-        const { unsplashapikey } = require('./config.json');
+        const { unsplashapikey } = require('../config.json');
         try {
             let response = await axios.get(`https://api.unsplash.com/photos/random/`, {
                 headers: {"Authorization": `Client-ID ${unsplashapikey}`},
@@ -269,5 +217,32 @@ module.exports = {
         catch(e){
             return null;
         }
+    },
+    circle: async function(image) {
+        if (!image) throw new Error('image was not provided!');
+        image = await jimp.read(image);
+        image.resize(1024, 1024);
+        image.circle();
+        let raw = await image.getBufferAsync('image/png');
+        return raw;
+    }, 
+    toAbbrev: function(num) {
+        if (!num) return 'NaN';
+        if (typeof num === 'string') num = parseInt(num);
+        let decPlaces = Math.pow(10, 1);
+        var abbrev = ['K', 'M', 'B', 'T'];
+        for (var i = abbrev.length - 1; i >= 0; i--) {
+            var size = Math.pow(10, (i + 1) * 3);
+            if (size <= num) {
+                num = Math.round((num * decPlaces) / size) / decPlaces;
+                if (num == 1000 && i < abbrev.length - 1) {
+                    num = 1;
+                    i++;
+                }
+                num += abbrev[i];
+                break;
+            }
+        }
+        return num;
     }
 }

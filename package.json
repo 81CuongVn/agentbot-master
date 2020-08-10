@@ -1,6 +1,6 @@
 {
   "name": "agent-bot",
-  "version": "5.4.2",
+  "version": "5.4.3",
   "main": "index.js",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
@@ -19,6 +19,7 @@
     "dotenv": "^8.2.0",
     "ffmpeg-static": "^4.2.6",
     "is-url": "^1.2.4",
+    "jimp": "^0.16.0",
     "ksoft.js": "^3.1.4",
     "mathjs": "^7.1.0",
     "moment": "^2.27.0",

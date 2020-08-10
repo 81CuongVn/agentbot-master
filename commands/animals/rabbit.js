@@ -1,4 +1,4 @@
-const { getunplash } = require('../../functions'); 
+const { getunplash } = require('../../functions/utils'); 
 module.exports = {
     name: "rabbit",
     category: "animals",

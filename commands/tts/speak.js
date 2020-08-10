@@ -2,8 +2,8 @@ const tts =  require('@google-cloud/text-to-speech');
 const fs = require('fs');
 const util = require('util');
 const ttsclient = new tts.TextToSpeechClient();
-const { sleep } = require('../../functions');
-const lang_list = require('../../data/ttslang.json');
+const { sleep } = require('../../functions/utils');
+const lang_list = require('../../assets/ttslang.json');
 const db = require('quick.db');
 const ms = require('ms');
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
 
         const [response] = await ttsclient.synthesizeSpeech(request);
         const writeFile = util.promisify(fs.writeFile);
-        await writeFile(`./data/ttsdata/${message.guild.id}.mp3`, response.audioContent, 'binary');
+        await writeFile(`./assets/ttsdata/${message.guild.id}.mp3`, response.audioContent, 'binary');
         //sau khi xử lý xong âm thanh, phát cho người dùng
         let connection;
         try {
@@ -50,7 +50,7 @@ module.exports = {
         }
         if (!connection) return message.channel.send('Bot không thể vào channel của bạn vào lúc này, vui lòng thử lại sau!')
         sleep(500);
-        let dispatcher = connection.play(`./data/ttsdata/${message.guild.id}.mp3`)
+        let dispatcher = connection.play(`./assets/ttsdata/${message.guild.id}.mp3`)
         await db.set(`${message.guild.id}.botdangnoi`, true)
         await db.set(`${message.guild.id}.endTime`, Date.now() + ms('5m'))
         dispatcher.on('finish', async () => {

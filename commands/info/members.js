@@ -1,6 +1,6 @@
 let SS = require('string-similarity');
 const { MessageEmbed } = require('discord.js');
-const { trimArray } = require('../../functions')
+const { trimArray } = require('../../functions/utils')
 module.exports = {
     name: "members",
     aliases: ['member'],

@@ -1,4 +1,4 @@
-const array = require('../../data/thinh.json').data;
+const array = require('../../assets/thinh.json').data;
 module.exports = {
     name: "thinh",
     aliases: ["xinthinh"],

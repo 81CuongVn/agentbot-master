@@ -1,6 +1,6 @@
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
-const {pages} = require('../../functions');
+const {pages} = require('../../functions/utils');
 const {MessageEmbed} = require('discord.js');
 const db = require('quick.db');
 module.exports = {

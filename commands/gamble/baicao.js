@@ -1,6 +1,6 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
-const {randomcard, createembedfield, laysodep, locbai} = require('../../functions');
+const {randomcard, createembedfield, laysodep, locbai} = require('../../functions/utils');
 const ms = require('ms');
 const doubledownEmoji = "👌";
 const stopEmoji = "🛑";
@@ -17,18 +17,18 @@ module.exports = {
         let bots_deck =  [];
         let maxbet = 250000;
         let backcard = '<:back:709983842542288899>';
-        let listofcard = require('../../data/cardemojis.json').fulllist;
+        let listofcard = require('../../assets/cardemojis.json').fulllist;
         let hide_deck = [];
         let bet = undefined;
         let userdata = eco.fetchMoney(message.author.id);
-        if (args[0] == 0 || userdata.amount == 0) return message.channel.send('Bạn không thể cược 0.')
+        if (args[0] == 0) return message.channel.send('Bạn không thể cược 0.')
         else if (args[0] == 'all') {
             bet = 100000;
             if (bet > userdata.amount) bet = userdata.amount
         }
         else if (isNaN(args[0])) return message.channel.send('Vui lòng nhập tiền cược!');
         else bet = args[0]
-        if (bet > parseInt(userdata.amount)) return message.channel.send('Bạn không có đủ tiền để chơi!')
+        if (bet > parseInt(userdata.amount) || userdata.amount == 0) return message.channel.send('Bạn không có đủ tiền để chơi!')
         else if (bet > maxbet) bet = maxbet
         check_game.add(message.author.id)
         //3 lá 1 set

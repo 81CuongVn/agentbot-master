@@ -1,6 +1,6 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager;
-const {laysodep} = require('../../functions')
+const {laysodep} = require('../../functions/utils')
 module.exports = {
     name: 'give',
     category: 'gamble',

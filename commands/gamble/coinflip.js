@@ -6,7 +6,7 @@ const dict = {
     'head': '<:head:710976679203438703>',
     'tail': '<:tail:710976679568474202>'
 }
-const {laysodep, sleep} = require('../../functions');
+const { laysodep, sleep } = require('../../functions/utils');
 const ms = require('ms');
 module.exports = {
     name: 'coinflip',
@@ -48,7 +48,7 @@ module.exports = {
         sleep(ms('4s'));
         if (final === true){
             //win
-            message.channel.send(`Và kết quả là ${dict[userrand]}(**${userrand}**), bạn đã thắng **${laysodep(bet)}**`)
+            message.channel.send(`Và kết quả là ${dict[userrand]}(**${userrand}**), bạn đã thắng **${laysodep(bet)}**.`)
             await money(message.author.id, 'win', bet)
         } else if (final === false){
             message.channel.send(`Và kết quả là ${dict[userrand]}(**${userrand}**), bạn đã mất hết tiền cược.`)

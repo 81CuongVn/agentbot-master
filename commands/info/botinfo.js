@@ -2,7 +2,7 @@ const { version, license } = require('../../package.json');
 const { utc } = require('moment');
 const os = require('os');
 const { MessageEmbed, version: djsversion} = require('discord.js');
-const { formatBytes, laysodep } = require('../../functions');
+const { formatBytes, laysodep } = require('../../functions/utils');
 module.exports = {
     cooldown: 10,
     name: 'botinfo',

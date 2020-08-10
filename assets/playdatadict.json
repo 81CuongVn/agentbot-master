@@ -1,0 +1,22 @@
+{
+    "binhtinh": "./assets/playdata/anh_binh_tinh.mp3",
+    "bomay": "./assets/playdata/bomay.mp3",
+    "cammom": "./assets/playdata/cam.mp3",
+    "conchonay": "./assets/playdata/con_cho_nay.mp3",
+    "ham": "./assets/playdata/ham.mp3",
+    "huanrose": "./assets/playdata/huanrose.mp3",
+    "noinang": "./assets/playdata/noinang.mp3",
+    "ranhcon": "./assets/playdata/ranhcon.mp3",
+    "sucdekhang": "./assets/playdata/sucdekhang.mp3",
+    "tobecontinue": "./assets/playdata/tobecontinue.mp3",
+    "lydo": "./assets/playdata/lydo.mp3",
+    "trandan": "./assets/playdata/trandan.wav",
+    "trandan1": "./assets/playdata/may_chui_tao_may.mp3",
+    "noinhieu": "./assets/playdata/may_noi_hoi_nhieu_roi_day.mp3",
+    "trandan2": "./assets/playdata/may_noi_j_noi_di.mp3",
+    "trandan3": "./assets/playdata/thich_thi_zo.mp3",
+    "trandan4": "./assets/playdata/tu_nhin_tui_thay_1_hien_tuong_la.mp3",
+    "tradepbove": "./assets/playdata/tradepbove.mp3",
+    "truylac": "./assets/playdata/truylac.mp3",
+    "votay": "./assets/playdata/votay.mp3"
+}

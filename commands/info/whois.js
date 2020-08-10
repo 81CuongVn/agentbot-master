@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
-const { getMember, formatDate, trimArray } = require("../../functions.js");
-const flags = require('../../data/userflag.json');
+const { getMember, formatDate, trimArray } = require('../../functions/utils');
+const flags = require('../../assets/userflag.json');
 module.exports = {
     name: "whois",
     aliases: ["who", "user", "info"],
