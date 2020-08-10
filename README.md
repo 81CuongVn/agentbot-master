@@ -7,5 +7,7 @@
 [![Visits Badge](https://badges.pufler.dev/visits/phamleduy04/agentbot-master?style=for-the-badge)](https://badges.pufler.dev)
 ![GitHub top language](https://img.shields.io/github/languages/top/phamleduy04/agentbot-master?style=for-the-badge)
 [![David](https://img.shields.io/david/phamleduy04/agentbot-master?style=for-the-badge)](https://david-dm.org/phamleduy04/agentbot-master)
+[![](https://discordapp.com/api/v7/guilds/699872807605108744)](https://discord.gg/SEMXgcj)
+
 # Thanks to
 [@inhalingzone](https://www.instagram.com/inhalingzone/) aka Quanh` đã hỗ trợ hình <3
