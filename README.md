@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
@@ -27,4 +27,4 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
->>>>>>> 92dce9806a16df9c741cdb07e2d002bccab487eb
+
