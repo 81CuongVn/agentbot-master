@@ -1,8 +1,8 @@
 const { MessageAttachment } = require('discord.js');
-const {createCanvas, loadImage } = require('canvas');
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
-const {join} = require('path');
+const Canvacord = require('canvacord');
+const canva = new Canvacord();
 module.exports = {
     name: "rank",
     category: "ranking",
@@ -28,59 +28,8 @@ module.exports = {
         let rank = server_data.findIndex(userdata => userdata.user == member.user.id);
         if (rank == -1) return message.reply('Người bạn tìm không có rank!')
         rank++; //real rank
-        const canvas = createCanvas(1000, 333);
-        const ctx = canvas.getContext("2d");
-        const background = await loadImage(join(__dirname, "..", "..",  "assets", "rank.jpg"))
-        let next_level_xp = data.level * 300
-        if (next_level_xp.toString().length >= 4) {
-          next_level_xp = next_level_xp/1000
-          let int_part = Math.trunc(next_level_xp)
-          let float_part = Number((next_level_xp - int_part).toFixed(1));
-          next_level_xp = `${int_part + float_part}K`
-        } 
-        let user_xp = data.xp
-        if (user_xp.toString().length >= 4) {
-          user_xp = user_xp/1000
-          let int_part = Math.trunc(user_xp); 
-          let float_part = Number((user_xp-int_part).toFixed(1));
-          user_xp = `${int_part + float_part}K`
-        }
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.lineWidth = 4
-        ctx.strokeStyle = "#ffffff";
-        ctx.globalAlpha = 0.2;
-        ctx.fillStyle = "#000000"
-        ctx.fillRect(180, 216, 770, 65);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.strokeRect(180, 216, 770, 65); //same as fillRect()
-        ctx.stroke();
-        ctx.fillStyle = "#e67e22";
-        ctx.globalAlpha = 0.6;
-        ctx.fillRect(180, 216, ((100 / (data.level * 300)) * data.xp) * 7.7, 65);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.font = "30px Arial";
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#fffff";
-        ctx.fillText(`${user_xp} / ${next_level_xp} XP`, 600, 260);
-        ctx.textAlign = 'left';
-        ctx.fillText(member.user.tag, 300, 120)
-        ctx.font = "50px Arial";
-        ctx.fillText("Level: ", 300, 180)
-        ctx.fillText(data.level, 440, 180);
-        ctx.fillText("Rank: ", 550, 180)
-        ctx.fillText(`#${rank}`, 690, 180)
-        ctx.arc(170, 160, 120,0, Math.PI * 2, true);
-        ctx.lineWidth = 6
-        ctx.strokeStyle = "#ffffff";
-        ctx.stroke();
-        ctx.closePath();
-        ctx.clip();
-        const avatar = await loadImage(member.user.displayAvatarURL({format: "jpg"}));
-        ctx.drawImage(avatar, 40, 40, 250, 250);
-        const attachment = new MessageAttachment(canvas.toBuffer(), "rank.png")
+        let img = await canva.rank({ username: member.user.username, discrim: member.user.discriminator, level: data.level, rank: rank, neededXP: data.level * 300, currentXP: data.xp, avatarURL: member.user.avatarURL({ format: 'png' }), color: "#FFFFFF" });
+        const attachment = new MessageAttachment(img, "rank.png")
         message.channel.send(`Rank của bạn **${member.user.username}**`,attachment);
     }
 }
