@@ -1,13 +1,10 @@
 const Eco = require('quick.eco');
 const eco = new Eco.Manager();
 const axios = require('axios');
-const { MessageEmbed } = require('discord.js');
+const {MessageEmbed} = require('discord.js');
 const instance = axios.create({
-    baseURL: 'https://top.gg/api',
+    baseURL: 'https://webhooktopgg.herokuapp.com',
     timeout: 10000,
-    headers: {
-        "Authorization": process.env.TOPGG
-    }
 })
 module.exports = {
     name: "daily",
@@ -17,13 +14,9 @@ module.exports = {
     usage: 'daily',
     note: 'Upvote bot để nhận tiền!',
     run: async (client, message, args) => {
-        let res = await instance.get(`/bots/${client.user.id}/check`, {
-            params: {
-                userId: parseInt(message.author.id)
-            }
-        })
+        let res = await instance.get(`/getdata?id=${message.author.id}`)
         res = res.data
-        if (res.voted == 0){
+        if (res.data == false){
             let embed = new MessageEmbed()
                 .setTitle('Nhận tiền thất bại!')
                 .setDescription(`Bạn chưa upvote cho bot, bạn upvote bằng cách [click vào đây](https://top.gg/bot/645883401500622848/vote)`)
