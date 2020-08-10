@@ -12,10 +12,14 @@ Cần sự giúp đỡ nhiều hơn? Có bất kỳ ý tưởng cho bot? Muốn 
 Hoặc có thể mở [issue]([https://github.com/phamleduy04/agentbot-master/issues](https://github.com/phamleduy04/agentbot-master/issues)) hoặc [pull request]([https://github.com/phamleduy04/agentbot-master/pulls](https://github.com/phamleduy04/agentbot-master/pulls)).
 
 ## Credits
+
 **Người tạo ra Agent Bot: **
+
 [phamleduy04](https://github.com/phamleduy04)
+
 **Hỗ trợ ảnh**
-[@inhalingzone](https://www.instagram.com/inhalingzone/)
+
+[inhalingzone](https://www.instagram.com/inhalingzone/)
 
 
 
