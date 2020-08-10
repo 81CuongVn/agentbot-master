@@ -18,9 +18,11 @@
       "contributions": [
         "code",
         "test",
-        "bug"
+        "bug",
+        "doc"
       ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
