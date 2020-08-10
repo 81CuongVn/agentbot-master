@@ -19,7 +19,8 @@
         "code",
         "test",
         "bug",
-        "doc"
+        "doc",
+        "design"
       ]
     }
   ],
