@@ -70,7 +70,7 @@ module.exports = {
             throw new Error('Status must be one of online, idle, dnd or offline.');
         
         const statuses = {
-            dnd: join(__dirname, '..', 'assets', 'images', 'online.png'),
+            dnd: join(__dirname, '..', 'assets', 'images', 'dnd.png'),
             idle: join(__dirname, '..', 'assets', 'images', 'idle.png'),
             online: join(__dirname, '..', 'assets', 'images', 'online.png'),
             offline: join(__dirname, '..', 'assets', 'images', 'offline.png')
@@ -120,7 +120,6 @@ module.exports = {
 
         const avatar = await Canvas.loadImage(await circle(avatarURL));
         ctx.drawImage(avatar, 50, 50, 180, 180);
-
         let i = await Canvas.loadImage(await circle(statuses[status.toLowerCase() || 'online']));
         ctx.drawImage(i, 190, 185, 40, 40);
 
@@ -134,14 +133,14 @@ module.exports = {
         ctx.textAlign = 'start';
         ctx.fillText(`${username}#${discrim}`, 260, 164);
 
-        ctx.font = `bold 30px ${font}`;
+        ctx.font = `bold 32px ${font}`;
         ctx.fillStyle = color || '#FFFFFF';
         ctx.textAlign = 'end';
         ctx.fillText(level, 934 - 64, 82);
         ctx.fillStyle = color || '#FFFFFF';
         ctx.fillText('LEVEL', 934 - 64 - ctx.measureText(level).width - 16, 82);
 
-        ctx.font = `bold 30px ${font}`;
+        ctx.font = `bold 32px ${font}`;
         ctx.fillStyle = color || '#FFFFFF';
         ctx.textAlign = 'end';
         ctx.fillText(rank, 934 - 64 - ctx.measureText(level).width - 16 - ctx.measureText(`LEVEL`).width - 16, 82);
