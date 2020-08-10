@@ -22,7 +22,7 @@ module.exports = {
                 commandsize += parseInt(dir.size);
                 const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
                 try {
-                    embed.addField(`❯ ${capitalise} [${dir.size} lệnh]:`, dir.map(c => `\`${c.name}\``).join(' '))
+                    embed.addField(`❯ ${capitalise} [${dir.size} lệnh]:`, dir.map(c => `|\`${c.name}\``).join(' '))
                 } catch(e){
                     console.log(e)
                 }
