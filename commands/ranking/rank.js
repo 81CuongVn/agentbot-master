@@ -1,8 +1,7 @@
 const { MessageAttachment } = require('discord.js');
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
-const Canvacord = require('canvacord');
-const canva = new Canvacord();
+const canvas = require('../../functions/canvasfunction')
 module.exports = {
     name: "rank",
     category: "ranking",
@@ -28,7 +27,7 @@ module.exports = {
         let rank = server_data.findIndex(userdata => userdata.user == member.user.id);
         if (rank == -1) return message.reply('Người bạn tìm không có rank!')
         rank++; //real rank
-        let img = await canva.rank({ username: member.user.username, discrim: member.user.discriminator, level: data.level, rank: rank, neededXP: data.level * 300, currentXP: data.xp, avatarURL: member.user.avatarURL({ format: 'png' }), color: "#FFFFFF" });
+        let img = await canvas.rank({ username: member.user.username, discrim: member.user.discriminator, level: data.level, rank: rank, neededXP: data.level * 300, currentXP: data.xp, avatarURL: member.user.avatarURL({ format: 'png' }), color: "#FFFFFF" });
         const attachment = new MessageAttachment(img, "rank.png")
         message.channel.send(`Rank của bạn **${member.user.username}**`,attachment);
     }
