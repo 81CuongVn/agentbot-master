@@ -9,3 +9,4 @@ package-lock.json
 /data/ttsdata
 json.sqlite
 .env
+economy.sqlite
