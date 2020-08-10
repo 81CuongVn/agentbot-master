@@ -9,6 +9,16 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "none",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "phamleduy04",
+      "name": "Duy Pham Le",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/32657584?v=4",
+      "profile": "https://github.com/phamleduy04",
+      "contributions": [
+        "test"
+      ]
+    }
+  ],
   "contributorsPerLine": 7
 }
