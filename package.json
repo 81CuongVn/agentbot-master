@@ -40,7 +40,9 @@
     "vultrex.haste": "^1.0.1",
     "weather-js": "^2.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "all-contributors-cli": "^6.17.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env TYPE_RUN=dev nodemon index.js",
