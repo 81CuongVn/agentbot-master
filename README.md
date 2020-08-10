@@ -6,7 +6,7 @@
 [![Codacy grade](https://img.shields.io/codacy/grade/727feecc6fa84cbfbd973cba270006a3?label=Codacy%20Grade&style=for-the-badge)](https://img.shields.io/codacy/grade/727feecc6fa84cbfbd973cba270006a3?label=Codacy%20Grade&style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/phamleduy04/agentbot-master?style=for-the-badge)
 [![David](https://img.shields.io/david/phamleduy04/agentbot-master?style=for-the-badge)](https://david-dm.org/phamleduy04/agentbot-master)
-## Need more help? Have any ideas for the bot? Want to report a bug?
+## Cần sự giúp đỡ nhiều hơn? Có bất kỳ ý tưởng cho bot? Muốn báo cáo lỗi?
 
 
 
