@@ -13,7 +13,7 @@ Hoặc có thể mở [issue]([https://github.com/phamleduy04/agentbot-master/is
 
 ## Credits
 
-**Người tạo ra Agent Bot: **
+**Creators of [Agent Bot](https://top.gg/bot/645883401500622848) :**
 
 [phamleduy04](https://github.com/phamleduy04)
 
