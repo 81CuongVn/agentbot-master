@@ -8,7 +8,7 @@ const db = require('quick.db');
 const ms = require('ms');
 module.exports = {
     name: 'speak',
-    aliases: ['say', 's'],
+    aliases: ['s'],
     category: 'tts',
     description: 'talk',
     usage: 'speak [lang] <text>',
