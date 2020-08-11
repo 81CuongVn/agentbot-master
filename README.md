@@ -5,6 +5,7 @@
 [![package.json](https://img.shields.io/github/package-json/v/phamleduy04/agentbot-master?label=Package.json&style=for-the-badge)](https://github.com/phamleduy04/agentbot-master/blob/master/package.json)
 [![GitHub contributors](https://img.shields.io/github/contributors/phamleduy04/agentbot-master?color=g&style=for-the-badge)](https://img.shields.io/github/contributors/phamleduy04/agentbot-master?color=g&style=for-the-badge)
 [![Code Quality](https://img.shields.io/scrutinizer/quality/g/phamleduy04/agentbot-master?style=for-the-badge)](https://img.shields.io/scrutinizer/quality/g/phamleduy04/agentbot-master?style=for-the-badge)
+![Travis (.org) branch](https://img.shields.io/travis/phamleduy04/agentbot-master/master?label=Travis-CI&style=for-the-badge)
 [![Visits Badge](https://badges.pufler.dev/visits/phamleduy04/agentbot-master?style=for-the-badge)](https://badges.pufler.dev)
 ![GitHub top language](https://img.shields.io/github/languages/top/phamleduy04/agentbot-master?style=for-the-badge)
 [![David](https://img.shields.io/david/phamleduy04/agentbot-master?style=for-the-badge)](https://david-dm.org/phamleduy04/agentbot-master)
