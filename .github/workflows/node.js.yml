@@ -26,6 +26,6 @@ jobs:
         TOKEN: ${{ secrets.TOKEN }}
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install quick.db@3.0.0
+    - run: npm install quick.eco@3.0.0
     - run: npm install
     - run: npm test
