@@ -201,7 +201,7 @@ module.exports = {
     },
     getunplash: async function(query){
         if (!query) throw new Error('Query is empty!');
-        const { unsplashapikey } = require('../config.json');
+        const unsplashapikey = process.env.UNSPLASH
         try {
             let response = await axios.get(`https://api.unsplash.com/photos/random/`, {
                 headers: {"Authorization": `Client-ID ${unsplashapikey}`},

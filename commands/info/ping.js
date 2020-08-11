@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const publicIP = require('public-ip');
-const { ipgeolocation } = require('../../config.json');
+const  ipgeolocation  = process.env.IPGEOLOCATION;
 const axios = require('axios');
 module.exports = {
     name: "ping",

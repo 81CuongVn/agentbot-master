@@ -1,8 +1,8 @@
-const {ownerID} = require('../../config.json')
-const {inspect} = require('util');
-const {stripIndents} = require('common-tags')
-const {VultrexHaste} = require('vultrex.haste')
-const haste = new VultrexHaste({url: "https://hasteb.in"})
+const { ownerID } = require('../../config.json');
+const { inspect } = require('util');
+const { stripIndents } = require('common-tags');
+const { VultrexHaste } = require('vultrex.haste');
+const haste = new VultrexHaste({ url: "https://hasteb.in" });
 module.exports = {
         name: "eval",
         aliases: ["e"],

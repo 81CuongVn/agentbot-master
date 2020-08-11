@@ -1,6 +1,6 @@
-const {MessageEmbed} = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const db = require('quick.db');
-const {ownerID} = require('../../config.json')
+const { ownerID } = require('../../config.json')
 module.exports = {
     name: "prefix",
     category: "settings",

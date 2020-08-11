@@ -3,7 +3,7 @@ const axios = require('axios');
 const dateFormat = require("dateformat");
 const db = require('quick.db');
 const steamDB = new db.table('steamdb');
-const { steam_token } = require('../../config.json')
+const steam_token = process.env.STEAMTOKEN;
 module.exports = {
     name: "steam",
     category: "info",

@@ -1,4 +1,3 @@
-const {ownerID} = require('../../config.json');
 const db = require('quick.db');
 module.exports = {
     name: 'disconnect',

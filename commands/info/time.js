@@ -1,5 +1,6 @@
 const axios = require('axios');
-const { gggeolocaionkey, timezonedb } = require('../../config.json');
+const gggeolocaionkey = process.env.GEOLOCATION;
+const timezonedb = process.env.TIMEZONEDB;
 module.exports = {
     name: 'time',
     category: 'info',

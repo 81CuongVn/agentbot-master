@@ -1,6 +1,6 @@
 const { MessageEmbed } = require("discord.js");
 const { KSoftClient } = require('ksoft.js');
-var { ksoft_key } = require('../../config.json')
+const ksoft_key  = process.env.KSOFTKEY;
 const ksoft = new KSoftClient(ksoft_key);
 module.exports = {
     name: "food",

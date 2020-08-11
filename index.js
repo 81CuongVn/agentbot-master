@@ -10,7 +10,8 @@ const sql = new SQLite('./data.sqlite');
 const ms = require('ms')
 const cooldown = new Set();
 const client = new Client({disableMentions: "everyone"});
-const { bid, brainkey, timezone } = require('./config.json');
+const { timezone } = require('./config.json');
+const { BID, BRAINKEY } = process.env
 const { welcome } = require('./functions/canvasfunction');
 if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build");
 
@@ -157,7 +158,7 @@ client.on("message", async message => {
     let aiChannel = await db.get(`${message.guild.id}.aiChannel`)
     if (!aiChannel) await db.set(`${message.guild.id}.aiChannel`, null) 
     else if (message.channel.id == aiChannel) {
-        await axios.get(`http://api.brainshop.ai/get?bid=${bid}&key=${brainkey}&uid=1&msg=${encodeURIComponent(message.content)}`)
+        await axios.get(`http://api.brainshop.ai/get?bid=${BID}&key=${BRAINKEY}&uid=1&msg=${encodeURIComponent(message.content)}`)
             .then(response => {
                 message.channel.send(response.data.cnt);
             })

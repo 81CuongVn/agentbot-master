@@ -1,5 +1,5 @@
 const db = require('quick.db');
-const {ownerID} = require('../../config.json')
+const { ownerID } = require('../../config.json')
 module.exports = {
     name: "msgcount",
     category: "settings",

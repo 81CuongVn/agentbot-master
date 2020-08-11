@@ -1,4 +1,4 @@
-var { wolfarm_key } = require('../../config.json');
+const wolfarm_key = process.env.WOLFARM;
 const axios = require('axios');
 const { MessageEmbed } = require('discord.js');
 module.exports = {

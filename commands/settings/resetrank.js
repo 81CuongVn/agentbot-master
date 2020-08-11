@@ -1,6 +1,6 @@
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./data.sqlite');
-const {ownerID} = require('../../config.json')
+const { ownerID } = require('../../config.json')
 module.exports = {
     name: 'resetrank',
     category: 'settings',
