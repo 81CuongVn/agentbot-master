@@ -5,6 +5,7 @@
 [![package.json](https://img.shields.io/github/package-json/v/phamleduy04/agentbot-master?label=Package.json&style=for-the-badge)](https://github.com/phamleduy04/agentbot-master/blob/master/package.json)
 [![GitHub contributors](https://img.shields.io/github/contributors/phamleduy04/agentbot-master?color=g&style=for-the-badge)](https://img.shields.io/github/contributors/phamleduy04/agentbot-master?color=g&style=for-the-badge)
 [![Code Quality](https://img.shields.io/scrutinizer/quality/g/phamleduy04/agentbot-master?style=for-the-badge)](https://img.shields.io/scrutinizer/quality/g/phamleduy04/agentbot-master?style=for-the-badge)
+![Travis (.org) branch](https://img.shields.io/travis/phamleduy04/agentbot-master/master?label=Travis-CI&style=for-the-badge)
 [![Visits Badge](https://badges.pufler.dev/visits/phamleduy04/agentbot-master?style=for-the-badge)](https://badges.pufler.dev)
 ![GitHub top language](https://img.shields.io/github/languages/top/phamleduy04/agentbot-master?style=for-the-badge)
 [![David](https://img.shields.io/david/phamleduy04/agentbot-master?style=for-the-badge)](https://david-dm.org/phamleduy04/agentbot-master)
@@ -35,7 +36,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/phamleduy04"><img src="https://avatars2.githubusercontent.com/u/32657584?v=4" width="100px;" alt=""/><br /><sub><b>Duy Pham Le</b></sub></a><br /><a href="https://github.com/phamleduy04/agentbot-master/commits?author=phamleduy04" title="Code">💻</a> <a href="https://github.com/phamleduy04/agentbot-master/commits?author=phamleduy04" title="Tests">⚠️</a> <a href="https://github.com/phamleduy04/agentbot-master/issues?q=author%3Aphamleduy04" title="Bug reports">🐛</a> <a href="https://github.com/phamleduy04/agentbot-master/commits?author=phamleduy04" title="Documentation">📖</a> <a href="#design-phamleduy04" title="Design">🎨</a> <a href="#maintenance-phamleduy04" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/doduc12306"><img src="https://avatars2.githubusercontent.com/u/38607396?v=4" width="100px;" alt=""/><br /><sub><b>Đức Đỗ</b></sub></a><br /><a href="https://github.com/phamleduy04/agentbot-master/commits?author=doduc12306" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/Undoing00"><img src="https://avatars2.githubusercontent.com/u/68627799?v=4" width="100px;" alt=""/><br /><sub><b>Undoing00</b></sub></a><br /><a href="#ideas-Undoing00" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/Undoing00"><img src="https://avatars2.githubusercontent.com/u/68627799?v=4" width="100px;" alt=""/><br /><sub><b>Undoing00</b></sub></a><br /><a href="#ideas-Undoing00" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/phamleduy04/agentbot-master/commits?author=Undoing00" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
