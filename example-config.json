@@ -9,5 +9,8 @@
     "bid": "",
     "brainkey": "",
     "ipgeolocation": "",
-    "timezone": ""
+    "timezone": "",
+    "youtube_api_key": "",
+    "soundcloud_client_id": "",
+    "max_playlist_size": 10,
 }
