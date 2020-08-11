@@ -233,4 +233,5 @@ function logging(content){
     console.log(`${moment.tz(timezone).format("LTS")} || ${content}`);
 }
 
+if (process.env.TYPE_RUN == 'ci') process.exit();
 client.login(process.env.TOKEN);

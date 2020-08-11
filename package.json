@@ -30,7 +30,7 @@
     "pretty-ms": "^7.0.0",
     "public-ip": "^4.0.2",
     "quick.db": "^7.1.1",
-    "quick.eco": "^3.0.0",
+    "quick.eco": "^3.0.1",
     "random-number-csprng": "^1.0.2",
     "relevant-urban": "^2.0.0",
     "snowshot": "^1.0.6",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "cross-env TYPE_RUN=dev node index.js",
+    "test": "cross-env TYPE_RUN=ci node index.js",
     "dev": "cross-env TYPE_RUN=dev nodemon index.js",
     "build": "cross-env TYPE_RUN=production node index.js"
   },
