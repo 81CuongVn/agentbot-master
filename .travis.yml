@@ -5,8 +5,7 @@ cache: npm
 install:
   - npm install
 script:
-  - npm run dev
-
+  - npm run test
 deploy:
   provider: pages
   skip-cleanup: true
