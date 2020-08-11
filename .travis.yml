@@ -3,7 +3,7 @@ node_js:
   - "stable"
 cache: npm
 install:
-  - npm ci
+  - npm install
 script:
   - npm run dev
 
@@ -13,4 +13,3 @@ deploy:
   github-token: $GITHUB_TOKEN
   on: 
     branch: master
-    
