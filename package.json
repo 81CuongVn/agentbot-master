@@ -44,7 +44,7 @@
     "all-contributors-cli": "^6.17.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cross-env TYPE_RUN=dev node index.js",
     "dev": "cross-env TYPE_RUN=dev nodemon index.js",
     "build": "cross-env TYPE_RUN=production node index.js"
   },

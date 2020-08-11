@@ -10,7 +10,7 @@ const sql = new SQLite('./data.sqlite');
 const ms = require('ms')
 const cooldown = new Set();
 const client = new Client({disableMentions: "everyone"});
-const { bid, brainkey, timezone, unsplashapikey } = require('./config.json');
+const { bid, brainkey, timezone } = require('./config.json');
 const { welcome } = require('./functions/canvasfunction');
 if (!process.env.TYPE_RUN) throw new Error("Chạy lệnh npm run dev hoặc npm run build");
 
