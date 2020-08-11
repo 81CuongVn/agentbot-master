@@ -1,5 +1,16 @@
 language: node_js
 node_js:
-  - "12.18.1"
-script
-  - node index.js
+  - "stable"
+cache: npm
+install:
+  - npm ci
+script:
+  - npm run dev
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on: 
+    branch: master
+    
